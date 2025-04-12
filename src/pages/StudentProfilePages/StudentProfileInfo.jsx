@@ -82,7 +82,12 @@ export const StudentProfileInfo = () => {
     <div className="d-flex">
       <StudentSideBar />
       <div className="flex-grow-1 p-4">
-        <div className="mb-4 d-flex justify-content-between align-items-center">
+        <div className="mb-4 d-flex justify-content-between align-items-center bg-white" style={{
+          backgroundColor:"ffffff",
+          position:"sticky",
+          top:"0",
+          zIndex:"9"
+        }}>
           <div>
             <h1 className="h3 fw-bold">Personal Information</h1>
             <p className="text-muted">View your personal details and academic information</p>

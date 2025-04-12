@@ -70,7 +70,12 @@ export const StudentProfileDashboard = () => {
     <div className="d-flex">
       <StudentSideBar/>
       <div className="flex-grow-1 p-4">
-        <div className="mb-4">
+        <div className="mb-4 bg-white" style={{
+          backgroundColor:"ffffff",
+          position:"sticky",
+          top:"0",
+          zIndex:"9"
+        }}>
           <h1 className="h3 fw-bold">Profile Dashboard</h1>
           <p className="text-muted">Manage your profile and co-curricular activities</p>
         </div>

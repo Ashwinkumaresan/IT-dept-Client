@@ -157,36 +157,6 @@ const handleSubmit = async (event) => {
       formDataToSend.append("proofAttachment", formData.proofAttachment);
   }
 
-  // try {
-  //     const response = await fetch("https://test.mcetit.drmcetit.com/api/event/certificate/", {
-  //         method: 'POST',
-  //         headers: {
-  //             'X-CSRFToken': csrfToken,
-  //             'Authorization': `Bearer ${localStorage.getItem("access_token")}`
-  //         },
-  //         body: formDataToSend
-  //     });
-  //     // alert("Data sent ")
-  //     //navigate("/student-profile/view/participated")
-
-  //     if (!response.ok) {
-  //         const errorText = await response.text();
-  //         throw new Error(`https error! Status: ${response.status} - ${errorText}`);
-  //     }
-
-  //     const result = await response.json();
-  //     console.log("Form submission successful:", result);
-      
-  //   } catch (error) {
-  //     if(
-  //       error instanceof Error
-  //       ){
-  //         alert("Error: " + error.message);
-  //         }
-  //     alert("Error submitting form. Please try again.");
-  //     console.log(error.year[0])
-  //     console.error('Error submitting form:', error);
-  // }
   try {
     const response = await fetch("https://test.mcetit.drmcetit.com/api/event/certificate/", {
       method: "POST",
@@ -294,7 +264,12 @@ const handleSubmit = async (event) => {
     <div className="d-flex">
       <StudentSideBar/>
       <div className="flex-grow-1 p-4">
-        <div className="mb-4">
+        <div className="mb-4 bg-white" style={{
+          backgroundColor:"ffffff",
+          position:"sticky",
+          top:"0",
+          zIndex:"9"
+        }}>
           <h1 className="h3 fw-bold">Submit Your Activity</h1>
           <p className="text-muted">
             Add details about your co-curricular and extra curricular activities and achievements

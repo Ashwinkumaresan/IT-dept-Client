@@ -125,7 +125,12 @@ export const StudentProfileViewParcipated = () => {
       <StudentSideBar/>
       <div className="flex-grow-1 p-4">
         <div className="d-flex justify-content-between align-items-center mb-4">
-          <div>
+          <div className="bg-white" style={{
+          backgroundColor:"ffffff",
+          position:"sticky",
+          top:"0",
+          zIndex:"9"
+        }}>
             <h1 className="h3 fw-bold">Your Activities</h1>
             <p className="text-muted">View and manage your submitted your activities</p>
           </div>
