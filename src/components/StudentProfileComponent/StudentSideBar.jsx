@@ -42,12 +42,12 @@ export const StudentSideBar = () => {
       </div>
 
       <div className="py-2">
-        <Link to="/student-profile" className={`sidebar-link ${isActive("/student-profile") ? "active" : ""}`}>
+        <Link to="/student-profile" className={`sidebar-link ${isActive("/student-profile") ? "active" : ""}`} onClick={toggleSidebar}>
           <FaHome className="sidebar-icon" />
           <span className="sidebar-text">Dashboard</span>
         </Link>
 
-        <Link to="/student-profile/info" className={`sidebar-link ${isActive("/student-profile/info") ? "active" : ""}`}>
+        <Link to="/student-profile/info" className={`sidebar-link ${isActive("/student-profile/info") ? "active" : ""}`} onClick={toggleSidebar}>
           <FaUser className="sidebar-icon" />
           <span className="sidebar-text">Personal Info</span>
         </Link>
@@ -65,6 +65,7 @@ export const StudentSideBar = () => {
               <Link
                 to="/student-profile/activity/form"
                 className={`sidebar-link ${isActive("/student-profile/activity/form") ? "active" : ""}`}
+                onClick={toggleSidebar}
               >
                 <FaFileAlt className="sidebar-icon" />
                 <span className="sidebar-text">Submit Activity</span>
@@ -73,6 +74,7 @@ export const StudentSideBar = () => {
               <Link
                 to="/student-profile/view/participated"
                 className={`sidebar-link ${isActive("/student-profile/view/participated") ? "active" : ""}`}
+                onClick={toggleSidebar}
               >
                 <FaList className="sidebar-icon" />
                 <span className="sidebar-text">View Activity</span>
@@ -83,7 +85,7 @@ export const StudentSideBar = () => {
       </div>
 
       <div className="mt-auto border-top">
-        <Link to="/student-profile/setting" className="sidebar-link">
+        <Link to="/student-profile/setting" className="sidebar-link" onClick={toggleSidebar}>
           <FaCog className="sidebar-icon" />
           <span className="sidebar-text">Settings</span>
         </Link>

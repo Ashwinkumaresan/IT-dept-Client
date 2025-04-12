@@ -28,28 +28,6 @@ export const StudentProfileInfo = () => {
   const [bio, setBio] = useState("")
   const [profilePic, setProfilePic] = useState("");
 
-
-
-  // Static student data (no backend connection)
-  // const studentData = {
-  //   name: "Dhany Shri",
-  //   department: "Information Technology",
-  //   section: "A",
-  //   collegeName: "Dr. Mahalingam College of Engineering and Technology",
-  //   ccName: "Summathi",
-  //   mentorName: "Summathi",
-  //   batch: "1",
-  //   rollNo: "727623bit001",
-  //   email: "727623bit001@mcet.in",
-  //   phone: "0000000000",
-  //   bio: "Second year IT student passionate about AI and machine learning. Experienced in web development and mobile app development. Looking for opportunities in software engineering.",
-  //   githubProfile: "github.com/dhaya",
-  //   leetcodeProfile: "leetcode.com/dhaya",
-  //   hackerrankProfile: "hackerrank.com/dhaya",
-  //   linkedinProfile: "linkedin.com/in/dhaya",
-  //   profileImage: "/About_IT.png"
-  // };
-
   const studentData = async () =>{
     const response = await axios.get("https://test.mcetit.drmcetit.com/api/profile/", {
       headers: {
@@ -111,7 +89,7 @@ export const StudentProfileInfo = () => {
           </div>
           <Link to="/student-profile/info/edit">
             <Button variant="primary">
-              <FaEdit className="me-2" /> Edit Profile
+              <FaEdit /> 
             </Button>
           </Link>
         </div>
