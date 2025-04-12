@@ -1,9 +1,11 @@
 import { Award, Heart, Mail, Phone, MapPin, Trophy } from "lucide-react"
 import { ToastContainer, toast } from 'react-toastify';
 import { useEffect, useState } from "react"
+import axios from "axios"
 
 export const Association = () => {
   const [sendNotify, setSendNotify] = useState(false)
+  const [associationData, setAssociationData] = useState(null);
   const notify = () => {
     toast.success('Message Sent Successfully...', {
       position: "top-right",
@@ -59,9 +61,27 @@ export const Association = () => {
     }
   };
 
+
+  useEffect(() => {
+    const fetchAssociation = async () => {
+      try {
+        const response = await axios.get("https://test.mcetit.drmcetit.com/api/association/");
+        console.log(response.data);
+
+        setAssociationData(response.data);
+      } catch (error) {
+        console.error("Error fetching data:", error.response?.data || error.message);
+      }
+    };
+
+    fetchAssociation();
+  }, []);
+
+
+
   return (
     <div className="container-fluid p-0 pt-5">
-      
+
       <ToastContainer
         position="top-right"
         autoClose={5000}
@@ -86,117 +106,37 @@ export const Association = () => {
             <div className="col-md-8 offset-md-2">
               <div id="eventsCarousel" className="carousel slide carousel-fade" data-bs-ride="carousel">
                 <div className="carousel-inner rounded-4 shadow-lg">
-                  <div className="carousel-item active">
-                    <div className="position-relative">
-                      <img
-                        src="/Frame 5348.png"
-                        className="d-block w-100"
-                        alt="TechFest 2024"
-                      />
-                      <div
-                        className="position-absolute bottom-0 start-0 w-100 p-4"
-                        style={{ background: "linear-gradient(transparent, rgba(0,0,0,0.8))" }}
-                      >
-                        <div className="d-flex justify-content-between align-items-end">
-                          <div>
-                            <h3 className="text-white fw-bold mb-1">TechFest 2024</h3>
-                            <p className="text-white mb-0">Annual technical symposium with 1000+ participants</p>
+                  {associationData?.eventShowcase?.map((data, index) => (
+                    <div className={`carousel-item ${index === 0 ? "active" : ""}`} key={index}>
+                      <div className="position-relative">
+                        <img
+                          src={`https://test.mcetit.drmcetit.com${data.image}`}
+                          className="d-block w-100"
+                          style={{
+                            height: "70vh",
+                            objectFit: "cover",
+                            objectPosition: "center",
+                            width: "100%"
+                          }}
+                          alt={data.title}
+                        />
+                        <div
+                          className="position-absolute bottom-0 start-0 w-100 p-4"
+                          style={{ background: "linear-gradient(transparent, rgba(0,0,0,0.8))" }}
+                        >
+                          <div className="d-flex justify-content-between align-items-end">
+                            <div>
+                              <h3 className="text-white fw-bold mb-1">{data.title}</h3>
+                              <p className="text-white mb-0">{data.description}</p>
+                            </div>
+                            <span className="badge bg-primary rounded-pill px-3 py-2">
+                              {data.date}
+                            </span>
                           </div>
-                          <span className="badge bg-primary rounded-pill px-3 py-2">March 2024</span>
                         </div>
                       </div>
                     </div>
-                  </div>
-
-                  <div className="carousel-item">
-                    <div className="position-relative">
-                      <img
-                        src="/Frame 5348.png"
-                        className="d-block w-100"
-                        alt="Hackathon 2024"
-                      />
-                      <div
-                        className="position-absolute bottom-0 start-0 w-100 p-4"
-                        style={{ background: "linear-gradient(transparent, rgba(0,0,0,0.8))" }}
-                      >
-                        <div className="d-flex justify-content-between align-items-end">
-                          <div>
-                            <h3 className="text-white fw-bold mb-1">Hackathon 2024</h3>
-                            <p className="text-white mb-0">48-hour coding marathon with 50 teams</p>
-                          </div>
-                          <span className="badge bg-primary rounded-pill px-3 py-2">February 2024</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="carousel-item">
-                    <div className="position-relative">
-                      <img
-                        src="/Frame 5348.png"
-                        className="d-block w-100"
-                        alt="AI Summit"
-                      />
-                      <div
-                        className="position-absolute bottom-0 start-0 w-100 p-4"
-                        style={{ background: "linear-gradient(transparent, rgba(0,0,0,0.8))" }}
-                      >
-                        <div className="d-flex justify-content-between align-items-end">
-                          <div>
-                            <h3 className="text-white fw-bold mb-1">AI Summit</h3>
-                            <p className="text-white mb-0">
-                              Conference on artificial intelligence with industry experts
-                            </p>
-                          </div>
-                          <span className="badge bg-primary rounded-pill px-3 py-2">January 2024</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="carousel-item">
-                    <div className="position-relative">
-                      <img
-                        src="/Frame 5348.png"
-                        className="d-block w-100"
-                        alt="CyberQuest CTF"
-                      />
-                      <div
-                        className="position-absolute bottom-0 start-0 w-100 p-4"
-                        style={{ background: "linear-gradient(transparent, rgba(0,0,0,0.8))" }}
-                      >
-                        <div className="d-flex justify-content-between align-items-end">
-                          <div>
-                            <h3 className="text-white fw-bold mb-1">CyberQuest CTF</h3>
-                            <p className="text-white mb-0">Capture The Flag cybersecurity competition</p>
-                          </div>
-                          <span className="badge bg-primary rounded-pill px-3 py-2">December 2023</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="carousel-item">
-                    <div className="position-relative">
-                      <img
-                        src="/Frame 5348.png"
-                        className="d-block w-100"
-                        alt="Tech Talk Series"
-                      />
-                      <div
-                        className="position-absolute bottom-0 start-0 w-100 p-4"
-                        style={{ background: "linear-gradient(transparent, rgba(0,0,0,0.8))" }}
-                      >
-                        <div className="d-flex justify-content-between align-items-end">
-                          <div>
-                            <h3 className="text-white fw-bold mb-1">Tech Talk Series</h3>
-                            <p className="text-white mb-0">Month-long series of talks by industry professionals</p>
-                          </div>
-                          <span className="badge bg-primary rounded-pill px-3 py-2">November 2023</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                  ))}
                 </div>
 
                 <button
@@ -276,24 +216,6 @@ export const Association = () => {
               alt="IT Student Association"
               className="img-fluid rounded-4 shadow"
             />
-            {/* <div className="row mt-4">
-              <div className="col-6">
-                <div className="card border-0 bg-primary bg-opacity-10 h-100">
-                  <div className="card-body text-center">
-                    <h3 className="display-4 fw-bold text-primary">15+</h3>
-                    <p className="mb-0">Events Conducted</p>
-                  </div>
-                </div>
-              </div>
-              <div className="col-6">
-                <div className="card border-0 bg-primary bg-opacity-10 h-100">
-                  <div className="card-body text-center">
-                    <h3 className="display-4 fw-bold text-primary">500+</h3>
-                    <p className="mb-0">Active Members</p>
-                  </div>
-                </div>
-              </div>
-            </div> */}
           </div>
         </div>
       </div>
@@ -311,116 +233,26 @@ export const Association = () => {
               <thead className="table-primary">
                 <tr>
                   <th scope="col">Program Type</th>
-                  <th scope="col">2020</th>
-                  <th scope="col">2021</th>
-                  <th scope="col">2022</th>
-                  <th scope="col">2023</th>
-                  <th scope="col">2024</th>
-                  <th scope="col">Total</th>
+                  {associationData?.years?.map((year, index) => (
+                    <th scope="col" key={index}>{year}</th>
+                  ))}
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <th scope="row">Technical Workshops</th>
-                  <td>5</td>
-                  <td>7</td>
-                  <td>8</td>
-                  <td>10</td>
-                  <td>12</td>
-                  <td>
-                    <strong>42</strong>
-                  </td>
-                </tr>
-                <tr>
-                  <th scope="row">Hackathons</th>
-                  <td>1</td>
-                  <td>1</td>
-                  <td>2</td>
-                  <td>2</td>
-                  <td>3</td>
-                  <td>
-                    <strong>9</strong>
-                  </td>
-                </tr>
-                <tr>
-                  <th scope="row">Guest Lectures</th>
-                  <td>8</td>
-                  <td>10</td>
-                  <td>12</td>
-                  <td>15</td>
-                  <td>18</td>
-                  <td>
-                    <strong>63</strong>
-                  </td>
-                </tr>
-                <tr>
-                  <th scope="row">Coding Competitions</th>
-                  <td>3</td>
-                  <td>4</td>
-                  <td>4</td>
-                  <td>5</td>
-                  <td>6</td>
-                  <td>
-                    <strong>22</strong>
-                  </td>
-                </tr>
-                <tr>
-                  <th scope="row">Industry Visits</th>
-                  <td>2</td>
-                  <td>0</td>
-                  <td>1</td>
-                  <td>3</td>
-                  <td>4</td>
-                  <td>
-                    <strong>10</strong>
-                  </td>
-                </tr>
-                <tr>
-                  <th scope="row">Technical Symposiums</th>
-                  <td>1</td>
-                  <td>1</td>
-                  <td>1</td>
-                  <td>1</td>
-                  <td>1</td>
-                  <td>
-                    <strong>5</strong>
-                  </td>
-                </tr>
-                <tr>
-                  <th scope="row">Community Outreach</th>
-                  <td>2</td>
-                  <td>3</td>
-                  <td>4</td>
-                  <td>5</td>
-                  <td>6</td>
-                  <td>
-                    <strong>20</strong>
-                  </td>
-                </tr>
-                <tr className="table-primary">
-                  <th scope="row">Total Events</th>
-                  <td>
-                    <strong>22</strong>
-                  </td>
-                  <td>
-                    <strong>26</strong>
-                  </td>
-                  <td>
-                    <strong>32</strong>
-                  </td>
-                  <td>
-                    <strong>41</strong>
-                  </td>
-                  <td>
-                    <strong>50</strong>
-                  </td>
-                  <td>
-                    <strong>171</strong>
-                  </td>
-                </tr>
+                {associationData?.programsType?.map((type, rowIndex) => (
+                  <tr key={rowIndex}>
+                    <th scope="row">{type}</th>
+                    {associationData?.years?.map((year, colIndex) => {
+                      const yearKey = year.toString().toLowerCase(); // handle 'Total'
+                      const value = associationData?.programCount?.[yearKey]?.[rowIndex];
+                      return <td key={colIndex}><strong>{value}</strong></td>;
+                    })}
+                  </tr>
+                ))}
               </tbody>
             </table>
           </div>
+
 
           <div className="row mt-4">
             <div className="col-md-4 mb-3">
@@ -474,245 +306,35 @@ export const Association = () => {
         <div className="position-relative">
           <div className="office-bearers-carousel d-flex overflow-hidden">
             {/* These cards will automatically move with JavaScript */}
-            <div className="office-bearer-card px-2" style={{ minWidth: "300px" }}>
-              <div className="card border-0 shadow-sm h-100">
-                <div className="position-relative">
-                  <img
-                    src="Frame 5533.png"
-                    className="card-img-top"
-                    alt="President"
-                  />
-                  <div className="position-absolute top-0 end-0 m-2">
-                    <span className="badge bg-primary">2024-25</span>
+            {associationData?.officeBearers?.map((bearer, index) => (
+              <div className="office-bearer-card px-2" style={{ minWidth: "300px" }} key={index}>
+                <div className="card border-0 shadow-sm h-100">
+                  <div className="position-relative">
+                    <img
+                      src={`https://test.mcetit.drmcetit.com${bearer.profilePic}`}
+                      className="card-img-top "
+                      style={
+                        {
+                          objectFit: "cover",
+                          objectPosition: "center",
+                          height: "40vh",
+                          width: "100%",
+                        }
+                      }
+                      alt={bearer.name}
+                    />
+                    <div className="position-absolute top-0 end-0 m-2">
+                      <span className="badge bg-primary">{bearer.acadmaicYear}</span>
+                    </div>
+                  </div>
+                  <div className="card-body text-center">
+                    <h5 className="card-title fw-bold mb-1">{bearer.name}</h5>
+                    <p className="card-text text-primary mb-2">{bearer.desigination}</p>
+                    <p className="card-text text-muted small">{bearer.year} Year B.Tech</p>
                   </div>
                 </div>
-                <div className="card-body text-center">
-                  <h5 className="card-title fw-bold mb-1">Thanushya E</h5>
-                  <p className="card-text text-primary mb-2">President</p>
-                  <p className="card-text text-muted small">Final Year B.Tech</p>
-                </div>
               </div>
-            </div>
-
-            <div className="office-bearer-card px-2" style={{ minWidth: "300px" }}>
-              <div className="card border-0 shadow-sm h-100">
-                <div className="position-relative">
-                  <img
-                    src="Frame 5533.png"
-                    className="card-img-top"
-                    alt="Vice President"
-                  />
-                  <div className="position-absolute top-0 end-0 m-2">
-                    <span className="badge bg-primary">2024-25</span>
-                  </div>
-                </div>
-                <div className="card-body text-center">
-                  <h5 className="card-title fw-bold mb-1">Malar S</h5>
-                  <p className="card-text text-primary mb-2">Secretary</p>
-                  <p className="card-text text-muted small">Third Year B.Tech</p>
-                </div>
-              </div>
-            </div>
-
-            <div className="office-bearer-card px-2" style={{ minWidth: "300px" }}>
-              <div className="card border-0 shadow-sm h-100">
-                <div className="position-relative">
-                  <img
-                    src="Frame 5533.png"
-                    className="card-img-top"
-                    alt="Secretary"
-                  />
-                  <div className="position-absolute top-0 end-0 m-2">
-                    <span className="badge bg-primary">2024-25</span>
-                  </div>
-                </div>
-                <div className="card-body text-center">
-                  <h5 className="card-title fw-bold mb-1">Maheswari K</h5>
-                  <p className="card-text text-primary mb-2">Treasurer</p>
-                  <p className="card-text text-muted small">Final Year B.Tech</p>
-                </div>
-              </div>
-            </div>
-
-            <div className="office-bearer-card px-2" style={{ minWidth: "300px" }}>
-              <div className="card border-0 shadow-sm h-100">
-                <div className="position-relative">
-                  <img
-                    src="Frame 5533.png"
-                    className="card-img-top"
-                    alt="Treasurer"
-                  />
-                  <div className="position-absolute top-0 end-0 m-2">
-                    <span className="badge bg-primary">2024-25</span>
-                  </div>
-                </div>
-                <div className="card-body text-center">
-                  <h5 className="card-title fw-bold mb-1">Selva Kumar S</h5>
-                  <p className="card-text text-primary mb-2">Vice-President</p>
-                  <p className="card-text text-muted small">Final Year B.Tech</p>
-                </div>
-              </div>
-            </div>
-
-            <div className="office-bearer-card px-2" style={{ minWidth: "300px" }}>
-              <div className="card border-0 shadow-sm h-100">
-                <div className="position-relative">
-                  <img
-                    src="Frame 5533.png"
-                    className="card-img-top"
-                    alt="Treasurer"
-                  />
-                  <div className="position-absolute top-0 end-0 m-2">
-                    <span className="badge bg-primary">2024-25</span>
-                  </div>
-                </div>
-                <div className="card-body text-center">
-                  <h5 className="card-title fw-bold mb-1">Sathi Udayaram N</h5>
-                  <p className="card-text text-primary mb-2">Vice-President</p>
-                  <p className="card-text text-muted small">Third Year B.Tech</p>
-                </div>
-              </div>
-            </div>
-
-            <div className="office-bearer-card px-2" style={{ minWidth: "300px" }}>
-              <div className="card border-0 shadow-sm h-100">
-                <div className="position-relative">
-                  <img
-                    src="Frame 5533.png"
-                    className="card-img-top"
-                    alt="Technical Lead"
-                  />
-                  <div className="position-absolute top-0 end-0 m-2">
-                    <span className="badge bg-primary">2024-25</span>
-                  </div>
-                </div>
-                <div className="card-body text-center">
-                  <h5 className="card-title fw-bold mb-1">Ohm Prakash R</h5>
-                  <p className="card-text text-primary mb-2">Join Secretary</p>
-                  <p className="card-text text-muted small">Third Year B.Tech</p>
-                </div>
-              </div>
-            </div>
-
-            <div className="office-bearer-card px-2" style={{ minWidth: "300px" }}>
-              <div className="card border-0 shadow-sm h-100">
-                <div className="position-relative">
-                  <img
-                    src="Frame 5533.png"
-                    className="card-img-top"
-                    alt="Event Coordinator"
-                  />
-                  <div className="position-absolute top-0 end-0 m-2">
-                    <span className="badge bg-primary">2024-25</span>
-                  </div>
-                </div>
-                <div className="card-body text-center">
-                  <h5 className="card-title fw-bold mb-1">Jawahar D</h5>
-                  <p className="card-text text-primary mb-2">Event Coordinator</p>
-                  <p className="card-text text-muted small">Third Year B.Tech</p>
-                </div>
-              </div>
-            </div>
-
-            <div className="office-bearer-card px-2" style={{ minWidth: "300px" }}>
-              <div className="card border-0 shadow-sm h-100">
-                <div className="position-relative">
-                  <img
-                    src="Frame 5533.png"
-                    className="card-img-top"
-                    alt="Event Coordinator"
-                  />
-                  <div className="position-absolute top-0 end-0 m-2">
-                    <span className="badge bg-primary">2024-25</span>
-                  </div>
-                </div>
-                <div className="card-body text-center">
-                  <h5 className="card-title fw-bold mb-1">Ponsuwathini M</h5>
-                  <p className="card-text text-primary mb-2">Event Coordinator</p>
-                  <p className="card-text text-muted small">Second Year B.Tech</p>
-                </div>
-              </div>
-            </div>
-
-            <div className="office-bearer-card px-2" style={{ minWidth: "300px" }}>
-              <div className="card border-0 shadow-sm h-100">
-                <div className="position-relative">
-                  <img
-                    src="Frame 5533.png"
-                    className="card-img-top"
-                    alt="Event Coordinator"
-                  />
-                  <div className="position-absolute top-0 end-0 m-2">
-                    <span className="badge bg-primary">2024-25</span>
-                  </div>
-                </div>
-                <div className="card-body text-center">
-                  <h5 className="card-title fw-bold mb-1">Aarthy K</h5>
-                  <p className="card-text text-primary mb-2">Co-Curricular Coordinator</p>
-                  <p className="card-text text-muted small">Third Year B.Tech</p>
-                </div>
-              </div>
-            </div>
-
-            <div className="office-bearer-card px-2" style={{ minWidth: "300px" }}>
-              <div className="card border-0 shadow-sm h-100">
-                <div className="position-relative">
-                  <img
-                    src="Frame 5533.png"
-                    className="card-img-top"
-                    alt="Event Coordinator"
-                  />
-                  <div className="position-absolute top-0 end-0 m-2">
-                    <span className="badge bg-primary">2024-25</span>
-                  </div>
-                </div>
-                <div className="card-body text-center">
-                  <h5 className="card-title fw-bold mb-1">Priyadharshini R</h5>
-                  <p className="card-text text-primary mb-2">Co-Curricular Coordinator</p>
-                  <p className="card-text text-muted small">Second Year B.Tech</p>
-                </div>
-              </div>
-            </div>
-
-            <div className="office-bearer-card px-2" style={{ minWidth: "300px" }}>
-              <div className="card border-0 shadow-sm h-100">
-                <div className="position-relative">
-                  <img
-                    src="Frame 5533.png"
-                    className="card-img-top"
-                    alt="Event Coordinator"
-                  />
-                  <div className="position-absolute top-0 end-0 m-2">
-                    <span className="badge bg-primary">2024-25</span>
-                  </div>
-                </div>
-                <div className="card-body text-center">
-                  <h5 className="card-title fw-bold mb-1">Geethanjali S</h5>
-                  <p className="card-text text-primary mb-2">Co-Curricular Coordinator</p>
-                  <p className="card-text text-muted small">Second Year B.Tech</p>
-                </div>
-              </div>
-            </div>
-
-            <div className="office-bearer-card px-2" style={{ minWidth: "300px" }}>
-              <div className="card border-0 shadow-sm h-100">
-                <div className="position-relative">
-                  <img
-                    src="Frame 5533.png"
-                    className="card-img-top"
-                    alt="Event Coordinator"
-                  />
-                  <div className="position-absolute top-0 end-0 m-2">
-                    <span className="badge bg-primary">2024-25</span>
-                  </div>
-                </div>
-                <div className="card-body text-center">
-                  <h5 className="card-title fw-bold mb-1">Jawahar D</h5>
-                  <p className="card-text text-primary mb-2">Magazine Coordinator</p>
-                  <p className="card-text text-muted small">Third Year B.Tech</p>
-                </div>
-              </div>
-            </div>
+            ))}
 
           </div>
 
@@ -759,89 +381,28 @@ export const Association = () => {
           <p className="text-center text-muted mb-5">Meet the professors who guide and mentor our association</p>
 
           <div className="row row-cols-1 row-cols-md-3 g-4">
-            <div className="col">
-              <div className="card border-0 shadow h-100">
-                <div className="row g-0">
-                  <div className="col-md-4">
-                    <img
-                      src="Frame 5533.png"
-                      className="img-fluid rounded-start h-100 object-fit-cover"
-                      alt="Dr. Sharma"
-                    />
-                  </div>
-                  <div className="col-md-8">
-                    <div className="card-body">
-                      <h5 className="card-title fw-bold">Mr.R.Prabhu</h5>
-                      <p className="card-text text-muted small mb-2">Associate Professor /IT</p>
-                      <p className="card-text small">
-                        <Mail className="me-2" size={14} />
-                        <span>exapmple@.edu</span>
-                      </p>
-                      <p className="card-text small">
-                        <Phone className="me-2" size={14} />
-                        <span>00000 00000</span>
-                      </p>
+            {associationData?.AssossationFaculty?.map((faculty, index) => (
+              <div className="col" key={index}>
+                <div className="card border-0 shadow h-100">
+                  <div className="row g-0">
+                    <div className="col-md-8">
+                      <div className="card-body">
+                        <h5 className="card-title fw-bold">{faculty.name}</h5>
+                        <p className="card-text text-muted small mb-2">{faculty.desigination}</p>
+                        <p className="card-text small">
+                          <Mail className="me-2" size={14} />
+                          <span>{faculty.email}</span>
+                        </p>
+                        {/* <p className="card-text small">
+                          <Phone className="me-2" size={14} />
+                          <span>{faculty.phoneNum}</span>
+                        </p> */}
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
-
-            <div className="col">
-              <div className="card border-0 shadow h-100">
-                <div className="row g-0">
-                  <div className="col-md-4">
-                    <img
-                      src="Frame 5533.png"
-                      className="img-fluid rounded-start h-100 object-fit-cover"
-                      alt="Dr. Patel"
-                    />
-                  </div>
-                  <div className="col-md-8">
-                    <div className="card-body">
-                      <h5 className="card-title fw-bold">Ms.K.Saranya</h5>
-                      <p className="card-text text-muted small mb-2">Assistant Professor / IT</p>
-                      <p className="card-text small">
-                        <Mail className="me-2" size={14} />
-                        <span>exaple@.edu</span>
-                      </p>
-                      <p className="card-text small">
-                        <Phone className="me-2" size={14} />
-                        <span>00000 00000</span>
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="col">
-              <div className="card border-0 shadow h-100">
-                <div className="row g-0">
-                  <div className="col-md-4">
-                    <img
-                      src="Frame 5533.png"
-                      className="img-fluid rounded-start h-100 object-fit-cover"
-                      alt="Dr. Kumar"
-                    />
-                  </div>
-                  <div className="col-md-8">
-                    <div className="card-body">
-                      <h5 className="card-title fw-bold">Mr.J.Dhyaneswaran</h5>
-                      <p className="card-text text-muted small mb-2">Assistant Professor (SS) / IT</p>
-                      <p className="card-text small">
-                        <Mail className="me-2" size={14} />
-                        <span>exaple@.edu</span>
-                      </p>
-                      <p className="card-text small">
-                        <Phone className="me-2" size={14} />
-                        <span>00000 00000</span>
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </div>
@@ -854,29 +415,6 @@ export const Association = () => {
             <p className="lead mb-4">
               Have questions about our association or interested in joining? Get in touch with us.
             </p>
-
-            {/* <div className="card border-0 shadow-sm mb-4">
-              <div className="card-body">
-                <div className="d-flex">
-                  <div
-                    className="rounded-circle bg-primary bg-opacity-10 p-3 me-3 d-flex align-items-center justify-content-center"
-                    style={{ width: "60px", height: "60px" }}
-                  >
-                    <MapPin className="text-primary" size={24} />
-                  </div>
-                  <div>
-                    <h5 className="fw-bold">Office Location</h5>
-                    <p className="text-muted mb-0">
-                      Room 301, IT Department Building
-                      <br />
-                      University Campus, Main Road
-                      <br />
-                      City, State - 123456
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div> */}
 
             <div className="card border-0 shadow-sm mb-4">
               <div className="card-body">
@@ -909,11 +447,9 @@ export const Association = () => {
                   <div>
                     <h5 className="fw-bold">Call Us</h5>
                     <p className="text-muted mb-0">
-                      Office:
+                      President: {associationData?.presidentNum}
                       <br />
-                      President:
-                      <br />
-                      Secretary:
+                      Secretary: {associationData?.SecretaryNum}
                     </p>
                   </div>
                 </div>
