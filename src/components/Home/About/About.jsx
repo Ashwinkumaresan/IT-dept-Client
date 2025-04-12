@@ -28,7 +28,7 @@ export const About = () => {
                 <Card.Text className="text-muted">
                   Learn about our history, vision, mission, and faculty members.
                 </Card.Text>
-                <a href="/about" className="text-primary" style={{textDecoration:"none"}}>
+                <a href="/#/about" className="text-primary" style={{textDecoration:"none"}}>
                   Learn more →
                 </a>
               </Card.Body>
@@ -45,7 +45,7 @@ export const About = () => {
                 <Card.Text className="text-muted">
                   Discover our placement records, top recruiters, and success stories.
                 </Card.Text>
-                <Link to="/placement" className="text-primary" style={{textDecoration:"none"}}>
+                <Link to="/#/placement" className="text-primary" style={{textDecoration:"none"}}>
                   Learn more →
                 </Link>
               </Card.Body>
@@ -62,7 +62,7 @@ export const About = () => {
                 <Card.Text className="text-muted">
                   Explore our state-of-the-art labs, library, and research facilities.
                 </Card.Text>
-                <Link to="/facilities" className="text-primary" style={{textDecoration:"none"}}>
+                <Link to="/#/facilities" className="text-primary" style={{textDecoration:"none"}}>
                   Learn more →
                 </Link>
               </Card.Body>
@@ -79,7 +79,7 @@ export const About = () => {
                 <Card.Text className="text-muted">
                   Join our student clubs, events, and professional associations.
                 </Card.Text>
-                <a href="/association" className="text-primary" style={{textDecoration:"none"}}>
+                <a href="/#/association" className="text-primary" style={{textDecoration:"none"}}>
                   Learn more →
                 </a>
               </Card.Body>

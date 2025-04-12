@@ -23,6 +23,11 @@ export const StudentSideBar = () => {
 
   return (
     <div className={`sidebar ${collapsed ? "collapsed" : ""}`}>
+      <div style={{
+        position:"sticky",
+        top:"0px",
+      }}>
+
       <div className="d-flex align-items-center justify-content-between p-3 border-bottom">
         <div  className={`mb-0 ${collapsed ? "d-none" : ""} d-flex`}>
 
@@ -82,6 +87,7 @@ export const StudentSideBar = () => {
           <FaCog className="sidebar-icon" />
           <span className="sidebar-text">Settings</span>
         </Link>
+      </div>
       </div>
     </div>
   )

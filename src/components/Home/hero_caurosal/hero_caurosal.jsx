@@ -12,7 +12,7 @@ const HeroCarousel = () => {
       title: "Dr. Mahalingam College of Engineering and Technology",
       dept: "Department of Information Technology",
       ctaText: "Explore Department",
-      ctaLink: "#",
+      ctaLink: "/#/",
     },
     {
       id: 2,
@@ -20,7 +20,7 @@ const HeroCarousel = () => {
       title: "Empowering Future IT Professionals",
       description: "Unlock your career potential with top-tier placements. We bridge the gap between talent and opportunity.",
       ctaText: "Explore Placement",
-      ctaLink: "#",
+      ctaLink: "/#/placement",
     },
     {
       id: 3,
@@ -28,7 +28,7 @@ const HeroCarousel = () => {
       title: "Alpha Cloud – Your Pathway to Success",
       description: "With Alpha Cloud, stay ahead with real-time project experience, skill enhancement, and placement-driven learning",
       ctaText: "Explore Facilities",
-      ctaLink: "#",
+      ctaLink: "/#/facilities",
     },
     {
       id: 4,
@@ -36,7 +36,7 @@ const HeroCarousel = () => {
       title: "InfoBee – Powering Student Innovation",
       description: "Led by students, for students! InfoBee fosters collaboration, knowledge-sharing, and industry exposure to boost your career",
       ctaText: "Explore Association",
-      ctaLink: "#",
+      ctaLink: "/#/association",
     },
   ]
 

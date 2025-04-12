@@ -428,7 +428,7 @@ export const Association = () => {
                   <div>
                     <h5 className="fw-bold">Email Us</h5>
                     <p className="text-muted mb-0">
-                      General Inquiries: itdept@.edu
+                      General Inquiries: infobeeassociation@gmail.com
                     </p>
                   </div>
                 </div>
@@ -459,20 +459,6 @@ export const Association = () => {
             <div className="mt-4">
               <h5 className="fw-bold mb-3">Follow Us</h5>
               <div className="d-flex gap-3">
-                <a
-                  href="#"
-                  className="btn btn-outline-primary rounded-circle"
-                  style={{ width: "40px", height: "40px" }}
-                >
-                  <i className="bi bi-facebook"></i>
-                </a>
-                <a
-                  href="#"
-                  className="btn btn-outline-primary rounded-circle"
-                  style={{ width: "40px", height: "40px" }}
-                >
-                  <i className="bi bi-twitter"></i>
-                </a>
                 <a
                   href="#"
                   className="btn btn-outline-primary rounded-circle"
