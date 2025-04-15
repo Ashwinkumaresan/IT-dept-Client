@@ -22,6 +22,8 @@ import { StaffProfile } from './pages/Staff/StaffProfile';
 import { StaffSetting } from './pages/Staff/StaffSetting';
 import { StudentProfile } from './pages/Staff/StudentProfile';
 import { ToastContainer, toast } from 'react-toastify';
+import ProtectedRoute from "./components/ProtectedRoute";
+import Unauthorized from "./pages/Unauthorized";
 
 
 function App() {
@@ -46,10 +48,23 @@ function App() {
       setprofileInfo("/student-profile/info")
       setprofileEdit("/student-profile/info/edit")
     }
+    else {
+      setProfileDashboard("/student-login")
+      setProfileActivity("/student-login")
+      setProfileSettings("/student-login")
+      setprofileViewParticipated("/student-login")
+      setprofileInfo("/student-login")
+      setprofileEdit("/student-login")
+    }
     if (localStorage.getItem("access_token_staff")) {
       setStaffProfile("/staff-profile")
       setStaffProfileSettings("/staff-profile/setting")
       setStudentProfile("/student/:User")
+    }
+    else {
+      setStaffProfile("/staff-login")
+      setStaffProfileSettings("/staff-login")
+      setStudentProfile("/staff-login")
     }
   })
 
@@ -89,20 +104,60 @@ function App() {
           <Route path="/association" element={[<Navbar />, <Association />]} />
           <Route path="/student-login" element={<Login notify={notify} />} />
           <Route path="/student-signup" element={<Signup />} />
-          <Route path={profileDashboard} element={<StudentProfileDashboard />} />
-          <Route path={profileActivity} element={<StudentProfileSubmitActivity />} />
-          <Route path={profileSettings} element={<StudentProfileSetting />} />
-          <Route path={profileViewParticipated} element={<StudentProfileViewParcipated />} />
-          <Route path={profileInfo} element={<StudentProfileInfo />} />
-          <Route path={profileEdit} element={<StudentEditProfile />} />
 
+          <Route path="/student-profile" element={
+            <ProtectedRoute tokenKey="access_token">
+              <StudentProfileDashboard />
+            </ProtectedRoute>
+            } />
+          <Route path="/student-profile/activity/form" element={
+            <ProtectedRoute tokenKey="access_token">
+              <StudentProfileSubmitActivity />
+            </ProtectedRoute>
+            } />
+          <Route path="/student-profile/setting" element={
+            <ProtectedRoute tokenKey="access_token">
+              <StudentProfileSetting />
+            </ProtectedRoute>
+          } />
+          <Route path="/student-profile/view/participated" element={
+            <ProtectedRoute tokenKey="access_token">
+              <StudentProfileViewParcipated />
+            </ProtectedRoute>
+          } />
+
+          <Route path="/student-profile/info" element={
+            <ProtectedRoute tokenKey="access_token">
+              <StudentProfileInfo /> 
+            </ProtectedRoute>
+            }/>
+          <Route path="/student-profile/info/edit" element={
+            <ProtectedRoute tokenKey="access_token">
+              <StudentEditProfile />
+            </ProtectedRoute>
+            } />
+
+          <Route path="/unauthorized" element={<Unauthorized />} />
+          <Route path="*" element={<h1>404 - Page Not Found</h1>} />
 
           <Route path="/staff-login" element={<StaffLogin />} />
           <Route path="/staff-signup" element={<StaffSignup />} />
 
-          <Route path={staffProfile} element={<StaffProfile />} />
-          <Route path={staffProfileSettings} element={<StaffSetting />} />
-          <Route path={studenProfile} element={<StudentProfile />} />
+          <Route path="/staff-profile" element={
+            <ProtectedRoute tokenKey="access_token_staff">
+              <StaffProfile />
+            </ProtectedRoute>
+          } />
+          <Route path="/staff-profile/setting" element={
+            <ProtectedRoute tokenKey="access_token_staff">
+              <StaffSetting />
+            </ProtectedRoute>
+          } />
+          <Route path="/student/:User" element={
+            <ProtectedRoute tokenKey="access_token_staff">
+              <StudentProfile />
+            </ProtectedRoute>
+          } />
 
         </Routes>
       </HashRouter>
