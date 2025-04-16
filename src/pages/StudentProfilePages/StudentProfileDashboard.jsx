@@ -55,16 +55,6 @@ export const StudentProfileDashboard = () => {
   }, []);
 
 
-  // useEffect(() => {
-  //   fetch("https://test.mcetit.drmcetit.com/api/profile/dashboard/") // Replace with your actual API URL
-  //     .then((response) => response.json())
-  //     .then((data) => {
-  //       setActivities(data);
-  //     })
-  //     .catch((error) => {
-  //       console.error("Error fetching activities:", error);
-  //     });
-  // }, []);
 
   return (
     <div className="d-flex">

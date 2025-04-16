@@ -38,6 +38,53 @@ function App() {
   const [staffProfileSettings, setStaffProfileSettings] = useState("/staff-login")
   const [studenProfile, setStudentProfile] = useState("/staff-login")
 
+  // Function to set a token with 1-day validity
+  const setToken = (key, token) => {
+    const expiry = new Date().getTime() + 24 * 60 * 60 * 1000; // 1 day in milliseconds
+    const tokenData = {
+      value: token,
+      expiry: expiry,
+    };
+    localStorage.setItem(key, JSON.stringify(tokenData));
+  };
+
+  // Function to get a token and check if it's still valid
+  const getValidToken = (key) => {
+    const tokenStr = localStorage.getItem(key);
+    if (!tokenStr) return null;
+
+    try {
+      const tokenData = JSON.parse(tokenStr);
+      const now = new Date().getTime();
+
+      if (now > tokenData.expiry) {
+        // Token has expired, remove it
+        localStorage.removeItem(key);
+        return null;
+      }
+
+      return tokenData.value;
+    } catch (error) {
+      // Malformed token data, remove it
+      localStorage.removeItem(key);
+      return null;
+    }
+  };
+
+  // Check tokens when the app loads and remove them if expired
+  useEffect(() => {
+    const userToken = getValidToken('access_token');
+    const staffToken = getValidToken('access_token_staff');
+
+    // Optionally: You can show a message here for session expiry or handle logic as needed.
+    if (!userToken && !staffToken) {
+      console.log('Session expired or no valid token found. Please log in again.');
+      // You can show a "session expired" message or prompt the user to log in again.
+    }
+
+    // The user will stay on the current page without navigation
+  }, []); // Empty dependency array ensures this runs only once on mount
+
 
   useEffect(() => {
     if (localStorage.getItem("access_token")) {
@@ -109,12 +156,12 @@ function App() {
             <ProtectedRoute tokenKey="access_token">
               <StudentProfileDashboard />
             </ProtectedRoute>
-            } />
+          } />
           <Route path="/student-profile/activity/form" element={
             <ProtectedRoute tokenKey="access_token">
               <StudentProfileSubmitActivity />
             </ProtectedRoute>
-            } />
+          } />
           <Route path="/student-profile/setting" element={
             <ProtectedRoute tokenKey="access_token">
               <StudentProfileSetting />
@@ -128,14 +175,14 @@ function App() {
 
           <Route path="/student-profile/info" element={
             <ProtectedRoute tokenKey="access_token">
-              <StudentProfileInfo /> 
+              <StudentProfileInfo />
             </ProtectedRoute>
-            }/>
+          } />
           <Route path="/student-profile/info/edit" element={
             <ProtectedRoute tokenKey="access_token">
               <StudentEditProfile />
             </ProtectedRoute>
-            } />
+          } />
 
           <Route path="/unauthorized" element={<Unauthorized />} />
           <Route path="*" element={<h1>404 - Page Not Found</h1>} />
