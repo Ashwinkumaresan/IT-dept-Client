@@ -5,7 +5,7 @@ import { FaUpload } from 'react-icons/fa';
 import { StudentSideBar } from '../../components/StudentProfileComponent/StudentSideBar';
 import axios from 'axios';
 
-export const StudentProfileSubmitActivity = () => {
+export const StudentProfileSubmitActivity = ({ activitySubmit }) => {
   const navigate = useNavigate();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [validated, setValidated] = useState(false);
@@ -22,8 +22,9 @@ export const StudentProfileSubmitActivity = () => {
   const [emptyOrganizer, setEmptyOrganizer] = useState(false)
   const [emptyTeam, setEmptyTeam] = useState(false)
   const [emptyDes, setEmptyDes] = useState(false)
+  const [activityToast, setActivityToast] = useState(null);
 
-  
+
   const [formData, setFormData] = useState({
     department: 'IT',
     year: '',
@@ -45,40 +46,40 @@ export const StudentProfileSubmitActivity = () => {
   });
 
   // Show award field only if place is "Award"
-//   const showAwardField = formData.place === 'Award';
+  //   const showAwardField = formData.place === 'Award';
 
-const handleChange = (event) => {
-  setFormData({
-    ...formData,
-    [event.target.name]: event.target.value, // Ensure value is updated correctly
-  });
-};
+  const handleChange = (event) => {
+    setFormData({
+      ...formData,
+      [event.target.name]: event.target.value, // Ensure value is updated correctly
+    });
+  };
 
 
   const handleFileChange = (event) => {
     const file = event.target.files[0]; // Get the selected file
     if (file) {
-        setFileName(file.name);
-        setFormData((prevData) => ({
-            ...prevData,
-            proofAttachment: file,  // Store the actual file object
-        }));
+      setFileName(file.name);
+      setFormData((prevData) => ({
+        ...prevData,
+        proofAttachment: file,  // Store the actual file object
+      }));
     }
-};
+  };
 
 
   // const handleSubmit = (e) => {
   //   e.preventDefault();
   //   const form = e.currentTarget;
-    
+
   //   if (form.checkValidity() === false) {
   //     e.stopPropagation();
   //     setValidated(true);
   //     return;
   //   }
-    
+
   //   setIsSubmitting(true);
-    
+
   //   // Simulate API call
   //   setTimeout(() => {
   //     console.log(formData);
@@ -98,7 +99,7 @@ const handleChange = (event) => {
           },
         }
       );
-  
+
       console.log(responseGet.data);
       console.log(responseGet.data.student)
       setFormData((prevData) => ({
@@ -109,166 +110,167 @@ const handleChange = (event) => {
         ...prevData,
         rollNo: responseGet.data.rollNo, // Replace with actual data
       }));
-      
+
     } catch (error) {
       console.log("Error");
       console.error("Error fetching data:", error.response?.data);
     }
   };
-  useEffect(()=>{
+  useEffect(() => {
     home()
-  },[])
+  }, [])
   async function fetchCSRFToken() {
     try {
-        const response = await fetch("https://test.mcetit.drmcetit.com/api/get-csrf-token/", {
-            credentials: "include",  // Ensure cookies are sent
-        });
-        const data = await response.json();
-        console.log("Fetched CSRF Token:", data.csrfToken);
-        return data.csrfToken;
+      const response = await fetch("https://test.mcetit.drmcetit.com/api/get-csrf-token/", {
+        credentials: "include",  // Ensure cookies are sent
+      });
+      const data = await response.json();
+      console.log("Fetched CSRF Token:", data.csrfToken);
+      return data.csrfToken;
     } catch (error) {
-        console.error("Failed to fetch CSRF token", error);
-        return null;
+      console.error("Failed to fetch CSRF token", error);
+      return null;
     }
-}
-const handleSubmit = async (event) => {
-  event.preventDefault();
+  }
+  const handleSubmit = async (event) => {
+    event.preventDefault();
 
-  const csrfToken = await fetchCSRFToken();
-  
-  const formDataToSend = new FormData();
-  formDataToSend.append("year", formData.year);
-  formDataToSend.append("student", formData.student);
-  formDataToSend.append("rollNo", formData.rollNo);
-  formDataToSend.append("level", formData.level);
-  formDataToSend.append("event", formData.event);
-  formDataToSend.append("date", formData.date);
-  formDataToSend.append("type", formData.type);
-  formDataToSend.append("mode", formData.mode);
-  formDataToSend.append("category", formData.category);
-  formDataToSend.append("place", formData.place);
-  formDataToSend.append("organizer", formData.organizer);
-  formDataToSend.append("club", formData.club);
-  formDataToSend.append("teamInd", formData.teamInd);
-  formDataToSend.append("description", formData.description);
-  
-  // Check if proofAttachment is provided before appending
-  if (formData.proofAttachment) {
+    const csrfToken = await fetchCSRFToken();
+
+    const formDataToSend = new FormData();
+    formDataToSend.append("year", formData.year);
+    formDataToSend.append("student", formData.student);
+    formDataToSend.append("rollNo", formData.rollNo);
+    formDataToSend.append("level", formData.level);
+    formDataToSend.append("event", formData.event);
+    formDataToSend.append("date", formData.date);
+    formDataToSend.append("type", formData.type);
+    formDataToSend.append("mode", formData.mode);
+    formDataToSend.append("category", formData.category);
+    formDataToSend.append("place", formData.place);
+    formDataToSend.append("organizer", formData.organizer);
+    formDataToSend.append("club", formData.club);
+    formDataToSend.append("teamInd", formData.teamInd);
+    formDataToSend.append("description", formData.description);
+
+    // Check if proofAttachment is provided before appending
+    if (formData.proofAttachment) {
       formDataToSend.append("proofAttachment", formData.proofAttachment);
-  }
-
-  try {
-    const response = await fetch("https://test.mcetit.drmcetit.com/api/event/certificate/", {
-      method: "POST",
-      headers: {
-        "X-CSRFToken": csrfToken,
-        "Authorization": `Bearer ${localStorage.getItem("access_token")}`,
-      },
-      body: formDataToSend,
-    });
-  
-    if (!response.ok) {
-      let errorData;
-      
-      // Try parsing JSON response if possible
-      try {
-        errorData = await response.json();
-      } catch (jsonError) {
-        throw new Error(`https error! Status: ${response.status} - Unable to parse error response`);
-      }
-  
-      if (response.status === 400 && typeof errorData === "object") {
-        let missingFields = Object.keys(errorData);
-        // alert(`Please fill in all required fields: ${missingFields.join(", ")}`);
-        // alert(`Please fill in all required fields: ${missingFields.date}`);
-        setEmpty(true);
-        console.error("Validation errors:", errorData);
-        console.error("Validation errors:", errorData.type);
-
-        if(errorData.year[0])
-          setEmptyYear(true);
-        else
-        setEmptyYear(false);
-        
-        if(errorData.event[0])
-          setEmptyEvent(true);
-        else
-        setEmptyEvent(false);
-
-        if(errorData.level[0])
-          setEmptyLevel(true);
-        else
-        setEmptyLevel(false);
-
-        if(errorData.type[0])
-          setEmptyType(true);
-        else
-        setEmptyType(false);
-
-        if(errorData.mode[0])
-          setEmptyMode(true);
-        else
-        setEmptyMode(false);
-
-        if(errorData.category[0])
-          setEmptyCategory(true);
-        else
-        setEmptyCategory(false);
-
-        if(errorData.place[0])
-          setEmptyPlace(true);
-        else
-        setEmptyPlace(false);
-
-        if(errorData.organizer[0])
-          setEmptyOrganizer(true);
-        else
-        setEmptyOrganizer(false);
-
-        if(errorData.date[0])
-          setEmptyDate(true);
-        else
-        setEmptyDate(false);
-        
-        if(errorData.type[0])
-          setEmptyTeam(true);
-        else
-        setEmptyTeam(false);
-
-        if(errorData.description[0])
-          setEmptyDes(true);
-        else
-        setEmptyDes(false);
-
-        return;
-      }
-  
-      throw new Error(`https error! Status: ${response.status} - ${JSON.stringify(errorData)}`);
     }
-  
-    const result = await response.json();
-    console.log("Form submission successful:", result);
-    navigate("/student-profile/view/participated");
-    
-  } catch (error) {
-    console.error("Error submitting form:", error);
-    //alert("Error submitting form. Please try again.");
-  }
-  
-};
+
+    try {
+      const response = await fetch("https://test.mcetit.drmcetit.com/api/event/certificate/", {
+        method: "POST",
+        headers: {
+          "X-CSRFToken": csrfToken,
+          "Authorization": `Bearer ${localStorage.getItem("access_token")}`,
+        },
+        body: formDataToSend,
+      });
+
+      if (!response.ok) {
+        let errorData;
+
+        // Try parsing JSON response if possible
+        try {
+          errorData = await response.json();
+        } catch (jsonError) {
+          throw new Error(`https error! Status: ${response.status} - Unable to parse error response`);
+        }
+
+        if (response.status === 400 && typeof errorData === "object") {
+          let missingFields = Object.keys(errorData);
+          // alert(`Please fill in all required fields: ${missingFields.join(", ")}`);
+          // alert(`Please fill in all required fields: ${missingFields.date}`);
+          setEmpty(true);
+          console.error("Validation errors:", errorData);
+          console.error("Validation errors:", errorData.type);
+
+          if (errorData.year[0])
+            setEmptyYear(true);
+          else
+            setEmptyYear(false);
+
+          if (errorData.event[0])
+            setEmptyEvent(true);
+          else
+            setEmptyEvent(false);
+
+          if (errorData.level[0])
+            setEmptyLevel(true);
+          else
+            setEmptyLevel(false);
+
+          if (errorData.type[0])
+            setEmptyType(true);
+          else
+            setEmptyType(false);
+
+          if (errorData.mode[0])
+            setEmptyMode(true);
+          else
+            setEmptyMode(false);
+
+          if (errorData.category[0])
+            setEmptyCategory(true);
+          else
+            setEmptyCategory(false);
+
+          if (errorData.place[0])
+            setEmptyPlace(true);
+          else
+            setEmptyPlace(false);
+
+          if (errorData.organizer[0])
+            setEmptyOrganizer(true);
+          else
+            setEmptyOrganizer(false);
+
+          if (errorData.date[0])
+            setEmptyDate(true);
+          else
+            setEmptyDate(false);
+
+          if (errorData.type[0])
+            setEmptyTeam(true);
+          else
+            setEmptyTeam(false);
+
+          if (errorData.description[0])
+            setEmptyDes(true);
+          else
+            setEmptyDes(false);
+
+          return;
+        }
+
+        throw new Error(`https error! Status: ${response.status} - ${JSON.stringify(errorData)}`);
+      }
+
+      const result = await response.json();
+      console.log("Form submission successful:", result);
+      setActivityToast(activitySubmit);
+      navigate("/student-profile/view/participated");
+
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      //alert("Error submitting form. Please try again.");
+    }
+
+  };
 
 
 
 
   return (
     <div className="d-flex">
-      <StudentSideBar/>
+      <StudentSideBar />
       <div className="flex-grow-1 p-4">
         <div className="mb-4 bg-white" style={{
-          backgroundColor:"ffffff",
-          position:"sticky",
-          top:"0",
-          zIndex:"9"
+          backgroundColor: "ffffff",
+          position: "sticky",
+          top: "0",
+          zIndex: "9"
         }}>
           <h1 className="h3 fw-bold">Submit Your Activity</h1>
           <p className="text-muted">
@@ -282,7 +284,7 @@ const handleSubmit = async (event) => {
               <Col md={6}>
                 <Form.Group className="mb-3" controlId="department">
                   <Form.Label>Department</Form.Label>
-                  <Form.Select 
+                  <Form.Select
                     name="department"
                     value={formData.department}
                     onChange={handleChange}
@@ -295,11 +297,11 @@ const handleSubmit = async (event) => {
                   </Form.Control.Feedback>
                 </Form.Group>
               </Col>
-              
+
               <Col md={6}>
                 <Form.Group className="mb-3" controlId="year">
                   <Form.Label>Event's Academic Year</Form.Label>
-                  <Form.Select 
+                  <Form.Select
                     name="year"
                     value={formData.year}
                     onChange={handleChange}
@@ -342,7 +344,7 @@ const handleSubmit = async (event) => {
                   </Form.Control.Feedback>
                 </Form.Group>
               </Col>
-              
+
               <Col md={6}>
                 <Form.Group className="mb-3" controlId="rollNo">
                   <Form.Label>Roll Number</Form.Label>
@@ -384,11 +386,11 @@ const handleSubmit = async (event) => {
                   </Form.Control.Feedback>
                 </Form.Group>
               </Col>
-              
+
               <Col md={6}>
                 <Form.Group className="mb-3" controlId="level">
                   <Form.Label>Competition Level</Form.Label>
-                  <Form.Select 
+                  <Form.Select
                     name="level"
                     value={formData.level}
                     onChange={handleChange}
@@ -420,7 +422,7 @@ const handleSubmit = async (event) => {
               <Col md={4}>
                 <Form.Group className="mb-3" controlId="type">
                   <Form.Label>Activity Type</Form.Label>
-                  <Form.Select 
+                  <Form.Select
                     name="type"
                     value={formData.type}
                     onChange={handleChange}
@@ -441,11 +443,11 @@ const handleSubmit = async (event) => {
                   </Form.Control.Feedback>
                 </Form.Group>
               </Col>
-              
+
               <Col md={4}>
                 <Form.Group className="mb-3" controlId="mode">
                   <Form.Label>Mode</Form.Label>
-                  <Form.Select 
+                  <Form.Select
                     name="mode"
                     value={formData.mode}
                     onChange={handleChange}
@@ -466,11 +468,11 @@ const handleSubmit = async (event) => {
                   </Form.Control.Feedback>
                 </Form.Group>
               </Col>
-              
+
               <Col md={4}>
                 <Form.Group className="mb-3" controlId="category">
                   <Form.Label>Category</Form.Label>
-                  <Form.Select 
+                  <Form.Select
                     name="category"
                     value={formData.category}
                     onChange={handleChange}
@@ -503,7 +505,7 @@ const handleSubmit = async (event) => {
               <Col md={4}>
                 <Form.Group className="mb-3" controlId="place">
                   <Form.Label>place</Form.Label>
-                  <Form.Select 
+                  <Form.Select
                     name="place"
                     value={formData.place}
                     onChange={handleChange}
@@ -526,7 +528,7 @@ const handleSubmit = async (event) => {
                   </Form.Control.Feedback>
                 </Form.Group>
               </Col>
-              
+
               <Col md={4}>
                 <Form.Group className="mb-3" controlId="date">
                   <Form.Label>Date</Form.Label>
@@ -540,7 +542,7 @@ const handleSubmit = async (event) => {
                       e.preventDefault(); // Prevent default browser tooltip
                       alert("Please select a valid date.");
                     }}
-                
+
                   />
                   <Form.Text className="text-muted">
                     Format: DD-MM-YYYY
@@ -556,11 +558,11 @@ const handleSubmit = async (event) => {
                   </Form.Control.Feedback>
                 </Form.Group>
               </Col>
-              
+
               <Col md={4}>
                 <Form.Group className="mb-3" controlId="teamInd">
                   <Form.Label>Participation Type</Form.Label>
-                  <Form.Select 
+                  <Form.Select
                     name="teamInd"
                     value={formData.teamInd}
                     onChange={handleChange}
@@ -606,7 +608,7 @@ const handleSubmit = async (event) => {
                   </Form.Control.Feedback>
                 </Form.Group>
               </Col>
-              
+
               <Col md={6}>
                 <Form.Group className="mb-3" controlId="club">
                   <Form.Label>Club/Assosiation (if applicable)</Form.Label>
@@ -662,60 +664,61 @@ const handleSubmit = async (event) => {
                 Provide details about your participation, role, and what you learned (10-500 characters).
               </Form.Text>
               {
-                    emptyDes &&
-                    <div className=" text-danger" role="alert">
-                      Please select the year of the descriptions
-                    </div>
-                  }
+                emptyDes &&
+                <div className=" text-danger" role="alert">
+                  Please select the year of the descriptions
+                </div>
+              }
               <Form.Control.Feedback type="invalid">
                 Please provide a description (10-500 characters).
               </Form.Control.Feedback>
             </Form.Group>
-            
-            <Form.Group className="mb-4">
-  <Form.Label htmlFor="file-upload">Proof of Participation (if certificate available or pictures)</Form.Label>
-  <div className="d-flex align-items-center gap-3">
-    <Button 
-      variant="outline-secondary" 
-      onClick={() => document.getElementById('file-upload').click()}
-    >
-      <FaUpload className="me-2" /> Upload File
-    </Button>
-    
-    <Form.Control
-      type="file"
-      id="file-upload"
-      className="d-none"
-      accept=".jpg,.jpeg,.png,.pdf"  // Restrict to common file types
-      onChange={handleFileChange}
-    />
-    
-    <span className="text-muted small">
-      {fileName ? fileName : 'No file selected'}
-    </span>
-  </div>
-  
-  <Form.Text className="text-muted">
-    Upload certificates, photos, or any proof of your participation.
-  </Form.Text>
-  
-  <Form.Control.Feedback type="invalid">
-    Please upload proof of participation.
-  </Form.Control.Feedback>
-</Form.Group>
 
-            
+            <Form.Group className="mb-4">
+              <Form.Label htmlFor="file-upload">Proof of Participation (if certificate available or pictures)</Form.Label>
+              <div className="d-flex align-items-center gap-3">
+                <Button
+                  variant="outline-secondary"
+                  onClick={() => document.getElementById('file-upload').click()}
+                >
+                  <FaUpload className="me-2" /> Upload File
+                </Button>
+
+                <Form.Control
+                  type="file"
+                  id="file-upload"
+                  className="d-none"
+                  accept=".jpg,.jpeg,.png,.pdf"  // Restrict to common file types
+                  onChange={handleFileChange}
+                />
+
+                <span className="text-muted small">
+                  {fileName ? fileName : 'No file selected'}
+                </span>
+              </div>
+
+              <Form.Text className="text-muted">
+                Upload certificates, photos, or any proof of your participation.
+              </Form.Text>
+
+              <Form.Control.Feedback type="invalid">
+                Please upload proof of participation.
+              </Form.Control.Feedback>
+            </Form.Group>
+
+
             <div className="d-flex justify-content-end gap-2 mt-5">
-              <Button 
-                variant="outline-secondary" 
+              <Button
+                variant="outline-secondary"
                 onClick={() => navigate('/profile')}
               >
                 Cancel
               </Button>
-              <Button 
-                variant="primary" 
-                type="submit" 
+              <Button
+                variant="primary"
+                type="submit"
                 disabled={isSubmitting}
+                onClick={activityToast}
               >
                 {isSubmitting ? 'Submitting...' : 'Submit Activity'}
               </Button>

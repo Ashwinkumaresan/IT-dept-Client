@@ -1,8 +1,6 @@
-"use client"
-
 import { useState, useRef, useEffect } from "react"
 import { Card, Row, Col, Button, Form, Image } from "react-bootstrap"
-import { useNavigate } from "react-router-dom"
+import { useNavigate, Link } from "react-router-dom"
 import {
   FaUser,
   FaUniversity,
@@ -20,8 +18,9 @@ import {
 import { StudentSideBar } from "../../components/StudentProfileComponent/StudentSideBar"
 import axios from "axios"
 
-export const StudentEditProfile = () => {
+export const StudentEditProfile = ({profileSubmit}) => {
   const navigate = useNavigate()
+  const [profileSubmitted, setProfileSubmitted] = useState(null)
   const fileInputRef = useRef(null)
 
   const Sections = [
@@ -131,13 +130,6 @@ export const StudentEditProfile = () => {
     reader.readAsDataURL(file);
   };
   
-  // Get CSRF token from cookies
-  // const getCSRFToken = () => {
-  //   return document.cookie
-  //     .split("; ")
-  //     .find((row) => row.startsWith("csrftoken="))
-  //     ?.split("=")[1];
-  // };
   
   async function fetchCSRFToken() {
     try {
@@ -157,12 +149,6 @@ export const StudentEditProfile = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const csrfToken = await fetchCSRFToken();
-  
-    // console.log(document.cookie);
-    // if (!csrfToken) {
-    //   alert("CSRF token missing. Please refresh the page or check login status.");
-    //   return;
-    // }
   
     const formDataToSend = new FormData();
       formDataToSend.append("Name", formData.Name);
@@ -201,7 +187,8 @@ export const StudentEditProfile = () => {
         throw new Error(`Failed to update profile. Status: ${response.status}`);
       }
   
-      alert("Profile updated successfully!");
+      //alert("Profile updated successfully!");
+      setProfileSubmitted(profileSubmit);
       navigate("/student-profile/info/");
     } catch (error) {
       console.error("Error submitting form:", error);
@@ -211,8 +198,41 @@ export const StudentEditProfile = () => {
   
   // Handle cancel button
   const handleCancel = () => {
-    navigate("/student-profile/info/edit");
+    navigate("/student-profile/info/");
   };
+
+
+  // delete profile
+  const deleteProfile = () => {
+    // const confirmDelete = window.confirm("Are you sure you want to delete your profile?");
+    // if (confirmDelete) {
+    //   try {
+    //     const response = await fetch("https://test.mcetit.drmcetit.com/api"
+    //       + "/profile/delete/", {
+    //         method: "DELETE",
+    //         credentials: "include",
+    //         headers: {
+    //           "X-CSRFToken": csrfToken,
+    //           Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+    //           },
+    //           }
+    //           );
+    //           if (!response.ok) {
+    //             throw new Error(`Failed to delete profile. Status: ${response.status}`);
+    //             }
+    //             //alert("Profile deleted successfully!");
+    //             setProfileSubmitted(profileSubmit);
+    //             navigate("/student-profile/info/");
+    //             } catch (error) {
+    //               console.error("Error deleting profile:", error);
+    //               alert("Failed to delete profile.");
+    //               }
+    //               }
+    //               // delete profile end
+
+    setProfilePic("/Profile_dup.png")
+                  
+  }
 
 
   
@@ -235,30 +255,6 @@ export const StudentEditProfile = () => {
             <Col lg={4} className="mb-4">
               <Card className="border-0 shadow-sm">
                 <Card.Body className="text-center">
-                  {/* <div className="position-relative mb-4 d-inline-block">
-                    <Image
-                      src={formData.profilePic || "/placeholder.svg"}
-                      roundedCircle
-                      width={150}
-                      height={150}
-                      className="border p-1 bg-light"
-                      style={{ objectFit: "cover" }}
-                    />
-                    <div
-                      className="position-absolute bottom-0 end-0 bg-primary rounded-circle p-2 cursor-pointer"
-                      onClick={handleImageClick}
-                      style={{ cursor: "pointer" }}
-                    >
-                      <FaCamera color="white" />
-                    </div>
-                    <input
-                      type="file"
-                      ref={fileInputRef}
-                      className="d-none"
-                      accept="image/*"
-                      onChange={handleImageChange}
-                    />
-                  </div> */}
 
                   <div className="position-relative mb-4 d-inline-block">
                         <input
@@ -301,9 +297,8 @@ export const StudentEditProfile = () => {
 
                   <p className="text-muted small">
                     Click on the camera icon to upload a new profile picture.
-                    <br />
-                    Max size: 5MB. Formats: JPEG, PNG, GIF
                   </p>
+                  <button className="btn btn-danger" onClick={deleteProfile}>Delete Profile</button>
                 </Card.Body>
               </Card>
 
@@ -549,9 +544,9 @@ export const StudentEditProfile = () => {
 
               <div className="d-flex justify-content-end mt-4">
                 <Button variant="outline-secondary" onClick={handleCancel} className="me-2">
-                  Cancel
+                    Cancel
                 </Button>
-                <Button variant="primary" type="submit">
+                <Button variant="primary" type="submit" onClick={profileSubmit}>
                   Save Changes
                 </Button>
               </div>

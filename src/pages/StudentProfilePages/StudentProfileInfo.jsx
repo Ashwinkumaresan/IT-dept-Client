@@ -53,7 +53,14 @@ export const StudentProfileInfo = () => {
     }
 
     const profilePicture = `https://test.mcetit.drmcetit.com/${response.data.profilePic}`;
-    setProfilePic(profilePicture);
+    if(response.data.profilePic == null){
+      setProfilePic("/Profile_dup.png");
+      console.log(null);
+    }
+    else{
+      console.log("response pic")
+      setProfilePic(profilePicture);
+    }
     
   }
   useEffect(()=>{
@@ -106,7 +113,7 @@ export const StudentProfileInfo = () => {
                 <div className="mb-3 position-relative">
                   <div className="position-relative d-inline-block">
                     <Image 
-                      src={profilePic || "/placeholder.svg"} 
+                      src={profilePic || "/Profile_dup.png"} 
                       roundedCircle 
                       width={130} 
                       height={130} 
