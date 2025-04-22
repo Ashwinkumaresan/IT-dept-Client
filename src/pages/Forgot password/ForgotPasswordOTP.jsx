@@ -2,7 +2,7 @@
 
 import axios from "axios"
 import { useState, useEffect, useRef } from "react"
-import { useNavigate } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 
 export const ForgotPasswordOTP = () => {
   const [otp, setOtp] = useState(["", "", "", "", "", ""])
@@ -22,7 +22,7 @@ export const ForgotPasswordOTP = () => {
   // Redirect to email page if no email is found
   useEffect(() => {
     if (!email) {
-      navigate("/forgot-password")
+      navigate("/forgotpassword-email")
     }
   }, [email, navigate])
 
@@ -50,47 +50,63 @@ export const ForgotPasswordOTP = () => {
     return `${mins}:${secs < 10 ? "0" : ""}${secs}`
   }
 
-  // Handle OTP input
-  const handleOtpChange = (index, value) => {
-    if (value.length > 1) {
-      value = value.slice(0, 1)
-    }
-
-    if (value && !/^\d+$/.test(value)) {
-      return
-    }
-
-    const newOtp = [...otp]
-    newOtp[index] = value
-    setOtp(newOtp)
-
-    // Auto-focus next input
-    if (value && index < 5) {
-      inputRefs[index + 1].current.focus()
-    }
+// Handle OTP input (allows both numbers and characters)
+const handleOtpChange = (index, value) => {
+  // Allow only the first character if value contains more than 1 character
+  if (value.length > 1) {
+    value = value.slice(0, 1);
   }
 
-  // Handle key down for backspace
-  const handleKeyDown = (index, e) => {
-    if (e.key === "Backspace" && !otp[index] && index > 0) {
-      inputRefs[index - 1].current.focus()
-    }
+  // Optional: You can add validation to restrict to a specific set of characters (e.g., only alphanumeric)
+  // if (value && !/^[a-zA-Z0-9]*$/.test(value)) {
+  //   return;
+  // }
+
+  const newOtp = [...otp];
+  newOtp[index] = value;
+  setOtp(newOtp);
+
+  // Auto-focus next input if a value is entered
+  if (value && index < otp.length - 1) {
+    inputRefs[index + 1].current.focus();
   }
+}
+
+// Handle key down for backspace and navigation
+const handleKeyDown = (index, e) => {
+  if (e.key === "Backspace" && !otp[index] && index > 0) {
+    inputRefs[index - 1].current.focus();
+  }
+  // Optional: You can handle other keys here if needed
+};
+
+
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if ((e.key === "F5") || (e.ctrlKey && e.key === "r")) {
+        e.preventDefault();
+        alert("Page reload is disabled.");
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
+
 
   // Handle OTP verification
   const handleVerifyOtp = async (e) => {
     e.preventDefault();
-  
+
     const otpValue = otp.join("");
-  
+
     if (otpValue.length !== 6) {
       setOtpError("Please enter a valid 6-digit OTP");
       return;
     }
-  
+
     setOtpError("");
     setIsLoading(true);
-  
+
     try {
       // Send request to backend for OTP verification
       const res = await axios.post(
@@ -101,13 +117,13 @@ export const ForgotPasswordOTP = () => {
         }
       );
       console.log("Server Response:", res.data);
-  
+
       // Store OTP verification status
       sessionStorage.setItem("otpVerified", otp);
-  
+
       // Navigate to password reset page
       navigate("/forgot-password/reset");
-  
+
     } catch (error) {
       console.error("OTP verification error:", error);
       console.log(otp)
@@ -116,29 +132,53 @@ export const ForgotPasswordOTP = () => {
       setIsLoading(false);
     }
   };
-  
+
 
   // Resend OTP
-  const handleResendOtp = () => {
-    if (canResend) {
-      // Reset OTP fields
-      setOtp(["", "", "", "", "", ""])
-      // Reset timer
-      setTimer(300)
-      setCanResend(false)
-      // Focus first input
-      inputRefs[0].current.focus()
+  const resendOtp = async (e) => {
+    e.preventDefault();
 
-      // Show alert
-      alert(`A new OTP has been sent to ${email}`)
+    if (canResend) {
+      try {
+        // Reset OTP fields
+        setOtp(["", "", "", "", "", ""]);
+
+        // Reset timer
+        setTimer(300);
+        setCanResend(false);
+
+        // Focus first input
+        inputRefs[0].current.focus();
+
+        // API call to request a new OTP
+        const res = await axios.post(
+          "https://test.mcetit.drmcetit.com/api/requestChange/",
+          { collegeMail },
+          {
+            headers: { "Content-Type": "application/json" },
+          }
+        );
+
+        console.log("Server Response:", res.data);
+
+        // Alert user
+        alert(`A new OTP has been sent to ${email}`);
+
+        // Continue to OTP verification flow
+        handleVerifyOtp();
+
+      } catch (error) {
+        console.error("Forgot password error:", error);
+      }
     }
-  }
+  };
+
 
   // Mask email for privacy
   const maskEmail = (email) => {
     if (!email) return ""
     const [username, domain] = email.split("@")
-    const maskedUsername = username.charAt(0) + "*".repeat(username.length - 2) + username.charAt(username.length - 1)
+    const maskedUsername = username.charAt(0) + "*".repeat(username.length - 4) + username.charAt(username.length - 3) + username.charAt(username.length - 2) + username.charAt(username.length - 1)
     return `${maskedUsername}@${domain}`
   }
 
@@ -167,7 +207,7 @@ export const ForgotPasswordOTP = () => {
                         key={index}
                         ref={inputRefs[index]}
                         type="text"
-                        className={`form-control text-center ${otpError ? "is-invalid" : ""}`}
+                        className="form-control text-center"
                         maxLength={1}
                         value={digit}
                         onChange={(e) => handleOtpChange(index, e.target.value)}
@@ -182,7 +222,7 @@ export const ForgotPasswordOTP = () => {
 
                 <div className="d-flex justify-content-between align-items-center mb-4">
                   <span className="text-muted small">{!canResend ? `Resend OTP in ${formatTime(timer)}` : ""}</span>
-                  <button type="button" className="btn btn-link p-0" onClick={handleResendOtp} disabled={!canResend}>
+                  <button type="button" className="btn btn-link p-0" onClick={resendOtp} disabled={!canResend}>
                     Resend OTP
                   </button>
                 </div>
@@ -203,9 +243,9 @@ export const ForgotPasswordOTP = () => {
             </div>
             <div className="card-footer bg-light text-center py-3">
               <p className="mb-0">
-                <a href="/forgot-password" className="text-primary">
+                <Link to="/forgotpassword-email" className="text-primary">
                   <i className="bi bi-arrow-left me-1"></i> Back to Email
-                </a>
+                </Link>
               </p>
             </div>
           </div>

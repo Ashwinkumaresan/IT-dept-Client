@@ -136,12 +136,12 @@ export const StudentProfileViewParcipated = () => {
           </div>
           <Link to="/student-profile/activity/form">
             <Button variant="primary">
-              <FaPlus className="me-2" /> Add Activity
+              <FaPlus className="fs-6" /> Add Activity
             </Button>
           </Link>
         </div>
 
-        <Card>
+        <Card style={{width:"80vw"}}>
           <Card.Header className="bg-white">
             <Card.Title className="h5 mb-0">Activity Submissions</Card.Title>
             <Card.Subtitle className="text-muted small mt-1">
@@ -197,7 +197,7 @@ export const StudentProfileViewParcipated = () => {
 
             
             {activeTab === "table" ? (
-              <div className="table-responsive" style={{ width:"75vw", overflowX: "scroll" }}>
+              <div className="table-responsive" style={{ overflowX: "scroll" }}>
                 <Table hover className="align-middle">
                   <thead>
                     <tr>

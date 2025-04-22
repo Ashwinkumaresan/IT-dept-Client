@@ -160,14 +160,13 @@ to {
     flex-direction: column;
   }
   .X{
-    position: absolute;
-    top: 2%;
-    left: 2%;
+    color: white;
+    fill: white;
+    float: right;
     background: transparent;
     outline: none;
     border: none;
-    fill: var(--text-color);
   }
-  .X:hover{
-    fill: var(--primary-button-color);
-  }
+.X:hover{
+    fill: #ccc;
+}

@@ -1,8 +1,6 @@
-"use client"
-
 import axios from "axios"
 import { useState, useEffect } from "react"
-import { useNavigate } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 
 export const ForgotPasswordReset = () => {
   const [newPassword, setNewPassword] = useState("")
@@ -12,12 +10,15 @@ export const ForgotPasswordReset = () => {
   const [isLoading, setIsLoading] = useState(false)
   const navigate = useNavigate()
 
+  const mail = sessionStorage.getItem("resetEmail")
+  const otp_re = sessionStorage.getItem("otpVerified")
+
   // Redirect if not verified
-  // useEffect(() => {
-  //   if (!collegeMail || !otpVerified) {
-  //     navigate("/forgot-password")
-  //   }
-  // }, [collegeMail, otpVerified, navigate])
+  useEffect(() => {
+    if (!mail || !otp_re) {
+      navigate("/forgotpassword-email")
+    }
+  }, [collegeMail, otpVerified, navigate])
 
   // Password strength indicator
   const getPasswordStrength = (password) => {
@@ -198,9 +199,9 @@ export const ForgotPasswordReset = () => {
             </div>
             <div className="card-footer bg-light text-center py-3">
               <p className="mb-0">
-                <a href="/login" className="text-primary">
+                <Link to="/student-login" className="text-primary">
                   Back to Login
-                </a>
+                </Link>
               </p>
             </div>
           </div>

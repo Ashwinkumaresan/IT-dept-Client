@@ -2,7 +2,7 @@
 
 import axios from "axios"
 import { useState } from "react"
-import { useNavigate } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 
 export const ForgotPasswordEmail = () => {
   const [collegeMail, setEmail] = useState("")
@@ -101,9 +101,9 @@ export const ForgotPasswordEmail = () => {
             <div className="card-footer bg-light text-center py-3">
               <p className="mb-0">
                 Remember your password?{" "}
-                <a href="/login" className="text-primary">
+                <Link to="/student-login" className="text-primary">
                   Login
-                </a>
+                </Link>
               </p>
             </div>
           </div>
