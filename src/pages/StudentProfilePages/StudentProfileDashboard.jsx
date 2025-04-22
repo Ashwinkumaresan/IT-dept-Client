@@ -194,14 +194,14 @@ export const StudentProfileDashboard = () => {
               <Card.Body>
                 <div>
                   <Row>
-                    <Col xs={6} md={6} className="text-center">
+                    <Col xs={12} md={6} className="text-center">
                     <p className="text-muted small m-0">Participation Badge</p>
-                    <img src={particpataionBadgeImg} className="img-fluid" alt="" />
+                    <img src={particpataionBadgeImg} style={{width:"40vw"}} className="img-fluid" alt="" />
                     <p className="text-muted small m-0">Participation count: {participationBadge}</p>
                     </Col>
-                    <Col xs={6} md={6} className="text-center">
+                    <Col xs={12} md={6} className="text-center">
                     <p className="text-muted small m-0">Winning Badge</p>
-                    <img src={winnerBadge} className="img-fluid" alt="" />
+                    <img src={winnerBadge} style={{width:"40vw"}} className="img-fluid" alt="" />
                     <p className="text-muted small m-0">Winning count: {WinnerCount}</p>
                     </Col>
                   </Row>

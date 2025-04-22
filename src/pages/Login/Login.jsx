@@ -4,12 +4,12 @@ import { Link, useNavigate } from "react-router-dom";
 import { FaEnvelope, FaLock, FaEye, FaEyeSlash } from "react-icons/fa";
 import axios from "axios";
 
-export const Login = ({notify}) => {
+export const Login = ({ notify }) => {
   const [formData, setFormData] = useState({ collegeMail: "", password: "" });
-  const [isSubmitting, setIsSubmitting] = useState(false); 
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState(false);
-  const [sendNotify, setSendNotify] = useState(false) 
+  const [sendNotify, setSendNotify] = useState(false)
   const navigate = useNavigate();
 
 
@@ -39,13 +39,15 @@ export const Login = ({notify}) => {
       console.log("Server Response:", loginResponse.data);
 
       localStorage.setItem("access_token", loginResponse.data.access_token);
-        localStorage.setItem("refresh_token", loginResponse.data.refresh_token);
+      localStorage.setItem("refresh_token", loginResponse.data.refresh_token);
+      localStorage.setItem("CollegeMail", formData.collegeMail);
+      localStorage.setItem("timestamp", new Date().getTime());
 
-        console.log(loginResponse.data.access);
-        console.log(loginResponse.data);
+      console.log(loginResponse.data.access);
+      console.log(loginResponse.data);
 
-        navigate("/");
-        setSendNotify(notify)
+      navigate("/");
+      setSendNotify(notify)
     } catch (error) {
       setError(true);
       console.error("Error response:", error.loginResponse?.data || error.loginResponse.data);
@@ -92,7 +94,7 @@ export const Login = ({notify}) => {
                   <Form.Group className="mb-3">
                     <div className="d-flex justify-content-between align-items-center">
                       <Form.Label>Password</Form.Label>
-                      <Link to="#" className="text-primary small">
+                      <Link to="/forgotpassword-email" className="text-primary small">
                         Forgot Password?
                       </Link>
                     </div>

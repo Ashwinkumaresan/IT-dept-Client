@@ -546,7 +546,7 @@ export const StudentEditProfile = ({profileSubmit}) => {
                 <Button variant="outline-secondary" onClick={handleCancel} className="me-2">
                     Cancel
                 </Button>
-                <Button variant="primary" type="submit" onClick={profileSubmit}>
+                <Button variant="primary" type="submit" onClick={profileSubmitted}>
                   Save Changes
                 </Button>
               </div>

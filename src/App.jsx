@@ -24,6 +24,11 @@ import { ToastContainer, toast } from 'react-toastify';
 import ProtectedRoute from "./components/ProtectedRoute";
 import Unauthorized from "./pages/Unauthorized";
 import { useEffect, useState } from 'react';
+import { PlacementPage } from './pages/PlacementPage';
+import { GalleryPage } from './pages/GalleryPage';
+import { ForgotPasswordEmail } from './pages/Forgot password/ForgotPasswordEmail';
+import { ForgotPasswordOTP } from './pages/Forgot password/ForgotPasswordOTP';
+import { ForgotPasswordReset } from './pages/Forgot password/ForgotPasswordReset';
 
 function App() {
   // const [profileDashboard, setProfileDashboard] = useState("/student-login")
@@ -172,8 +177,14 @@ function App() {
           <Route path="/" element={[<Navbar />, <Home />]} />
           <Route path="/about" element={[<Navbar />, <About />]} />
           <Route path="/association" element={[<Navbar />, <Association />]} />
+          <Route path='/placement' element={[<Navbar />, <PlacementPage/>] } />
+          <Route path='/gallery' element={[<Navbar />, <GalleryPage/>] } />
           <Route path="/student-login" element={<Login notify={notify} />} />
           <Route path="/student-signup" element={<Signup />} />
+
+          <Route path='/forgotpassword-email' element={<ForgotPasswordEmail/>} />
+          <Route path='/forgot-password/otp' element={<ForgotPasswordOTP/>} />
+          <Route path='/forgot-password/reset' element={<ForgotPasswordReset/>} />
 
           <Route path="/student-profile" element={
             <ProtectedRoute tokenKey="access_token">

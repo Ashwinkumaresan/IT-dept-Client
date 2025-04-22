@@ -1,14 +1,14 @@
-import React, { useState } from 'react'
 import { StudentSideBar } from '../../components/StudentProfileComponent/StudentSideBar'
 import { useNavigate } from "react-router-dom";
 
 export const StudentProfileSetting = ( {logoutButton} ) => {
     const navigate = useNavigate();
-    const [logToast, setLogToast] = useState(null);
 
     const logOut = () =>{
-        localStorage.removeItem('access_token')
-        localStorage.removeItem('refresh_token')
+        localStorage.removeItem('access_token');
+        localStorage.removeItem('refresh_token');
+        //localStorage.removeItem('CollegeMail');
+        localStorage.removeItem('timestamp');
         logoutButton();
         navigate("/")
     }

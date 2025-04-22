@@ -22,14 +22,14 @@ export const StudentSideBar = () => {
   }
 
   return (
-    <div className={`sidebar ${collapsed ? "collapsed" : ""}`}>
+    <div className={`sidebar ${!collapsed ? "collapsed" : ""}`}>
       <div style={{
         position:"sticky",
         top:"0px",
       }}>
 
       <div className="d-flex align-items-center justify-content-between p-3 border-bottom">
-        <div  className={`mb-0 ${collapsed ? "d-none" : ""} d-flex`}>
+        <div  className={`mb-0 ${!collapsed ? "d-none" : ""} d-flex`}>
 
         <a href="/" style={{textDecoration:"none", color:"black"}}>
           <IoIosArrowBack  style={{cursor:"pointer", fontSize:"20px"}}/>
@@ -42,25 +42,25 @@ export const StudentSideBar = () => {
       </div>
 
       <div className="py-2">
-        <Link to="/student-profile" className={`sidebar-link ${isActive("/student-profile") ? "active" : ""}`} onClick={toggleSidebar}>
+        <Link to="/student-profile" className={`sidebar-link ${isActive("/student-profile") ? "active" : ""}`} >
           <FaHome className="sidebar-icon" />
           <span className="sidebar-text">Dashboard</span>
         </Link>
 
-        <Link to="/student-profile/info" className={`sidebar-link ${isActive("/student-profile/info") ? "active" : ""}`} onClick={toggleSidebar}>
+        <Link to="/student-profile/info" className={`sidebar-link ${isActive("/student-profile/info") ? "active" : ""}`} >
           <FaUser className="sidebar-icon" />
           <span className="sidebar-text">Personal Info</span>
         </Link>
 
         <div>
-          <div className="sidebar-link" onClick={toggleCoCurricular} style={{ cursor: "pointer" }}>
+          <div className="sidebar-link" onClick={toggleSidebar} style={{ cursor: "pointer" }}>
             <FaAward className="sidebar-icon" />
             <span className="sidebar-text">Submissions</span>
             {!collapsed &&
               (coCurricularOpen ? <FaChevronUp className="ms-auto" /> : <FaChevronDown className="ms-auto" />)}
           </div>
 
-          {coCurricularOpen && !collapsed && (
+          {coCurricularOpen && collapsed && (
             <div className="ps-4">
               <Link
                 to="/student-profile/activity/form"
