@@ -116,7 +116,7 @@ const handleKeyDown = (index, e) => {
           headers: { "Content-Type": "application/json" },
         }
       );
-      console.log("Server Response:", res.data);
+      //console.log("Server Response:", res.data);
 
       // Store OTP verification status
       sessionStorage.setItem("otpVerified", otp);

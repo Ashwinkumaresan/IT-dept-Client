@@ -1,52 +1,11 @@
 "use client"
 
-import { useState } from "react"
-
-// Sample gallery data
-const galleryEvents = [
-  {
-    id: 1,
-    title: "Annual Tech Fest 2023",
-    description: "Students showcasing innovative projects at our annual technology festival",
-    images: [
-      { id: 1, src: "https://via.placeholder.com/400x300", alt: "Tech Fest Project 1" },
-      { id: 2, src: "https://via.placeholder.com/400x300", alt: "Tech Fest Project 2" },
-    ],
-  },
-  {
-    id: 2,
-    title: "National Coding Competition",
-    description: "Our students won first place in the national coding championship",
-    images: [
-      { id: 4, src: "https://via.placeholder.com/400x300", alt: "Coding Team" },
-      { id: 5, src: "https://via.placeholder.com/400x300", alt: "Award Ceremony" },
-      { id: 6, src: "https://via.placeholder.com/400x300", alt: "Winners with Trophy" },
-    ],
-  },
-  {
-    id: 3,
-    title: "Cultural Festival",
-    description: "Annual cultural celebration showcasing diverse talents of our students",
-    images: [
-      { id: 7, src: "https://via.placeholder.com/400x300", alt: "Dance Performance" },
-      { id: 8, src: "https://via.placeholder.com/400x300", alt: "Music Band" },
-      { id: 9, src: "https://via.placeholder.com/400x300", alt: "Art Exhibition" },
-    ],
-  },
-  {
-    id: 4,
-    title: "Sports Championship",
-    description: "Our college team winning the inter-college basketball tournament",
-    images: [
-      { id: 10, src: "https://via.placeholder.com/400x300", alt: "Basketball Match" },
-      { id: 11, src: "https://via.placeholder.com/400x300", alt: "Team Photo" },
-      { id: 12, src: "https://via.placeholder.com/400x300", alt: "Award Ceremony" },
-    ],
-  },
-]
+import axios from "axios"
+import { useEffect, useState } from "react"
 
 export const GalleryPage = () => {
   const [selectedImage, setSelectedImage] = useState(null)
+  const [gallerEvents, setGalleryEvents] = useState([])
 
   // Open image in modal
   const openModal = (image) => {
@@ -58,62 +17,87 @@ export const GalleryPage = () => {
     setSelectedImage(null)
   }
 
+  useEffect(() => {
+    const fetchAssociation = async () => {
+      try {
+        const response = await axios.get("https://test.mcetit.drmcetit.com/api/gallery/");
+        console.log(response.data);
+
+        setGalleryEvents(response.data);
+      } catch (error) {
+        console.error("Error fetching data:", error.response?.data || error.message);
+      }
+    };
+
+    fetchAssociation();
+  }, [])
+
   return (
     <div className="container py-5">
-      <div className="row mb-4">
-        <div className="col-12 text-center">
-          <h1 className="display-5 fw-bold">Student Achievement Gallery</h1>
-          <p className="lead">Celebrating our students' accomplishments and memorable events</p>
+    <h1 className="mt-5 fw-bold text-center display-4">PrideWall</h1>
+    <p className="text-center lead mb-5">Where student stories of success are forever framed.</p>
+
+    {Array.isArray(gallerEvents) && gallerEvents.map((gallery) => (
+      <div key={gallery._id} className="row g-0 border rounded  p-4 mb-5 bg-white">
+        
+        <div className="col-12 col-md-6 d-flex flex-column justify-content-center p-4">
+          <div className="d-flex align-items-center justify-content-between mb-4">
+            <h2 className="fw-bolder fs-1">{gallery.eventName}</h2>
+            <div className="d-flex gap-2">
+              <span className="badge text-bg-secondary fs-6">{gallery.date}</span>
+              <span className="badge text-bg-info fs-6">{gallery.year}</span>
+            </div>
+          </div>
+
+          <div className="mb-4">
+            <h5 className="fw-semibold mb-2">👥 Participants:</h5>
+            <ul className="list-unstyled">
+              {gallery.studentName.map((name, index) => (
+                <li key={index} className="fs-5 mb-1">
+                  <i className="bi bi-person-fill me-2 text-primary"></i>{name}
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="mb-4">
+            <h5 className="fw-semibold mb-2">🏫 Institution:</h5>
+            <p className="m-0 fs-5">{gallery.collegeName}</p>
+            <p className="m-0 fs-5 text-muted">{gallery.collegeCity}</p>
+          </div>
+
+          <div className="mt-3">
+            <span className="badge border rounded fs-5 px-3 py-2" style={{
+              background: 'linear-gradient(45deg, #4CAF50, #81C784)',
+              color: 'white',
+            }}>
+              🏆 {gallery.prize}
+            </span>
+          </div>
         </div>
+
+        <div className="col-12 col-md-6 overflow-hidden rounded-4">
+          <img
+            src={`https://test.mcetit.drmcetit.com${gallery.img}`}
+            className="img-fluid"
+            alt="event"
+            style={{
+              objectFit: 'cover',
+              width: '100%',
+              height: '100%',
+              transition: 'transform 0.5s ease',
+              cursor: 'pointer'
+            }}
+            onMouseOver={(e) => (e.currentTarget.style.transform = 'scale(1.05)')}
+            onMouseOut={(e) => (e.currentTarget.style.transform = 'scale(1)')}
+          />
+        </div>
+
       </div>
+    ))}
+  </div>
 
-      {galleryEvents.map((event) => (
-        <div key={event.id} className="mb-5">
-          <div className="row mb-3">
-            <div className="col">
-              <h2 className="border-bottom pb-2">{event.title}</h2>
-              <p className="text-muted">{event.description}</p>
-            </div>
-          </div>
 
-          <div className="row g-4">
-            {event.images.map((image) => (
-              <div key={image.id} className="col-md-6 col-lg-4">
-                <div className="card h-100 shadow-sm hover-card">
-                  <img
-                    src={image.src || "/placeholder.svg"}
-                    alt={image.alt}
-                    className="card-img-top"
-                    style={{ height: "200px", objectFit: "cover", cursor: "pointer" }}
-                    onClick={() => openModal(image)}
-                  />
-                  <div className="card-body">
-                    <h5 className="card-title">{image.alt}</h5>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      ))}
 
-      {/* Image Modal */}
-      {selectedImage && (
-        <div className="modal show d-block" tabIndex="-1" onClick={closeModal}>
-          <div className="modal-dialog modal-dialog-centered modal-lg" onClick={(e) => e.stopPropagation()}>
-            <div className="modal-content">
-              <div className="modal-header">
-                <h5 className="modal-title">{selectedImage.alt}</h5>
-                <button type="button" className="btn-close" onClick={closeModal}></button>
-              </div>
-              <div className="modal-body text-center p-0">
-                <img src={selectedImage.src || "/placeholder.svg"} alt={selectedImage.alt} className="img-fluid" />
-              </div>
-            </div>
-          </div>
-          <div className="modal-backdrop show"></div>
-        </div>
-      )}
-    </div>
   )
 }

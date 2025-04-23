@@ -174,6 +174,9 @@ const ModernNavbar = () => {
               <Link to="/association" onClick={handleNavItemClick} className="nav-link">
                 Association
               </Link>
+              <Link to="/gallery" onClick={handleNavItemClick} className="nav-link">
+              PrideWall
+              </Link>
             </Nav>
 
             <div className="d-none d-lg-block">

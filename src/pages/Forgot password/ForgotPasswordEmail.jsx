@@ -36,7 +36,7 @@ export const ForgotPasswordEmail = () => {
           headers: { "Content-Type": "application/json" },
         }
       );
-      console.log("Server Response:", res.data);
+      //console.log("Server Response:", res.data);
   
       // Store email in sessionStorage to access it in the OTP page
       sessionStorage.setItem("resetEmail", collegeMail);

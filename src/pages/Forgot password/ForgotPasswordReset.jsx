@@ -89,7 +89,7 @@ export const ForgotPasswordReset = () => {
           headers: { "Content-Type": "application/json" },
         }
       );
-      console.log("Server Response:", res.data);
+      //console.log("Server Response:", res.data);
   
       // Clear session storage
       sessionStorage.removeItem("resetEmail");
