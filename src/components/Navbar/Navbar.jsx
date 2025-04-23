@@ -116,13 +116,13 @@ const ModernNavbar = () => {
       >
         <Container>
           <Navbar.Brand href="/" className="brand">
-            <div className="d-flex ">
+            <div className="d-flex align-items-center">
               <img src="mcetlogo.png" alt="" style={{
                 width: "55px", height: "55px", objectFit: "contain"
               }} />
               <div>
-                <span className="m-0 p-0" style={{ fontSize: "8px" }}>Dr.Mahalingam College of Engineering and Technology</span>
-                <p className="m-0 p-0 fw-bold" style={{ fontSize: "10px" }}>Information Technology</p>
+                <span className="m-0 p-0 d-none d-md-block" style={{ fontSize: "8px" }}>Dr.Mahalingam College of Engineering and Technology</span>
+                <p className="m-0 p-0 fw-bold" style={{ fontSize: "15px" }}>Information Technology</p>
               </div>
             </div>
           </Navbar.Brand>
