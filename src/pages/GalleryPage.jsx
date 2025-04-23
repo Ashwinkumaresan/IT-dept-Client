@@ -44,8 +44,8 @@ export const GalleryPage = () => {
           <div className="d-flex align-items-center justify-content-between mb-4">
             <h2 className="fw-bolder fs-1">{gallery.eventName}</h2>
             <div className="d-flex gap-2">
-              <span className="badge text-bg-secondary fs-6">{gallery.date}</span>
-              <span className="badge text-bg-info fs-6">{gallery.year}</span>
+              <span className="badge text-bg-secondary " style={{fontSize:"12px"}}>{gallery.date}</span>
+              <span className="badge text-bg-info " style={{fontSize:"12px"}}>{gallery.year}</span>
             </div>
           </div>
 
@@ -53,7 +53,7 @@ export const GalleryPage = () => {
             <h5 className="fw-semibold mb-2">👥 Participants:</h5>
             <ul className="list-unstyled">
               {gallery.studentName.map((name, index) => (
-                <li key={index} className="fs-5 mb-1">
+                <li key={index} className="fs-6 mb-1">
                   <i className="bi bi-person-fill me-2 text-primary"></i>{name}
                 </li>
               ))}
@@ -62,12 +62,12 @@ export const GalleryPage = () => {
 
           <div className="mb-4">
             <h5 className="fw-semibold mb-2">🏫 Institution:</h5>
-            <p className="m-0 fs-5">{gallery.collegeName}</p>
-            <p className="m-0 fs-5 text-muted">{gallery.collegeCity}</p>
+            <p className="m-0 fs-6">{gallery.collegeName}</p>
+            <p className="m-0 fs-6 text-muted">{gallery.collegeCity}</p>
           </div>
 
           <div className="mt-3">
-            <span className="badge border rounded fs-5 px-3 py-2" style={{
+            <span className="badge border rounded fs-6 px-3 py-2" style={{
               background: 'linear-gradient(45deg, #4CAF50, #81C784)',
               color: 'white',
             }}>

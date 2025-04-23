@@ -79,28 +79,30 @@ const ModernNavbar = () => {
         openPopup &&
         <div className="popup_login" style={{ zIndex: "999999999999" }}>
           <div>
-            <div className="card-body">
-          <div className="popup_login_container container  border rounded ps-5 pb-5 pt-5">
-          <button className="X" onClick={() => setOpenPopup(false)}><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24"><path d="M6.4 19L5 17.6l5.6-5.6L5 6.4L6.4 5l5.6 5.6L17.6 5L19 6.4L13.4 12l5.6 5.6l-1.4 1.4l-5.6-5.6z" /></svg></button>
-            <div className="row border rounded">
-              <div className="col-12 col-md-6 bg-primary text-white rounded p-5">
-                <p className="m-0">Login</p>
-                <h1 className="mb-4">For Student</h1>
-                <Link to="/student-login">
-                  <button className="w-100 btn btn-light">Login</button>
-                </Link>
-                <p className="m-0">Don't have an account? <Link to="/student-signup"><span className="text-white">Sign up</span></Link></p>
+            <div>
+              <div className="container  border rounded ps-5 pb-5 pt-5">
+                <button className="X" onClick={() => setOpenPopup(false)}><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24"><path d="M6.4 19L5 17.6l5.6-5.6L5 6.4L6.4 5l5.6 5.6L17.6 5L19 6.4L13.4 12l5.6 5.6l-1.4 1.4l-5.6-5.6z" /></svg></button>
+                <div className="row border rounded">
+                  <div className="col-12 col-md-6 bg-primary text-white rounded p-5">
+                    <p className="m-0">Login</p>
+                    <h1 className="mb-4">For Student</h1>
+                    <Link to="/student-login">
+                      <button className="w-100 btn btn-light">Login</button>
+                    </Link>
+                    <p className="m-0">Don't have an account? <Link to="/student-signup"><span className="text-white" style={{
+                      borderBottom: "1px solid white"
+                    }}>Sign up</span></Link></p>
+                  </div>
+                  <div className="col-12 col-md-6 bg-white text-dark p-5">
+                    <p className="m-0">Login</p>
+                    <h1 className="mb-4">For Staff's</h1>
+                    <Link to="/staff-login">
+                      <button className="w-100 btn btn-primary">Login</button>
+                    </Link>
+                    <p className="m-0">Don't have an account? <Link to="/staff-signup"><span style={{ color: "black" }} >Sign up</span></Link></p>
+                  </div>
+                </div>
               </div>
-              <div className="col-12 col-md-6 bg-white text-dark p-5">
-                <p className="m-0">Login</p>
-                <h1 className="mb-4">For Staff's</h1>
-                <Link to="/staff-login">
-                  <button className="w-100 btn btn-primary">Login</button>
-                </Link>
-                <p className="m-0">Don't have an account? <Link to="/staff-signup"><span className="text-primary">Sign up</span></Link></p>
-              </div>
-            </div>
-          </div>
             </div>
           </div>
         </div>
@@ -109,12 +111,20 @@ const ModernNavbar = () => {
         ref={navbarRef}
         expand="lg"
         expanded={expanded}
-        className={`modern-navbar ${scrolled ? "scrolled" : ""}`}
+        className={`modern-navbar ${scrolled ? "scrolled" : ""} m-0 p-0`}
         fixed="top"
       >
         <Container>
-          <Navbar.Brand href="#home" className="brand">
-            <span className="brand-text">Dr. MCET</span>
+          <Navbar.Brand href="/" className="brand">
+            <div className="d-flex ">
+              <img src="mcetlogo.png" alt="" style={{
+                width: "55px", height: "55px", objectFit: "contain"
+              }} />
+              <div>
+                <span className="m-0 p-0" style={{ fontSize: "8px" }}>Dr.Mahalingam College of Engineering and Technology</span>
+                <p className="m-0 p-0 fw-bold" style={{ fontSize: "10px" }}>Information Technology</p>
+              </div>
+            </div>
           </Navbar.Brand>
 
           <div className="d-flex align-items-center">
@@ -125,7 +135,7 @@ const ModernNavbar = () => {
                 }}>
                   <Link to="/student-profile">
                     <button className="btn">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="#000000" d="M5.85 17.1q1.275-.975 2.85-1.537T12 15t3.3.563t2.85 1.537q.875-1.025 1.363-2.325T20 12q0-3.325-2.337-5.663T12 4T6.337 6.338T4 12q0 1.475.488 2.775T5.85 17.1M12 13q-1.475 0-2.488-1.012T8.5 9.5t1.013-2.488T12 6t2.488 1.013T15.5 9.5t-1.012 2.488T12 13m0 9q-2.075 0-3.9-.788t-3.175-2.137T2.788 15.9T2 12t.788-3.9t2.137-3.175T8.1 2.788T12 2t3.9.788t3.175 2.137T21.213 8.1T22 12t-.788 3.9t-2.137 3.175t-3.175 2.138T12 22" /></svg>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24"><path fill="#000000" d="M5.85 17.1q1.275-.975 2.85-1.537T12 15t3.3.563t2.85 1.537q.875-1.025 1.363-2.325T20 12q0-3.325-2.337-5.663T12 4T6.337 6.338T4 12q0 1.475.488 2.775T5.85 17.1M12 13q-1.475 0-2.488-1.012T8.5 9.5t1.013-2.488T12 6t2.488 1.013T15.5 9.5t-1.012 2.488T12 13m0 9q-2.075 0-3.9-.788t-3.175-2.137T2.788 15.9T2 12t.788-3.9t2.137-3.175T8.1 2.788T12 2t3.9.788t3.175 2.137T21.213 8.1T22 12t-.788 3.9t-2.137 3.175t-3.175 2.138T12 22" /></svg>
                     </button>
                   </Link>
                 </a>
@@ -136,12 +146,12 @@ const ModernNavbar = () => {
                 }}>
                   <Link to="/staff-profile">
                     <button className="btn">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="#000000" d="M5.85 17.1q1.275-.975 2.85-1.537T12 15t3.3.563t2.85 1.537q.875-1.025 1.363-2.325T20 12q0-3.325-2.337-5.663T12 4T6.337 6.338T4 12q0 1.475.488 2.775T5.85 17.1M12 13q-1.475 0-2.488-1.012T8.5 9.5t1.013-2.488T12 6t2.488 1.013T15.5 9.5t-1.012 2.488T12 13m0 9q-2.075 0-3.9-.788t-3.175-2.137T2.788 15.9T2 12t.788-3.9t2.137-3.175T8.1 2.788T12 2t3.9.788t3.175 2.137T21.213 8.1T22 12t-.788 3.9t-2.137 3.175t-3.175 2.138T12 22" /></svg>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24"><path fill="#000000" d="M5.85 17.1q1.275-.975 2.85-1.537T12 15t3.3.563t2.85 1.537q.875-1.025 1.363-2.325T20 12q0-3.325-2.337-5.663T12 4T6.337 6.338T4 12q0 1.475.488 2.775T5.85 17.1M12 13q-1.475 0-2.488-1.012T8.5 9.5t1.013-2.488T12 6t2.488 1.013T15.5 9.5t-1.012 2.488T12 13m0 9q-2.075 0-3.9-.788t-3.175-2.137T2.788 15.9T2 12t.788-3.9t2.137-3.175T8.1 2.788T12 2t3.9.788t3.175 2.137T21.213 8.1T22 12t-.788 3.9t-2.137 3.175t-3.175 2.138T12 22" /></svg>
                     </button>
                   </Link>
                 </a>
               }
-              {state && <button className='btn btn-primary text-white ms-lg-3 px-4' onClick={() => [setOpenPopup(true), Scroll()]}>Login</button>}
+              {state && <button className='btn btn-primary text-white ms-lg-3 px-4' style={{ fontSize: "12px" }} onClick={() => [setOpenPopup(true), Scroll()]}>Login</button>}
             </div>
 
             <Navbar.Toggle
@@ -159,35 +169,35 @@ const ModernNavbar = () => {
 
           <Navbar.Collapse id="basic-navbar-nav" className="navbar-collapse">
             <Nav className="mx-auto">
-              <Link to="/" onClick={handleNavItemClick} className="nav-link">
+              <Link to="/" onClick={handleNavItemClick} className="nav-link" style={{ fontSize: "12px" }}>
                 Home
               </Link>
-              <Link to="/about" onClick={handleNavItemClick} className="nav-link">
+              <Link to="/about" onClick={handleNavItemClick} className="nav-link" style={{ fontSize: "12px" }}>
                 About
               </Link>
-              <Link to="/placement" onClick={handleNavItemClick} className="nav-link">
+              <Link to="/placement" onClick={handleNavItemClick} className="nav-link" style={{ fontSize: "12px" }}>
                 Placement
               </Link>
-              <Link to="/facilities" onClick={handleNavItemClick} className="nav-link">
+              <Link to="/facilities" onClick={handleNavItemClick} className="nav-link" style={{ fontSize: "12px" }}>
                 Facilities
               </Link>
-              <Link to="/association" onClick={handleNavItemClick} className="nav-link">
+              <Link to="/association" onClick={handleNavItemClick} className="nav-link" style={{ fontSize: "12px" }}>
                 Association
               </Link>
-              <Link to="/gallery" onClick={handleNavItemClick} className="nav-link">
-              PrideWall
+              <Link to="/gallery" onClick={handleNavItemClick} className="nav-link" style={{ fontSize: "12px" }}>
+                PrideWall
               </Link>
             </Nav>
 
             <div className="d-none d-lg-block">
-              {state && <button className='btn btn-primary text-white ms-lg-3 px-4' onClick={() => [setOpenPopup(true), Scroll()]}>Login</button>}
+              {state && <button className='btn btn-primary text-white ms-lg-3 px-4' style={{ fontSize: "12px" }} onClick={() => [setOpenPopup(true), Scroll()]}>Login</button>}
               {profileSvg && profile &&
                 <a href="/#/student-profile" onClick={() => {
                   window.location.reload();
                 }}>
                   <Link to="/student-profile">
                     <button className="btn">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="#000000" d="M5.85 17.1q1.275-.975 2.85-1.537T12 15t3.3.563t2.85 1.537q.875-1.025 1.363-2.325T20 12q0-3.325-2.337-5.663T12 4T6.337 6.338T4 12q0 1.475.488 2.775T5.85 17.1M12 13q-1.475 0-2.488-1.012T8.5 9.5t1.013-2.488T12 6t2.488 1.013T15.5 9.5t-1.012 2.488T12 13m0 9q-2.075 0-3.9-.788t-3.175-2.137T2.788 15.9T2 12t.788-3.9t2.137-3.175T8.1 2.788T12 2t3.9.788t3.175 2.137T21.213 8.1T22 12t-.788 3.9t-2.137 3.175t-3.175 2.138T12 22" /></svg>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24"><path fill="#000000" d="M5.85 17.1q1.275-.975 2.85-1.537T12 15t3.3.563t2.85 1.537q.875-1.025 1.363-2.325T20 12q0-3.325-2.337-5.663T12 4T6.337 6.338T4 12q0 1.475.488 2.775T5.85 17.1M12 13q-1.475 0-2.488-1.012T8.5 9.5t1.013-2.488T12 6t2.488 1.013T15.5 9.5t-1.012 2.488T12 13m0 9q-2.075 0-3.9-.788t-3.175-2.137T2.788 15.9T2 12t.788-3.9t2.137-3.175T8.1 2.788T12 2t3.9.788t3.175 2.137T21.213 8.1T22 12t-.788 3.9t-2.137 3.175t-3.175 2.138T12 22" /></svg>
                     </button>
                   </Link>
                 </a>
@@ -198,7 +208,7 @@ const ModernNavbar = () => {
                 }}>
                   <Link to="/staff-profile">
                     <button className="btn">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="#000000" d="M5.85 17.1q1.275-.975 2.85-1.537T12 15t3.3.563t2.85 1.537q.875-1.025 1.363-2.325T20 12q0-3.325-2.337-5.663T12 4T6.337 6.338T4 12q0 1.475.488 2.775T5.85 17.1M12 13q-1.475 0-2.488-1.012T8.5 9.5t1.013-2.488T12 6t2.488 1.013T15.5 9.5t-1.012 2.488T12 13m0 9q-2.075 0-3.9-.788t-3.175-2.137T2.788 15.9T2 12t.788-3.9t2.137-3.175T8.1 2.788T12 2t3.9.788t3.175 2.137T21.213 8.1T22 12t-.788 3.9t-2.137 3.175t-3.175 2.138T12 22" /></svg>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24"><path fill="#000000" d="M5.85 17.1q1.275-.975 2.85-1.537T12 15t3.3.563t2.85 1.537q.875-1.025 1.363-2.325T20 12q0-3.325-2.337-5.663T12 4T6.337 6.338T4 12q0 1.475.488 2.775T5.85 17.1M12 13q-1.475 0-2.488-1.012T8.5 9.5t1.013-2.488T12 6t2.488 1.013T15.5 9.5t-1.012 2.488T12 13m0 9q-2.075 0-3.9-.788t-3.175-2.137T2.788 15.9T2 12t.788-3.9t2.137-3.175T8.1 2.788T12 2t3.9.788t3.175 2.137T21.213 8.1T22 12t-.788 3.9t-2.137 3.175t-3.175 2.138T12 22" /></svg>
                     </button>
                   </Link>
                 </a>

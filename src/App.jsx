@@ -6,6 +6,7 @@ import './App.css'
 import { HashRouter, Routes, Route } from 'react-router-dom';
 import {Helmet} from "react-helmet";
 import { useEffect } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
 
 import Navbar from './components/Navbar/Navbar';
 import Home from "./pages/Home";
@@ -26,12 +27,12 @@ import { StaffSignup } from './pages/Signup/StaffSignup';
 import { StaffProfile } from './pages/Staff/StaffProfile';
 import { StaffSetting } from './pages/Staff/StaffSetting';
 import { StudentProfile } from './pages/Staff/StudentProfile';
-import { ToastContainer, toast } from 'react-toastify';
 import { PlacementPage } from './pages/PlacementPage';
 import { GalleryPage } from './pages/GalleryPage';
 import { ForgotPasswordEmail } from './pages/Forgot password/ForgotPasswordEmail';
 import { ForgotPasswordOTP } from './pages/Forgot password/ForgotPasswordOTP';
 import { ForgotPasswordReset } from './pages/Forgot password/ForgotPasswordReset';
+import { Feed } from './pages/Feed';
 
 function App() {
   // Prevent Clickjacking by breaking out of iframe
@@ -156,6 +157,7 @@ function App() {
           <Route path="/association" element={[<Navbar />, <Association />]} />
           <Route path='/placement' element={[<Navbar />, <PlacementPage/>] } />
           <Route path='/gallery' element={[<Navbar />, <GalleryPage/>] } />
+          <Route path='/feed' element={[<Navbar/>, <Feed/>]} />
           <Route path="/student-login" element={<Login notify={notify} />} />
           <Route path="/student-signup" element={<Signup />} />
 
