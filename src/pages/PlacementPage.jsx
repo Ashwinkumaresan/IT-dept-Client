@@ -3,26 +3,28 @@ const topPackages = [
     {
       id: 1,
       company: "Tech Giant Inc.",
-      package: "$120,000",
-      position: "Software Engineer",
-      description: "Full-time role with comprehensive benefits and growth opportunities",
+      package: "11LPA",
+      name: "Student 1",
+      batch: "2022-2025"
     },
     {
       id: 2,
-      company: "Global Finance Ltd.",
-      package: "$110,000",
-      position: "Data Scientist",
-      description: "Working with cutting-edge AI technologies in the financial sector",
+      company: "Tech Giant Inc.",
+      package: "11LPA",
+      name: "Student 1",
+      batch: "2022-2025"
     },
     {
       id: 3,
-      company: "Innovation Systems",
-      package: "$105,000",
-      position: "Product Manager",
-      description: "Leading product development for an industry-leading tech company",
+      company: "Tech Giant Inc.",
+      package: "11LPA",
+      name: "Student 1",
+      batch: "2022-2025"
     },
   ]
   
+
+  // companies images
   const recruitingCompanies = [
     { id: 1, name: "Microsoft", logo: "https://via.placeholder.com/100" },
     { id: 2, name: "Google", logo: "https://via.placeholder.com/100" },
@@ -66,34 +68,39 @@ const topPackages = [
                   </div>
                   <div className="card-body">
                     <h4 className="card-title text-center display-6">{pkg.package}</h4>
-                    <h5 className="text-center mb-3">{pkg.position}</h5>
-                    <p className="card-text">{pkg.description}</p>
+                    <h5 className="text-center mb-3">{pkg.name}</h5>
+                    <p className="card-text text-center">{pkg.batch}</p>
                   </div>
                 </div>
               </div>
             ))}
           </div>
         </section>
+
+        {/* Hero section with top packages in this year */}
+        <section className="mb-5">
+          <div className="row mb-4">
+            <div className="col">
+              <h2 className="border-bottom pb-2">Current Year Top Placement Packages</h2>
+              <p className="text-muted">Our students have received exceptional offers from leading companies</p>
+            </div>
+          </div>
   
-        {/* Stats section */}
-        <section className="mb-5 py-4 bg-light rounded">
-          <div className="row text-center">
-            <div className="col-md-3">
-              <h3 className="display-4 fw-bold text-primary">95%</h3>
-              <p>Placement Rate</p>
-            </div>
-            <div className="col-md-3">
-              <h3 className="display-4 fw-bold text-primary">120+</h3>
-              <p>Companies Visited</p>
-            </div>
-            <div className="col-md-3">
-              <h3 className="display-4 fw-bold text-primary">$85K</h3>
-              <p>Average Package</p>
-            </div>
-            <div className="col-md-3">
-              <h3 className="display-4 fw-bold text-primary">1200+</h3>
-              <p>Students Placed</p>
-            </div>
+          <div className="row g-4">
+            {topPackages.map((pkg) => (
+              <div key={pkg.id} className="col-md-4">
+                <div className="card h-100 shadow border-primary hover-card">
+                  <div className="card-header bg-primary text-white">
+                    <h3 className="h5 mb-0">{pkg.company}</h3>
+                  </div>
+                  <div className="card-body">
+                    <h4 className="card-title text-center display-6">{pkg.package}</h4>
+                    <h5 className="text-center mb-3">{pkg.name}</h5>
+                    <p className="card-text text-center">{pkg.batch}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
         </section>
   

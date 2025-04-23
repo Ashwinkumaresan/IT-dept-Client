@@ -11,7 +11,6 @@ const galleryEvents = [
     images: [
       { id: 1, src: "https://via.placeholder.com/400x300", alt: "Tech Fest Project 1" },
       { id: 2, src: "https://via.placeholder.com/400x300", alt: "Tech Fest Project 2" },
-      { id: 3, src: "https://via.placeholder.com/400x300", alt: "Tech Fest Project 3" },
     ],
   },
   {

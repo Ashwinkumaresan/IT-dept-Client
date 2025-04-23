@@ -1,12 +1,18 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import 'bootstrap-icons/font/bootstrap-icons.css';
-import { HashRouter, Routes, Route } from 'react-router-dom';
 import './App.css'
+
+import { HashRouter, Routes, Route } from 'react-router-dom';
+import {Helmet} from "react-helmet";
+import { useEffect } from 'react';
+
 import Navbar from './components/Navbar/Navbar';
 import Home from "./pages/Home";
-import { Login } from './pages/Login/Login';
 import Signup from './pages/Signup/Signup';
+import ProtectedRoute from "./components/ProtectedRoute";
+import Unauthorized from "./pages/Unauthorized";
+import { Login } from './pages/Login/Login';
 import { StudentProfileDashboard } from './pages/StudentProfilePages/StudentProfileDashboard';
 import { StudentProfileSubmitActivity } from './pages/StudentProfilePages/StudentProfileSubmitActivity';
 import { StudentProfileSetting } from './pages/StudentProfilePages/StudentProfileSetting';
@@ -21,9 +27,6 @@ import { StaffProfile } from './pages/Staff/StaffProfile';
 import { StaffSetting } from './pages/Staff/StaffSetting';
 import { StudentProfile } from './pages/Staff/StudentProfile';
 import { ToastContainer, toast } from 'react-toastify';
-import ProtectedRoute from "./components/ProtectedRoute";
-import Unauthorized from "./pages/Unauthorized";
-import { useEffect, useState } from 'react';
 import { PlacementPage } from './pages/PlacementPage';
 import { GalleryPage } from './pages/GalleryPage';
 import { ForgotPasswordEmail } from './pages/Forgot password/ForgotPasswordEmail';
@@ -31,45 +34,12 @@ import { ForgotPasswordOTP } from './pages/Forgot password/ForgotPasswordOTP';
 import { ForgotPasswordReset } from './pages/Forgot password/ForgotPasswordReset';
 
 function App() {
-  // const [profileDashboard, setProfileDashboard] = useState("/student-login")
-  // const [profileActivity, setProfileActivity] = useState("/student-login")
-  // const [profileSettings, setProfileSettings] = useState("/student-login")
-  // const [profileViewParticipated, setprofileViewParticipated] = useState("/student-login")
-  // const [profileInfo, setprofileInfo] = useState("/student-login")
-  // const [profileEdit, setprofileEdit] = useState("/student-login")
-
-  // const [staffProfile, setStaffProfile] = useState("/staff-login")
-  // const [staffProfileSettings, setStaffProfileSettings] = useState("/staff-login")
-  // const [studenProfile, setStudentProfile] = useState("/staff-login")
-
-  // useEffect(() => {
-  //   if (localStorage.getItem("access_token")) {
-  //     setProfileDashboard("/student-profile")
-  //     setProfileActivity("/student-profile/activity/form")
-  //     setProfileSettings("/student-profile/setting")
-  //     setprofileViewParticipated("/student-profile/view/participated")
-  //     setprofileInfo("/student-profile/info")
-  //     setprofileEdit("/student-profile/info/edit")
-  //   }
-  //   else {
-  //     setProfileDashboard("/student-login")
-  //     setProfileActivity("/student-login")
-  //     setProfileSettings("/student-login")
-  //     setprofileViewParticipated("/student-login")
-  //     setprofileInfo("/student-login")
-  //     setprofileEdit("/student-login")
-  //   }
-  //   if (localStorage.getItem("access_token_staff")) {
-  //     setStaffProfile("/staff-profile")
-  //     setStaffProfileSettings("/staff-profile/setting")
-  //     setStudentProfile("/student/:User")
-  //   }
-  //   else {
-  //     setStaffProfile("/staff-login")
-  //     setStaffProfileSettings("/staff-login")
-  //     setStudentProfile("/staff-login")
-  //   }
-  // })
+  // Prevent Clickjacking by breaking out of iframe
+  useEffect(() => {
+    if (window.top !== window.self) {
+      window.top.location = window.location;
+    }
+  }, []);
 
   const notify = () => {
     toast.success('Login Successfully...!', {
@@ -123,7 +93,7 @@ function App() {
 
   return (
     <>
-      <ToastContainer
+    <ToastContainer
         position="top-right"
         autoClose={5000}
         hideProgressBar={false}
@@ -173,7 +143,14 @@ function App() {
         theme="light"
       />
       <HashRouter>
+          <Helmet>
+            <title>Dr. Mahalingam College of Engineering and Technology | Information Technology</title>
+            <meta name="description" content="Information Technology" />
+            <meta name="keywords" content="app, react, education, student, staff" />
+            <link rel="canonical" href="https://testing.drmcet.com" />
+          </Helmet>
         <Routes>
+          
           <Route path="/" element={[<Navbar />, <Home />]} />
           <Route path="/about" element={[<Navbar />, <About />]} />
           <Route path="/association" element={[<Navbar />, <Association />]} />
@@ -242,6 +219,7 @@ function App() {
 
         </Routes>
       </HashRouter>
+
     </>
   )
 }

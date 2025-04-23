@@ -212,9 +212,11 @@ export const Association = () => {
           </div>
           <div className="col-lg-6">
             <img
-              src="/Frame 5446.png"
+              src="/Association_Hero.png"
               alt="IT Student Association"
-              className="img-fluid rounded-4 shadow"
+              className="img-fluid rounded shadow"
+              style={{
+              }}
             />
           </div>
         </div>
@@ -254,7 +256,7 @@ export const Association = () => {
           </div>
 
 
-          <div className="row mt-4">
+          {/* <div className="row mt-4">
             <div className="col-md-4 mb-3">
               <div className="card border-0 shadow-sm h-100">
                 <div className="card-body d-flex align-items-center">
@@ -294,7 +296,7 @@ export const Association = () => {
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
 
