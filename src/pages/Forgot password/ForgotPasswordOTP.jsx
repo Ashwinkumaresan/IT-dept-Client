@@ -7,7 +7,11 @@ import { Link, useNavigate } from "react-router-dom"
 export const ForgotPasswordOTP = () => {
   const [otp, setOtp] = useState(["", "", "", "", "", ""])
   const [otpError, setOtpError] = useState("")
-  const [timer, setTimer] = useState(300) // 5 minutes in seconds
+  const [timer, setTimer] = useState(() => {
+    // Get the timer value from localStorage if available, otherwise set to 300 seconds (5 minutes)
+    const savedTimer = localStorage.getItem('timer');
+    return savedTimer ? JSON.parse(savedTimer) : 300; // Default to 300 seconds (5 minutes)
+  });
   const [canResend, setCanResend] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const collegeMail = sessionStorage.getItem('resetEmail');
@@ -26,29 +30,36 @@ export const ForgotPasswordOTP = () => {
     }
   }, [email, navigate])
 
-  // Timer effect
+
+
   useEffect(() => {
-    let interval
+    let interval;
 
     if (timer > 0) {
       interval = setInterval(() => {
-        setTimer((prevTimer) => prevTimer - 1)
-      }, 1000)
+        setTimer((prevTimer) => {
+          const newTimer = prevTimer - 1;
+          localStorage.setItem('timer', JSON.stringify(newTimer)); // Save the updated timer to localStorage
+          return newTimer;
+        });
+      }, 1000);
     } else {
-      setCanResend(true)
+      setCanResend(true);
     }
 
     return () => {
-      if (interval) clearInterval(interval)
-    }
-  }, [timer])
+      if (interval) clearInterval(interval);
+    };
+  }, [timer]);
 
   // Format timer
   const formatTime = (seconds) => {
-    const mins = Math.floor(seconds / 60)
-    const secs = seconds % 60
-    return `${mins}:${secs < 10 ? "0" : ""}${secs}`
-  }
+    const mins = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${mins}:${secs < 10 ? "0" : ""}${secs}`;
+  };
+
+
 
 // Handle OTP input (allows both numbers and characters)
 const handleOtpChange = (index, value) => {
@@ -81,16 +92,16 @@ const handleKeyDown = (index, e) => {
 };
 
 
-  useEffect(() => {
-    const handleKeyDown = (e) => {
-      if ((e.key === "F5") || (e.ctrlKey && e.key === "r")) {
-        e.preventDefault();
-        alert("Page reload is disabled.");
-      }
-    };
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, []);
+  // useEffect(() => {
+  //   const handleKeyDown = (e) => {
+  //     if ((e.key === "F5") || (e.ctrlKey && e.key === "r")) {
+  //       e.preventDefault();
+  //       alert("Page reload is disabled.");
+  //     }
+  //   };
+  //   window.addEventListener("keydown", handleKeyDown);
+  //   return () => window.removeEventListener("keydown", handleKeyDown);
+  // }, []);
 
 
   // Handle OTP verification
