@@ -19,7 +19,18 @@ export const Association = () => {
     });
 
   };
-
+  const notifyT = (obj) => {
+    toast.error(obj, {
+      position: "top-right",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    })
+  };
   // This will run client-side after the component mounts
   useEffect(() => {
     // Auto-moving office bearers carousel
@@ -61,16 +72,17 @@ export const Association = () => {
     }
   };
 
-
   useEffect(() => {
     const fetchAssociation = async () => {
       try {
         const response = await axios.get("https://test.mcetit.drmcetit.com/api/association/");
-        console.log(response.data);
+        //console.log(response.data);
 
         setAssociationData(response.data);
       } catch (error) {
-        console.error("Error fetching data:", error.response?.data || error.message);
+        //console.error("Error fetching data:", error.response?.data || error.message);
+        notifyT(error.response?.data.detail);
+
       }
     };
 
@@ -93,6 +105,18 @@ export const Association = () => {
         draggable
         pauseOnHover
         theme="colored"
+      />
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss={false}
+        draggable
+        pauseOnHover
+        theme="light"
       />
 
 

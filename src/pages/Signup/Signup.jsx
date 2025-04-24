@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { Container, Row, Col, Form, Button, InputGroup, ProgressBar } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import { FaUser, FaEnvelope, FaLock, FaEye, FaEyeSlash } from "react-icons/fa";
+import { ToastContainer, toast } from 'react-toastify';
 import axios from "axios";
 
 const Signup = () => {
@@ -77,7 +78,7 @@ const Signup = () => {
             navigate("/");
         } catch (error) {
             console.error("Error sending data:", error.response?.data);
-            alert("Error: " + (error.response?.data?.error || error.response?.data.register));
+            notify(error.response?.data?.error || error.response?.data.register);
 
             if(error.response?.data.register)
             setUsernameAlreadyExists(true);
@@ -85,9 +86,34 @@ const Signup = () => {
     }
 };
 
+const notify = (obj) => {
+  toast.warn(obj, {
+    position: "top-right",
+    autoClose: 2000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "light",
+    });
+};
+
 
   return (
     <div className="auth-page mt-5">
+      <ToastContainer
+position="top-right"
+autoClose={2000}
+hideProgressBar={false}
+newestOnTop={false}
+closeOnClick
+rtl={false}
+pauseOnFocusLoss
+draggable
+pauseOnHover
+theme="light"
+/>
       <Container>
         <Row className="justify-content-center min-vh-100 align-items-center">
           <Col md={8} lg={6} xl={5}>
@@ -131,7 +157,6 @@ const Signup = () => {
                       <Form.Control.Feedback type="invalid">{errors.collegeMail}</Form.Control.Feedback>
                     </InputGroup>
                   </Form.Group>
-                  { usernameAlreadyExist && <p className="m-0 text-danger fs-6">You'r college mail id has already register</p>}
 
                   <Form.Group className="mb-3">
                     <Form.Label>Password</Form.Label>
