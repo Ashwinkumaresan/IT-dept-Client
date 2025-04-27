@@ -3,7 +3,7 @@ import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import './App.css'
 
-import { HashRouter, Routes, Route } from 'react-router-dom';
+import { HashRouter, BrowserRouter, Routes, Route } from 'react-router-dom';
 import {Helmet} from "react-helmet";
 import { useEffect } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
@@ -33,8 +33,10 @@ import { ForgotPasswordEmail } from './pages/Forgot password/ForgotPasswordEmail
 import { ForgotPasswordOTP } from './pages/Forgot password/ForgotPasswordOTP';
 import { ForgotPasswordReset } from './pages/Forgot password/ForgotPasswordReset';
 import { Feed } from './pages/Feed';
+import { AssociationEvents } from './pages/AssociationEvents';
 
 function App() {
+  
   // Prevent Clickjacking by breaking out of iframe
   useEffect(() => {
     if (window.top !== window.self) {
@@ -143,7 +145,7 @@ function App() {
         pauseOnHover={false}
         theme="light"
       />
-      <HashRouter>
+      <BrowserRouter>
           <Helmet>
             <title>Dr. Mahalingam College of Engineering and Technology | Information Technology</title>
             <meta name="description" content="Information Technology" />
@@ -155,6 +157,7 @@ function App() {
           <Route path="/" element={[<Navbar />, <Home />]} />
           <Route path="/about" element={[<Navbar />, <About />]} />
           <Route path="/association" element={[<Navbar />, <Association />]} />
+          <Route path='/association-events' element={[<Navbar />, <AssociationEvents/>]} />
           <Route path='/placement' element={[<Navbar />, <PlacementPage/>] } />
           <Route path='/gallery' element={[<Navbar />, <GalleryPage/>] } />
           <Route path='/feed' element={[<Navbar/>, <Feed/>]} />
@@ -220,7 +223,7 @@ function App() {
           } />
 
         </Routes>
-      </HashRouter>
+      </BrowserRouter>
 
     </>
   )

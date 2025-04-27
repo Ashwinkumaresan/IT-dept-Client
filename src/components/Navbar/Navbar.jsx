@@ -172,9 +172,9 @@ const ModernNavbar = () => {
               <Link to="/" onClick={handleNavItemClick} className="nav-link" style={{ fontSize: "12px" }}>
                 Home
               </Link>
-              <Link to="/about" onClick={handleNavItemClick} className="nav-link" style={{ fontSize: "12px" }}>
+              <a href="/about" onClick={handleNavItemClick} className="nav-link" style={{ fontSize: "12px" }}>
                 About
-              </Link>
+              </a>
               <Link to="/placement" onClick={handleNavItemClick} className="nav-link" style={{ fontSize: "12px" }}>
                 Placement
               </Link>

@@ -1,6 +1,7 @@
 import { Award, Heart, Mail, Phone, MapPin, Trophy } from "lucide-react"
 import { ToastContainer, toast } from 'react-toastify';
 import { useEffect, useState } from "react"
+import { Link } from "react-router-dom";
 import axios from "axios"
 
 export const Association = () => {
@@ -119,7 +120,6 @@ export const Association = () => {
         theme="light"
       />
 
-
       {/* Unique Events Carousel */}
       <div className="container mt-5 mb-5">
         <h2 className="display-6 fw-bold text-center mb-4">Our Events Showcase</h2>
@@ -203,6 +203,24 @@ export const Association = () => {
                 ></div>
               </div>
             </div>
+          </div>
+        </div>
+      </div>
+
+     
+
+      {/* Event */}
+      <div className="container card mt-5 mb-5">
+        <div className="row p-4">
+          <div className="col-6 d-flex flex-column justify-content-center">
+            <h2 className="display-6 fw-bold mb-3">Events</h2>
+            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Vel nihil distinctio eaque. Ut, aliquam maxime similique modi iure numquam excepturi est quisquam id impedit fugiat doloribus, possimus harum saepe ex.</p>
+            <Link to="/association-event" className="btn btn-primary w-100" > View Events </Link>
+          </div>
+          <div className="col-6 text-center">
+            <img src="/Infobee_logo.png" className="img-fluid" alt="Infobee" style={{
+              width:"250px"
+            }} />
           </div>
         </div>
       </div>
@@ -367,7 +385,7 @@ export const Association = () => {
 
 
           {/* Navigation controls */}
-          <div className="position-absolute top-50 start-0 translate-middle-y">
+          <div className="position-absolute top-50 start-0 translate-middle-y" >
             <button
               className="btn btn-primary rounded-circle"
               style={{ width: "40px", height: "40px" }}
