@@ -34,6 +34,8 @@ import { ForgotPasswordOTP } from './pages/Forgot password/ForgotPasswordOTP';
 import { ForgotPasswordReset } from './pages/Forgot password/ForgotPasswordReset';
 import { Feed } from './pages/Feed';
 import { AssociationEvents } from './pages/AssociationEvents';
+import { MainLayout } from './components/Layout/MainLayout';
+import { ScrollToTop } from './components/Layout/ScrollToTopjsx';
 
 function App() {
   
@@ -145,7 +147,8 @@ function App() {
         pauseOnHover={false}
         theme="light"
       />
-      <BrowserRouter>
+      <HashRouter>
+      <ScrollToTop/>
           <Helmet>
             <title>Dr. Mahalingam College of Engineering and Technology | Information Technology</title>
             <meta name="description" content="Information Technology" />
@@ -153,14 +156,18 @@ function App() {
             <link rel="canonical" href="https://testing.drmcet.com" />
           </Helmet>
         <Routes>
+
+          <Route element={<MainLayout/>}>
+          <Route path="/" element={[ <Home />]} />
+          <Route path="/about" element={[ <About />]} />
+          <Route path="/association" element={[ <Association />]} />
+          <Route path='/association-events' element={[ <AssociationEvents/>]} />
+          <Route path='/placement' element={[ <PlacementPage/>] } />
+          <Route path='/gallery' element={[ <GalleryPage/>] } />
+          <Route path='/feed' element={[ <Feed/>]} />
+          </Route>
           
-          <Route path="/" element={[<Navbar />, <Home />]} />
-          <Route path="/about" element={[<Navbar />, <About />]} />
-          <Route path="/association" element={[<Navbar />, <Association />]} />
-          <Route path='/association-events' element={[<Navbar />, <AssociationEvents/>]} />
-          <Route path='/placement' element={[<Navbar />, <PlacementPage/>] } />
-          <Route path='/gallery' element={[<Navbar />, <GalleryPage/>] } />
-          <Route path='/feed' element={[<Navbar/>, <Feed/>]} />
+
           <Route path="/student-login" element={<Login notify={notify} />} />
           <Route path="/student-signup" element={<Signup />} />
 
@@ -223,7 +230,7 @@ function App() {
           } />
 
         </Routes>
-      </BrowserRouter>
+      </HashRouter>
 
     </>
   )
