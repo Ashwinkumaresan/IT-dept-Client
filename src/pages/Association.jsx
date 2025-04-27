@@ -215,7 +215,7 @@ export const Association = () => {
           <div className="col-6 d-flex flex-column justify-content-center">
             <h2 className="display-6 fw-bold mb-3">Events</h2>
             <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Vel nihil distinctio eaque. Ut, aliquam maxime similique modi iure numquam excepturi est quisquam id impedit fugiat doloribus, possimus harum saepe ex.</p>
-            <Link to="/association-event" className="btn btn-primary w-100" > View Events </Link>
+            <Link to="/association-events" className="btn btn-primary w-100" > View Events </Link>
           </div>
           <div className="col-6 text-center">
             <img src="/Infobee_logo.png" className="img-fluid" alt="Infobee" style={{

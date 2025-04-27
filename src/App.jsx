@@ -35,7 +35,7 @@ import { ForgotPasswordReset } from './pages/Forgot password/ForgotPasswordReset
 import { Feed } from './pages/Feed';
 import { AssociationEvents } from './pages/AssociationEvents';
 import { MainLayout } from './components/Layout/MainLayout';
-import { ScrollToTop } from './components/Layout/ScrollToTopjsx';
+import { ScrollToTop } from './components/Layout/ScrollToTop.jsx';
 
 function App() {
   
