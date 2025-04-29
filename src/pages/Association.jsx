@@ -77,7 +77,7 @@ export const Association = () => {
     const fetchAssociation = async () => {
       try {
         const response = await axios.get("https://test.mcetit.drmcetit.com/api/association/");
-        //console.log(response.data);
+        console.log(response.data);
 
         setAssociationData(response.data);
       } catch (error) {

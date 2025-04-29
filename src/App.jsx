@@ -36,6 +36,8 @@ import { Feed } from './pages/Feed';
 import { AssociationEvents } from './pages/AssociationEvents';
 import { MainLayout } from './components/Layout/MainLayout';
 import { ScrollToTop } from './components/Layout/ScrollToTop.jsx';
+import { RoadmapDomains } from './pages/Roadmap/RoadmapDomains.jsx';
+import { RoadmapDetail } from './pages/Roadmap/RoadmapDetail.jsx';
 
 function App() {
   
@@ -165,6 +167,9 @@ function App() {
           <Route path='/placement' element={[ <PlacementPage/>] } />
           <Route path='/gallery' element={[ <GalleryPage/>] } />
           <Route path='/feed' element={[ <Feed/>]} />
+          <Route path='/roadmap-domains' element={<RoadmapDomains/>} />
+          <Route path='/roadmap/:domain' element={<RoadmapDetail/>} />
+          
           </Route>
           
 

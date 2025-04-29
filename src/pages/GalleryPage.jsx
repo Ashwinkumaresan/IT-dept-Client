@@ -50,7 +50,7 @@ export const GalleryPage = () => {
         pauseOnHover
         theme="light"
       />
-      <div className="div my-5 d-flex flex-column justify-content-center" style={{
+      {/* <div className="div my-5 d-flex flex-column justify-content-center" style={{
         width:"100%",
         height:"80vh",
          backgroundImage: `url("pridewall.png")`,
@@ -61,11 +61,11 @@ export const GalleryPage = () => {
       }} >
       <h1 className="mt-5 fw-bold text-center display-3">PrideWall</h1>
       <p className="text-center lead mb-5 fw-medium">Where student stories of success are forever framed.</p>
-      </div>
+      </div> */}
 
-      <div className="row">
+      <div className="row mt-5">
         {Array.isArray(gallerEvents) && gallerEvents.map((gallery) => (
-          <div key={gallery._id} className="col-12 col-md-4 mb-4">
+          <div key={gallery._id} className="col-12 col-md-3 mb-4">
             <div className="card h-100 shadow-sm border-0 rounded-4">
               <img
                 src={`https://test.mcetit.drmcetit.com${gallery.img}`}
