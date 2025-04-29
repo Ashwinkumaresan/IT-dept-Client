@@ -37,14 +37,14 @@ export const AssociationEvents = () => {
                 </div>
                 <div className="row mt-5">
                     {fetchAssociationEvents.map((event, index) => (
-                        <div className="col-12 col-md-3 mb-4" key={index}>
+                        <div className="col-12 col-md-4 mb-4" key={index}>
                             <div className="card h-100">
                                 <div className="card-body">
-                                    <div className="d-flex justify-content-between">
+                                    <div className="d-flex justify-content-between mb-2">
                                         <div className="card-title h5">{event.name}</div>
                                         <div className="badge bg-dark d-flex align-items-center">{event.category}</div>
                                     </div>
-                                    <div className="card-text text-muted">{event.description}</div>
+                                    <div className="card-text text-muted mb-1" style={{textAlign:"justify"}}>{event.description}</div>
                                     <div className="card-text text-muted">{event.date}</div>
                                 </div>
                             </div>
