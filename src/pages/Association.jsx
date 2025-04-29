@@ -77,13 +77,12 @@ export const Association = () => {
     const fetchAssociation = async () => {
       try {
         const response = await axios.get("https://test.mcetit.drmcetit.com/api/association/");
-        console.log(response.data);
+        //console.log(response.data);
 
         setAssociationData(response.data);
       } catch (error) {
         //console.error("Error fetching data:", error.response?.data || error.message);
         notifyT(error.response?.data.detail);
-
       }
     };
 
@@ -148,10 +147,10 @@ export const Association = () => {
                           className="position-absolute bottom-0 start-0 w-100 p-4"
                           style={{ background: "linear-gradient(transparent, rgba(0,0,0,0.8))" }}
                         >
-                          <div className="d-flex justify-content-between align-items-end">
+                          <div>
                             <div>
                               <h3 className="text-white fw-bold mb-1">{data.title}</h3>
-                              <p className="text-white mb-0">{data.description}</p>
+                              <p className="text-white mb-2" style={{textAlign:"justify"}}>{data.description}</p>
                             </div>
                             <span className="badge bg-primary rounded-pill px-3 py-2">
                               {data.date}
@@ -212,15 +211,15 @@ export const Association = () => {
       {/* Event */}
       <div className="container card mt-5 mb-5">
         <div className="row p-4">
-          <div className="col-6 d-flex flex-column justify-content-center">
+        <div className="col-12 col-md-4 text-center">
+            <img src="/Infobee_logo.png" className="img-fluid" alt="Infobee" style={{
+              maxWidth:"250px"
+            }} />
+          </div>
+          <div className="col-12 col-md-8 d-flex flex-column justify-content-center">
             <h2 className="display-6 fw-bold mb-3">Events</h2>
             <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Vel nihil distinctio eaque. Ut, aliquam maxime similique modi iure numquam excepturi est quisquam id impedit fugiat doloribus, possimus harum saepe ex.</p>
             <Link to="/association-events" className="btn btn-primary w-100" > View Events </Link>
-          </div>
-          <div className="col-6 text-center">
-            <img src="/Infobee_logo.png" className="img-fluid" alt="Infobee" style={{
-              width:"250px"
-            }} />
           </div>
         </div>
       </div>
@@ -230,14 +229,14 @@ export const Association = () => {
         <div className="row mb-5">
           <div className="col-lg-6">
             <h2 className="display-6 fw-bold mb-4">About the Association</h2>
-            <p className="lead">
-              The IT Association is involved in the planning and integration of student technical activities. It promotes a sense of group responsibility and plays the critical role of student representation for preparing themselves to the IT industry.
+            <p className="lead" style={{fontSize:"14px", textAlign:"justify"}}>
+            Infobee is a student-driven technical association that typically operates under the Information Technology (IT) department . It aims to create a platform for students to explore and expand their knowledge in the field of information technology. The association organizes a variety of events such as technical workshops, seminars, hackathons, coding competitions, and guest lectures from industry professionals. Infobee provides opportunities for students to enhance their practical skills, collaborate on projects, and stay up-to-date with the latest trends in the IT sector. It also serves as a space for students to network, share ideas, and work on innovative solutions to real-world problems. By doing so, Infobee helps students bridge the gap between theoretical knowledge and practical application, preparing them for successful careers in technology.
             </p>
-            <ul>
+            {/* <ul>
               <li>Conducting the professional activities such as Guest lectures, Seminars, Technical Symposiums etc.</li>
               <li>Encourage a close knit interpersonal relationship among the members.</li>
               <li>Encourage a close knit interpersonal relationship among the members.</li>
-            </ul>
+            </ul> */}
             <div className="d-flex flex-wrap gap-2 mt-4">
               <div className="badge bg-primary bg-opacity-10 text-primary px-3 py-2 rounded-pill">Student-Led</div>
               <div className="badge bg-primary bg-opacity-10 text-primary px-3 py-2 rounded-pill">
@@ -278,18 +277,18 @@ export const Association = () => {
                 <tr>
                   <th scope="col">Program Type</th>
                   {associationData?.years?.map((year, index) => (
-                    <th scope="col" key={index}>{year}</th>
+                    <th className="text-center" scope="col" key={index}>{year}</th>
                   ))}
                 </tr>
               </thead>
               <tbody>
                 {associationData?.programsType?.map((type, rowIndex) => (
-                  <tr key={rowIndex}>
+                  <tr key={rowIndex} >
                     <th scope="row">{type}</th>
                     {associationData?.years?.map((year, colIndex) => {
                       const yearKey = year.toString().toLowerCase(); // handle 'Total'
                       const value = associationData?.programCount?.[yearKey]?.[rowIndex];
-                      return <td key={colIndex}><strong>{value}</strong></td>;
+                      return <td key={colIndex} className="text-center"><strong>{value}</strong></td>;
                     })}
                   </tr>
                 ))}
@@ -433,10 +432,10 @@ export const Association = () => {
                       <div className="card-body">
                         <h5 className="card-title fw-bold">{faculty.name}</h5>
                         <p className="card-text text-muted small mb-2">{faculty.desigination}</p>
-                        <p className="card-text small">
+                        {/* <p className="card-text small">
                           <Mail className="me-2" size={14} />
                           <span>{faculty.email}</span>
-                        </p>
+                        </p> */}
                         {/* <p className="card-text small">
                           <Phone className="me-2" size={14} />
                           <span>{faculty.phoneNum}</span>

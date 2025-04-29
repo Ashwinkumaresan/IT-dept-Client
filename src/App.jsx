@@ -3,7 +3,7 @@ import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import './App.css'
 
-import { HashRouter, BrowserRouter, Routes, Route } from 'react-router-dom';
+import { HashRouter, BrowserRouter,useParams, Routes, Route } from 'react-router-dom';
 import {Helmet} from "react-helmet";
 import { useEffect } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
@@ -98,6 +98,11 @@ function App() {
 
   }
 
+  const WordPage = () => {
+    const { domain } = useParams(); // Extract word from route
+    return <RoadmapDetail domain = {domain}/> ; // Passing as prop
+};
+
   return (
     <>
     <ToastContainer
@@ -168,7 +173,7 @@ function App() {
           <Route path='/gallery' element={[ <GalleryPage/>] } />
           <Route path='/feed' element={[ <Feed/>]} />
           <Route path='/roadmap-domains' element={<RoadmapDomains/>} />
-          <Route path='/roadmap/:domain' element={<RoadmapDetail/>} />
+          <Route path='/roadmap/:domain' element={<WordPage/>} />
           
           </Route>
           

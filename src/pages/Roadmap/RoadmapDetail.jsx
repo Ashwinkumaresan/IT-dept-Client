@@ -1,96 +1,100 @@
-import { useState } from "react";
-import { useParams, Navigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 import { Container, Row, Col, Card, Form, Button, Accordion, Badge, ProgressBar } from "react-bootstrap";
+import axios from "axios";
 
-export const RoadmapDetail = () => {
-  const { domain } = useParams();
+export const RoadmapDetail = ({ domain }) => {
   const [subtopicLinks, setSubtopicLinks] = useState({});
   const [selectedProjects, setSelectedProjects] = useState([]);
   const [finalProjectLink, setFinalProjectLink] = useState("");
+  const [showInput, setShowInput] = useState(false);
+  const [domainData, setDomainData] = useState(null);
 
-  // Enhanced domain data with detailed content for each subtopic
-  const domainData = {
-    frontend: {
-      title: "Frontend Development Roadmap",
-      description: "Master the art of creating beautiful and functional user interfaces for the web.",
-      subtopics: [
-        {
-          name: "HTML Basics",
-          content: [
-            "HTML Document Structure",
-            "Semantic HTML Elements",
-            "Forms and Input Elements",
-            "Tables and Lists",
-            "Media Elements"
-          ],
-          subtopicLinks: "hi",
-        },
-        {
-          name: "CSS Basics",
-          content: [
-            "Selectors and Properties",
-            "Box Model",
-            "Flexbox Layout",
-            "Grid Layout",
-            "Transitions and Animations"
-          ]
-        },
-        {
-          name: "JavaScript Basics",
-          content: [
-            "Variables and Data Types",
-            "Functions and Scope",
-            "DOM Manipulation",
-            "Events and Event Handling",
-            "Asynchronous JavaScript"
-          ]
-        },
-        {
-          name: "Responsive Design",
-          content: [
-            "Media Queries",
-            "Viewport Units",
-            "Mobile-First Approach",
-            "Responsive Images",
-            "Responsive Typography"
-          ]
-        },
-        {
-          name: "Bootstrap",
-          content: [
-            "Grid System",
-            "Components",
-            "Utilities",
-            "Customization",
-            "Responsive Breakpoints"
-          ]
-        },
-        {
-          name: "Tailwind CSS",
-          content: [
-            "Utility-First Approach",
-            "Responsive Design",
-            "Component Extraction",
-            "Configuration",
-            "Dark Mode"
-          ]
+  useEffect(() => {
+    if (localStorage.getItem("access_token")) setShowInput(true);
+  }, []);
+
+  useEffect(() => {
+    const fetchDomains = async () => {
+      try {
+        const response = await axios.get(
+          `https://test.mcetit.drmcetit.com/api/roadmap/detail/${domain}`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+          },
         }
-      ],
-      projects: ["Landing Page", "Portfolio Website", "Product Showcase Page"],
-    },
+        );
+        console.log("Fetched domainData:", response.data);
 
+        const data = response.data[domain];
+        setDomainData(data);
 
+        // Initialize subtopic links from API values
+        const initialSubLinks = {};
+        data.subtopics.forEach(sub => {
+          initialSubLinks[sub.name] = sub.subProjcetLinks || "";
+        });
+        setSubtopicLinks(initialSubLinks);
+
+        // Initialize final project link
+        setFinalProjectLink(data.projectLink || "");
+
+      } catch (error) {
+        console.error("Error fetching data:", error.response?.data || error.message);
+      }
+    };
+
+    fetchDomains();
+  }, [domain]);
+
+  const handleSubtopicLinkSubmit = async (subtopicName) => {
+    try {
+      await axios.post(
+        `https://test.mcetit.drmcetit.com/api/roadmap/subtopic/submit`, // Ensure this is the correct API endpoint
+        {
+          link: subtopicLinks[subtopicName], // Only sending the link
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+          },
+        }
+      );
+    } catch (error) {
+      console.error("Error submitting subtopic link:", error.response?.data || error.message);
+    }
   };
 
-  // Check if domain exists
-  if (!domainData[domain]) {
-    return <Navigate to="/roadmap-domains" />;
+  const handleFinalProjectSubmit = async () => {
+    try {
+      await axios.post(
+        `https://test.mcetit.drmcetit.com/api/roadmap/finalproject/submit`, // Ensure this is the correct API endpoint
+        {
+          link: finalProjectLink, // Only sending the final project link
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+          },
+        }
+      );
+    } catch (error) {
+      console.error("Error submitting final project:", error.response?.data || error.message);
+    }
+  };
+
+
+  if (!domainData) {
+    return <div>Loading...</div>;
   }
 
-  const { title, description, subtopics, projects } = domainData[domain];
+  const { title, description, subtopics, projects } = domainData;
 
   // Calculate progress
-  const completedSubtopics = Object.keys(subtopicLinks).filter(key => subtopicLinks[key]).length;
+  const completedSubtopics = subtopics.filter(subtopic => {
+    const value = subtopicLinks[subtopic.name];
+    return value && value.trim() !== "";
+  }).length;
+
   const progress = Math.round((completedSubtopics / subtopics.length) * 100);
 
   // Handle subtopic link submission
@@ -118,15 +122,17 @@ export const RoadmapDetail = () => {
         <p className="lead text-muted mx-auto" style={{ maxWidth: "700px" }}>
           {description}
         </p>
-        
+
         {/* Progress Bar */}
-        <div className="mt-4">
-          <div className="d-flex justify-content-between">
-            <span>Your Progress</span>
-            <span>{progress}%</span>
+        {showInput && (
+          <div className="mt-4">
+            <div className="d-flex justify-content-between">
+              <span>Your Progress</span>
+              <span>{progress}%</span>
+            </div>
+            <ProgressBar now={progress} variant="success" className="mt-2" />
           </div>
-          <ProgressBar now={progress} variant="success" className="mt-2" />
-        </div>
+        )}
       </section>
 
       {/* Learning Path Section */}
@@ -136,18 +142,22 @@ export const RoadmapDetail = () => {
           <Card.Body className="p-0">
             <Accordion defaultActiveKey="0">
               {subtopics.map((subtopic, index) => {
-                const subtopicName = typeof subtopic === 'string' ? subtopic : subtopic.name;
-                const isCompleted = subtopicLinks[subtopicName] && subtopicLinks[subtopicName].trim() !== "";
-                
+                const subtopicName = subtopic.name;
+                const isCompleted = (subtopicLinks[subtopicName] || "").trim() !== "";
+
                 return (
                   <Accordion.Item eventKey={index.toString()} key={index}>
                     <Accordion.Header>
                       <div className="d-flex align-items-center w-100 justify-content-between">
                         <span className="fs-5">{subtopicName}</span>
-                        {isCompleted ? (
-                          <Badge bg="success" className="me-3">Completed</Badge>
-                        ) : (
-                          <Badge bg="secondary" className="me-3">In Progress</Badge>
+                        {showInput && (
+                          <div>
+                            {isCompleted ? (
+                              <Badge bg="success" className="me-3">Completed</Badge>
+                            ) : (
+                              <Badge bg="secondary" className="me-3">In Progress</Badge>
+                            )}
+                          </div>
                         )}
                       </div>
                     </Accordion.Header>
@@ -174,29 +184,33 @@ export const RoadmapDetail = () => {
                           </Card.Body>
                         </Card>
                       )}
-                      
+
                       {/* GitHub submission for each subtopic */}
-                      <div className="border-top pt-4 mt-2">
-                        <p className="text-muted mb-3">Submit your GitHub project link for this subtopic:</p>
-                        <Row>
-                          <Col md={9}>
-                            <Form.Control 
-                              type="text" 
-                              placeholder="GitHub project link" 
-                              value={subtopicLinks[subtopicName] || ""}
-                              onChange={(e) => handleSubtopicLinkChange(subtopicName, e.target.value)}
-                            />
-                          </Col>
-                          <Col md={3}>
-                            <Button 
-                              variant={isCompleted ? "success" : "outline-primary"} 
-                              className="w-100"
-                            >
-                              {isCompleted ? "Update" : "Submit"}
-                            </Button>
-                          </Col>
-                        </Row>
-                      </div>
+                      {showInput && (
+                        <div className="border-top pt-4 mt-2">
+                          <p className="text-muted mb-3">Submit your GitHub project link for this subtopic:</p>
+                          <Row>
+                            <Col md={9}>
+                              <Form.Control
+                                type="text"
+                                placeholder="GitHub project link"
+                                value={subtopicLinks[subtopicName]}
+                                onChange={(e) => handleSubtopicLinkChange(subtopicName, e.target.value)}
+                              />
+                            </Col>
+                            <Col md={3}>
+                              <Button
+                                variant={isCompleted ? "success" : "outline-primary"}
+                                className="w-100"
+                                onClick={() => handleSubtopicLinkSubmit(subtopicName)}
+                              >
+                                {isCompleted ? "Update" : "Submit"}
+                              </Button>
+
+                            </Col>
+                          </Row>
+                        </div>
+                      )}
                     </Accordion.Body>
                   </Accordion.Item>
                 );
@@ -219,9 +233,9 @@ export const RoadmapDetail = () => {
               {projects.map((project, index) => (
                 <Card key={index} className="mb-3 border-0 shadow-sm">
                   <Card.Body>
-                    <Form.Check 
-                      type="checkbox" 
-                      id={`project-${index}`} 
+                    <Form.Check
+                      type="checkbox"
+                      id={`project-${index}`}
                       label={project}
                       checked={selectedProjects.includes(project)}
                       onChange={() => handleProjectSelection(project)}
@@ -232,22 +246,28 @@ export const RoadmapDetail = () => {
               ))}
             </div>
 
-            <Form.Group className="mb-3">
-              <Form.Label>Submit your final project GitHub link:</Form.Label>
-              <Form.Control 
-                type="text" 
-                placeholder="GitHub project link" 
-                value={finalProjectLink}
-                onChange={(e) => setFinalProjectLink(e.target.value)}
-              />
-            </Form.Group>
-            <Button 
-              variant="primary" 
-              className="w-100"
-              disabled={selectedProjects.length === 0 || !finalProjectLink}
-            >
-              Submit Final Project
-            </Button>
+            {showInput && (
+              <div>
+                <Form.Group className="mb-3">
+                  <Form.Label>Submit your final project GitHub link:</Form.Label>
+                  <Form.Control
+                    type="text"
+                    placeholder="GitHub project link"
+                    value={finalProjectLink}
+                    onChange={(e) => setFinalProjectLink(e.target.value)}
+                  />
+                </Form.Group>
+                <Button
+                  variant="primary"
+                  className="w-100"
+                  disabled={selectedProjects.length === 0 || !finalProjectLink}
+                  onClick={handleFinalProjectSubmit}
+                >
+                  Submit Final Project
+                </Button>
+
+              </div>
+            )}
           </Card.Body>
         </Card>
       </section>
