@@ -12,7 +12,7 @@ export const RoadmapDetail = ({ domain }) => {
   const [domainData, setDomainData] = useState(null);
 
   const token = localStorage.getItem("access_token");
-  //const headers = token ? { Authorization: `Bearer ${token}` } : {};
+  const headers = token ? { Authorization: `Bearer ${token}` } : {};
 
   useEffect(() => {
     if (localStorage.getItem("access_token"))
@@ -24,9 +24,7 @@ export const RoadmapDetail = ({ domain }) => {
       try {
         const response = await axios.get(
           `https://test.mcetit.drmcetit.com/api/roadmap/detail/${domain}`,
-          { headers:{
-            Authorization: token ? { Authorization: `Bearer ${token}` } : {}
-          } }
+          { headers }
         );
         console.log("Fetched domainData:", response.data);
 
