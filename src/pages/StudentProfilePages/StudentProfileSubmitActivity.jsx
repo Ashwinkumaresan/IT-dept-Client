@@ -123,7 +123,7 @@ export const StudentProfileSubmitActivity = ({ activitySubmit }) => {
     try {
       const response = await fetch("https://test.mcetit.drmcetit.com/api/get-csrf-token/", {
         credentials: "include",  // Ensure cookies are sent
-      });
+      }); 
       const data = await response.json();
       console.log("Fetched CSRF Token:", data.csrfToken);
       return data.csrfToken;

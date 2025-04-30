@@ -1,27 +1,32 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Container, Row, Col, Card, Form, Button, Accordion, Badge, ProgressBar } from "react-bootstrap";
 import axios from "axios";
 
 export const RoadmapDetail = ({ domain }) => {
+  const navigate = useNavigate();
   const [subtopicLinks, setSubtopicLinks] = useState({});
   const [selectedProjects, setSelectedProjects] = useState([]);
   const [finalProjectLink, setFinalProjectLink] = useState("");
   const [showInput, setShowInput] = useState(false);
   const [domainData, setDomainData] = useState(null);
 
+  const token = localStorage.getItem("access_token");
+  //const headers = token ? { Authorization: `Bearer ${token}` } : {};
+
   useEffect(() => {
-    if (localStorage.getItem("access_token")) setShowInput(true);
+    if (localStorage.getItem("access_token"))
+      setShowInput(true);
   }, []);
 
   useEffect(() => {
     const fetchDomains = async () => {
       try {
         const response = await axios.get(
-          `https://test.mcetit.drmcetit.com/api/roadmap/detail/${domain}`, {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("access_token")}`,
-          },
-        }
+          `https://test.mcetit.drmcetit.com/api/roadmap/detail/${domain}`,
+          { headers:{
+            Authorization: token ? { Authorization: `Bearer ${token}` } : {}
+          } }
         );
         console.log("Fetched domainData:", response.data);
 
@@ -30,14 +35,13 @@ export const RoadmapDetail = ({ domain }) => {
 
         // Initialize subtopic links from API values
         const initialSubLinks = {};
-        data.subtopics.forEach(sub => {
+        data.subtopics.forEach((sub) => {
           initialSubLinks[sub.name] = sub.subProjcetLinks || "";
         });
         setSubtopicLinks(initialSubLinks);
 
         // Initialize final project link
         setFinalProjectLink(data.projectLink || "");
-
       } catch (error) {
         console.error("Error fetching data:", error.response?.data || error.message);
       }
@@ -46,30 +50,87 @@ export const RoadmapDetail = ({ domain }) => {
     fetchDomains();
   }, [domain]);
 
-  const handleSubtopicLinkSubmit = async (subtopicName) => {
+  async function fetchCSRFToken() {
     try {
-      await axios.post(
-        `https://test.mcetit.drmcetit.com/api/roadmap/subtopic/submit`, // Ensure this is the correct API endpoint
-        {
-          link: subtopicLinks[subtopicName], // Only sending the link
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("access_token")}`,
-          },
-        }
-      );
+        const response = await fetch("https://test.mcetit.drmcetit.com/api/get-csrf-token/", {
+            credentials: "include",  // Ensure cookies are sent
+        });
+        const data = await response.json();
+        console.log("Fetched CSRF Token:", data.csrfToken);
+        return data.csrfToken;
     } catch (error) {
-      console.error("Error submitting subtopic link:", error.response?.data || error.message);
+        console.error("Failed to fetch CSRF token", error);
+        return null;
     }
+}
+
+const handleSubtopicLinkSubmit = async (subtopicName) => {
+  const csrfToken = await fetchCSRFToken();
+  console.log("CSRF Token:", csrfToken);
+
+  const link = subtopicLinks[subtopicName];
+  if (!localStorage.getItem("access_token")) {
+    alert("Login required");
+    navigate("/student-login");
+    return;
+  }
+
+  const headers = {
+    "X-CSRFToken": csrfToken,
+    "Authorization": `Bearer ${localStorage.getItem("access_token")}`,
+    "Content-Type": "application/json",  // Ensure it's sending JSON data
   };
 
+  // Prepare the body data as JSON
+  const requestBody = {
+    domain: domain,           // Domain information
+    subtopicName: subtopicName,  // Subtopic name
+    link: link,               // Link to be submitted
+  };
+
+  console.log("Request Body:", requestBody);
+  console.log("Headers being sent:", headers);
+
+  try {
+    const response = await fetch("https://test.mcetit.drmcetit.com/api/roadmap/subtopic/form/", {
+      method: "POST",
+      headers: headers,
+      body: JSON.stringify(requestBody),  // Convert the body data to JSON string
+    });
+
+    const responseData = await response.json();
+
+    if (response.ok) {
+      console.log("Submit res:", responseData);
+      alert("Sent");
+    } else {
+      console.log("Error:", responseData);
+      alert("Failed to submit");
+    }
+
+    console.log("Domain:", domain);
+    console.log("Subtopic:", subtopicName);
+    console.log("Link:", link);
+
+  } catch (error) {
+    console.error("Error submitting subtopic link:", error.message);
+  }
+};
+ 
+
+  
+
   const handleFinalProjectSubmit = async () => {
+    if (!localStorage.getItem("access_token")) {
+      alert("Login required");
+      navigate("/student-login");
+    }
     try {
       await axios.post(
-        `https://test.mcetit.drmcetit.com/api/roadmap/finalproject/submit`, // Ensure this is the correct API endpoint
+        `https://test.mcetit.drmcetit.com/api/roadmap/project/form/`,
         {
-          link: finalProjectLink, // Only sending the final project link
+          domain,
+          link: finalProjectLink,
         },
         {
           headers: {
@@ -82,7 +143,6 @@ export const RoadmapDetail = ({ domain }) => {
     }
   };
 
-
   if (!domainData) {
     return <div>Loading...</div>;
   }
@@ -90,7 +150,7 @@ export const RoadmapDetail = ({ domain }) => {
   const { title, description, subtopics, projects } = domainData;
 
   // Calculate progress
-  const completedSubtopics = subtopics.filter(subtopic => {
+  const completedSubtopics = subtopics.filter((subtopic) => {
     const value = subtopicLinks[subtopic.name];
     return value && value.trim() !== "";
   }).length;
@@ -101,14 +161,14 @@ export const RoadmapDetail = ({ domain }) => {
   const handleSubtopicLinkChange = (subtopicName, value) => {
     setSubtopicLinks({
       ...subtopicLinks,
-      [subtopicName]: value
+      [subtopicName]: value,
     });
   };
 
   // Handle project selection
   const handleProjectSelection = (project) => {
     if (selectedProjects.includes(project)) {
-      setSelectedProjects(selectedProjects.filter(p => p !== project));
+      setSelectedProjects(selectedProjects.filter((p) => p !== project));
     } else {
       setSelectedProjects([...selectedProjects, project]);
     }
@@ -150,14 +210,14 @@ export const RoadmapDetail = ({ domain }) => {
                     <Accordion.Header>
                       <div className="d-flex align-items-center w-100 justify-content-between">
                         <span className="fs-5">{subtopicName}</span>
-                        {showInput && (
-                          <div>
-                            {isCompleted ? (
-                              <Badge bg="success" className="me-3">Completed</Badge>
-                            ) : (
-                              <Badge bg="secondary" className="me-3">In Progress</Badge>
-                            )}
-                          </div>
+                        {isCompleted ? (
+                          <Badge bg="success" className="me-3">
+                            Completed
+                          </Badge>
+                        ) : (
+                          <Badge bg="secondary" className="me-3">
+                            In Progress
+                          </Badge>
                         )}
                       </div>
                     </Accordion.Header>
@@ -173,7 +233,10 @@ export const RoadmapDetail = ({ domain }) => {
                               {subtopic.content.map((item, i) => (
                                 <Col md={6} lg={4} key={i} className="mb-3">
                                   <div className="d-flex align-items-center">
-                                    <div className="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center me-2" style={{ width: "24px", height: "24px", fontSize: "12px" }}>
+                                    <div
+                                      className="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center me-2"
+                                      style={{ width: "24px", height: "24px", fontSize: "12px" }}
+                                    >
                                       {i + 1}
                                     </div>
                                     <span>{item}</span>
@@ -186,31 +249,28 @@ export const RoadmapDetail = ({ domain }) => {
                       )}
 
                       {/* GitHub submission for each subtopic */}
-                      {showInput && (
-                        <div className="border-top pt-4 mt-2">
-                          <p className="text-muted mb-3">Submit your GitHub project link for this subtopic:</p>
-                          <Row>
-                            <Col md={9}>
-                              <Form.Control
-                                type="text"
-                                placeholder="GitHub project link"
-                                value={subtopicLinks[subtopicName]}
-                                onChange={(e) => handleSubtopicLinkChange(subtopicName, e.target.value)}
-                              />
-                            </Col>
-                            <Col md={3}>
-                              <Button
-                                variant={isCompleted ? "success" : "outline-primary"}
-                                className="w-100"
-                                onClick={() => handleSubtopicLinkSubmit(subtopicName)}
-                              >
-                                {isCompleted ? "Update" : "Submit"}
-                              </Button>
-
-                            </Col>
-                          </Row>
-                        </div>
-                      )}
+                      <div className="border-top pt-4 mt-2">
+                        <p className="text-muted mb-3">Submit your GitHub project link for this subtopic:</p>
+                        <Row>
+                          <Col md={9}>
+                            <Form.Control
+                              type="text"
+                              placeholder="GitHub project link"
+                              value={subtopicLinks[subtopicName]}
+                              onChange={(e) => handleSubtopicLinkChange(subtopicName, e.target.value)}
+                            />
+                          </Col>
+                          <Col md={3}>
+                            <Button
+                              variant={isCompleted ? "success" : "outline-primary"}
+                              className="w-100"
+                              onClick={() => handleSubtopicLinkSubmit(subtopicName)}
+                            >
+                              {isCompleted ? "Update" : "Submit"}
+                            </Button>
+                          </Col>
+                        </Row>
+                      </div>
                     </Accordion.Body>
                   </Accordion.Item>
                 );
@@ -233,41 +293,39 @@ export const RoadmapDetail = ({ domain }) => {
               {projects.map((project, index) => (
                 <Card key={index} className="mb-3 border-0 shadow-sm">
                   <Card.Body>
-                    <Form.Check
-                      type="checkbox"
-                      id={`project-${index}`}
-                      label={project}
-                      checked={selectedProjects.includes(project)}
-                      onChange={() => handleProjectSelection(project)}
-                      className="fs-5"
-                    />
+                    <div className="d-flex align-items-center">
+                      <div
+                        className="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center me-2"
+                        style={{ width: "24px", height: "24px", fontSize: "12px" }}
+                      >
+                        {index + 1}
+                      </div>
+                      <span>{project}</span>
+                    </div>
                   </Card.Body>
                 </Card>
               ))}
             </div>
 
-            {showInput && (
-              <div>
-                <Form.Group className="mb-3">
-                  <Form.Label>Submit your final project GitHub link:</Form.Label>
-                  <Form.Control
-                    type="text"
-                    placeholder="GitHub project link"
-                    value={finalProjectLink}
-                    onChange={(e) => setFinalProjectLink(e.target.value)}
-                  />
-                </Form.Group>
-                <Button
-                  variant="primary"
-                  className="w-100"
-                  disabled={selectedProjects.length === 0 || !finalProjectLink}
-                  onClick={handleFinalProjectSubmit}
-                >
-                  Submit Final Project
-                </Button>
-
-              </div>
-            )}
+            <div>
+              <Form.Group className="mb-3">
+                <Form.Label>Submit your final project GitHub link:</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="GitHub project link"
+                  value={finalProjectLink}
+                  onChange={(e) => setFinalProjectLink(e.target.value)}
+                />
+              </Form.Group>
+              <Button
+                variant="primary"
+                className="w-100"
+                disabled={!finalProjectLink}
+                onClick={handleFinalProjectSubmit}
+              >
+                Submit Final Project
+              </Button>
+            </div>
           </Card.Body>
         </Card>
       </section>

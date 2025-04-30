@@ -187,6 +187,9 @@ const ModernNavbar = () => {
               <Link to="/gallery" onClick={handleNavItemClick} className="nav-link" style={{ fontSize: "12px" }}>
                 PrideWall
               </Link>
+              <Link to="/roadmap-domains" onClick={handleNavItemClick} className="nav-link" style={{ fontSize: "12px" }}>
+                Roadmap
+              </Link>
             </Nav>
 
             <div className="d-none d-lg-block">
