@@ -18,7 +18,7 @@ export const ForgotPasswordReset = () => {
     if (!mail || !otp_re) {
       navigate("/forgotpassword-email")
     }
-  }, [collegeMail, otpVerified, navigate])
+  }, [mail, otp_re, navigate])
 
   // Password strength indicator
   const getPasswordStrength = (password) => {
