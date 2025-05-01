@@ -1,0 +1,48 @@
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Playwrite+IN:wght@100..400&display=swap');
+.dancingScript {
+    font-family: "Playwrite IN", cursive;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+} 
+
+
+
+
+.primaryBlue{
+    color: #1E88E5;
+}
+.gray{
+    color: #D1D5DB;
+}
+
+.justify{
+    text-align: justify;
+}
+
+
+.fs-12{
+    font-size: 12px;
+}
+
+.fs-14{
+    font-size: 14px;
+}
+
+.ls-1 {
+    letter-spacing: 1px;
+}
+
+.ls-2 {
+    letter-spacing: 2px;
+}
+
+.ls-3 {
+    letter-spacing: 3px;
+}
+.ls-5 {
+    letter-spacing: 4px;
+}
+.ls-6 {
+    letter-spacing: 6px;
+}

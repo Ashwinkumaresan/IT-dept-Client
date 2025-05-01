@@ -1,5 +1,3 @@
-"use client"
-
 import axios from "axios"
 import { useState, useEffect, useRef } from "react"
 import { Link, useNavigate } from "react-router-dom"
@@ -206,6 +204,9 @@ const handleKeyDown = (index, e) => {
                 <i className="bi bi-shield-lock-fill fs-1 text-muted"></i>
                 <p className="mt-3">
                   We've sent a 6-digit OTP to <strong>{maskEmail(email)}</strong>
+                </p>
+                <p className="alert alert-info">
+                Check your inbox or junk or spam folder for the OTP.
                 </p>
               </div>
 

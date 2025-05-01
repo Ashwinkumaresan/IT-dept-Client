@@ -92,7 +92,7 @@ export const Association = () => {
 
 
   return (
-    <div className="container-fluid p-0 pt-5">
+    <div className="container py-5">
 
       <ToastContainer
         position="top-right"
@@ -121,12 +121,12 @@ export const Association = () => {
 
       {/* Unique Events Carousel */}
       <div className="container mt-5 mb-5">
-        <h2 className="display-6 fw-bold text-center mb-4">Our Events Showcase</h2>
+        <h2 className="display-6 fw-bold text-center mb-4"><span style={{color:"#FF6201"}}>INFOBEE</span> Events Showcase</h2>
 
         <div className="position-relative unique-carousel">
           {/* Custom Carousel */}
           <div className="row">
-            <div className="col-md-8 offset-md-2">
+            <div className="col-12 ">
               <div id="eventsCarousel" className="carousel slide carousel-fade" data-bs-ride="carousel">
                 <div className="carousel-inner rounded-4 shadow-lg">
                   {associationData?.eventShowcase?.map((data, index) => (
@@ -139,7 +139,7 @@ export const Association = () => {
                             height: "70vh",
                             objectFit: "cover",
                             objectPosition: "center",
-                            width: "100%"
+                            width: "100vw"
                           }}
                           alt={data.title}
                         />
@@ -150,7 +150,7 @@ export const Association = () => {
                           <div>
                             <div>
                               <h3 className="text-white fw-bold mb-1">{data.title}</h3>
-                              <p className="text-white mb-2" style={{textAlign:"justify"}}>{data.description}</p>
+                              <p className="text-white mb-2 justify fs-14">{data.description}</p>
                             </div>
                             <span className="badge bg-primary rounded-pill px-3 py-2">
                               {data.date}
@@ -208,17 +208,17 @@ export const Association = () => {
 
      
 
-      {/* Event */}
+      {/* Event & Gallery */}
       <div className="container card mt-5 mb-5">
-        <div className="row p-4">
-        <div className="col-12 col-md-4 text-center">
-            <img src="/Infobee_logo.png" className="img-fluid" alt="Infobee" style={{
-              maxWidth:"250px"
-            }} />
+        <div className="row px-0 px-md-5">
+        <div className="col-12 col-lg-6 d-flex flex-column justify-content-center my-5">
+            <h2 className="display-6 fw-bold mb-3">Gallery</h2>
+            <p className="justify fs-14">Welcome to the InfoBee Gallery, where every snapshot reflects talent, creativity, and teamwork. This space captures the highlights of our vibrant events — from interactive sessions and technical challenges to fun activities and competitions. Whether you're revisiting memories or exploring fresh moments, there’s something here for everyone.</p>
+            <Link to="/association-gallery" className="btn btn-primary w-100" > View Gallery </Link>
           </div>
-          <div className="col-12 col-md-8 d-flex flex-column justify-content-center">
+          <div className="col-12 col-lg-6 d-flex flex-column justify-content-center my-5">
             <h2 className="display-6 fw-bold mb-3">Events</h2>
-            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Vel nihil distinctio eaque. Ut, aliquam maxime similique modi iure numquam excepturi est quisquam id impedit fugiat doloribus, possimus harum saepe ex.</p>
+            <p className="justify fs-14">Get ready to witness a vibrant celebration of talent, innovation, and teamwork! Our association is hosting an exciting event packed with interactive sessions, skill-based competitions, team-building games, and creative showcases. Whether you're a tech enthusiast, a creative mind, or someone who loves healthy competition, there’s something for everyone.</p>
             <Link to="/association-events" className="btn btn-primary w-100" > View Events </Link>
           </div>
         </div>
@@ -227,9 +227,9 @@ export const Association = () => {
       {/* About the Association */}
       <div className="container mt-5 mb-5">
         <div className="row mb-5">
-          <div className="col-lg-6">
+          <div className="col-lg-6 d-flex flex-column justify-content-center">
             <h2 className="display-6 fw-bold mb-4">About the Association</h2>
-            <p className="lead" style={{fontSize:"14px", textAlign:"justify"}}>
+            <p className="justify fs-14">
             Infobee is a student-driven technical association that typically operates under the Information Technology (IT) department . It aims to create a platform for students to explore and expand their knowledge in the field of information technology. The association organizes a variety of events such as technical workshops, seminars, hackathons, coding competitions, and guest lectures from industry professionals. Infobee provides opportunities for students to enhance their practical skills, collaborate on projects, and stay up-to-date with the latest trends in the IT sector. It also serves as a space for students to network, share ideas, and work on innovative solutions to real-world problems. By doing so, Infobee helps students bridge the gap between theoretical knowledge and practical application, preparing them for successful careers in technology.
             </p>
             {/* <ul>
@@ -237,23 +237,23 @@ export const Association = () => {
               <li>Encourage a close knit interpersonal relationship among the members.</li>
               <li>Encourage a close knit interpersonal relationship among the members.</li>
             </ul> */}
-            <div className="d-flex flex-wrap gap-2 mt-4">
-              <div className="badge bg-primary bg-opacity-10 text-primary px-3 py-2 rounded-pill">Student-Led</div>
-              <div className="badge bg-primary bg-opacity-10 text-primary px-3 py-2 rounded-pill">
+            <div className="d-flex flex-wrap gap-2 mt-4 mb-4">
+              <div className="badge bg-primary bg-opacity-10 text-primary px-3 py-2 rounded-pill fs-12">Student-Led</div>
+              <div className="badge bg-primary bg-opacity-10 text-primary px-3 py-2 rounded-pill fs-12">
                 Technical Excellence
               </div>
-              <div className="badge bg-primary bg-opacity-10 text-primary px-3 py-2 rounded-pill">
+              <div className="badge bg-primary bg-opacity-10 text-primary px-3 py-2 rounded-pill fs-12">
                 Leadership Development
               </div>
-              <div className="badge bg-primary bg-opacity-10 text-primary px-3 py-2 rounded-pill">
+              <div className="badge bg-primary bg-opacity-10 text-primary px-3 py-2 rounded-pill fs-12">
                 Community Engagement
               </div>
-              <div className="badge bg-primary bg-opacity-10 text-primary px-3 py-2 rounded-pill">Industry Connect</div>
+              <div className="badge bg-primary bg-opacity-10 text-primary px-3 py-2 rounded-pill fs-12">Industry Connect</div>
             </div>
           </div>
           <div className="col-lg-6">
             <img
-              src="/Association_Hero.png"
+              src="/WhatsApp Image 2025-03-23 at 18.13.26_7f70d8c1.jpg"
               alt="IT Student Association"
               className="img-fluid rounded shadow"
               style={{
@@ -267,7 +267,7 @@ export const Association = () => {
       <div className="container-fluid bg-light py-5 mb-5">
         <div className="container">
           <h2 className="display-6 fw-bold text-center mb-4">Programs Conducted</h2>
-          <p className="text-center text-muted mb-5">
+          <p className="text-center text-muted mb-5 fs-14">
             A summary of events and programs organized by our association over the years
           </p>
 
@@ -455,7 +455,7 @@ export const Association = () => {
         <div className="row">
           <div className="col-lg-6 mb-4 mb-lg-0">
             <h2 className="display-6 fw-bold mb-4">Contact Us</h2>
-            <p className="lead mb-4">
+            <p className="fs-14 mb-4">
               Have questions about our association or interested in joining? Get in touch with us.
             </p>
 
@@ -470,7 +470,7 @@ export const Association = () => {
                   </div>
                   <div>
                     <h5 className="fw-bold">Email Us</h5>
-                    <p className="text-muted mb-0">
+                    <p className="text-muted mb-0 fs-14">
                       General Inquiries: infobeeassociation@gmail.com
                     </p>
                   </div>
@@ -489,7 +489,7 @@ export const Association = () => {
                   </div>
                   <div>
                     <h5 className="fw-bold">Call Us</h5>
-                    <p className="text-muted mb-0">
+                    <p className="text-muted mb-0 fs-14">
                       President: {associationData?.presidentNum}
                       <br />
                       Secretary: {associationData?.SecretaryNum}

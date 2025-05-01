@@ -1,11 +1,12 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { ToastContainer, toast } from 'react-toastify';
+import Spinner from 'react-bootstrap/Spinner'; // Importing Spinner component from react-bootstrap for a loading animation
 
 // companies images
 const recruitingCompanies = [
   { id: 1, name: "Zoho", logo: "/Zoho.png" },
-  { id: 2, name: "Go Frugal ", logo: "/GoFurgal.jpeg" },
+  { id: 2, name: "Go Frugal", logo: "/GoFurgal.jpeg" },
   { id: 3, name: "Soliton", logo: "/Soliton.webp" },
   { id: 4, name: "Kaar", logo: "/Kaar.jpeg" },
   { id: 5, name: "Vuram", logo: "/Vuram.jpg" },
@@ -20,12 +21,12 @@ const recruitingCompanies = [
   { id: 14, name: "Solartis", logo: "/Solartis.jpeg" },
   { id: 15, name: "IONIXX Technologies", logo: "/IONIXX Technologies.jpeg" },
   { id: 16, name: "IBM", logo: "/IBM.jpeg" },
-]
+];
 
 export const PlacementPage = () => {
-  const [placement, setplacement] = useState([]);
-  const [placementCurrent, setplacementCurrent] = useState([]);
-
+  const [placement, setPlacement] = useState([]);
+  const [placementCurrent, setPlacementCurrent] = useState([]);
+  const [loading, setLoading] = useState(true); 
   const notify = (obj) => {
     toast.error(obj, {
       position: "top-right",
@@ -36,51 +37,52 @@ export const PlacementPage = () => {
       draggable: true,
       progress: undefined,
       theme: "light",
-    })
+    });
   };
 
   const fetchPlacement = async () => {
     try {
       const response = await axios.get("https://test.mcetit.drmcetit.com/api/placement/");
-      //console.log(response.data);
-
-      setplacement(response.data.currentTop3);
-      setplacementCurrent(response.data.top3);
+      setPlacement(response.data.currentTop3);
+      setPlacementCurrent(response.data.top3);
+      setLoading(false); 
     } catch (error) {
-      //console.error("Error fetching data:", error.response?.data || error.message);
       notify(error.response?.data.detail);
-
+      setLoading(false); 
     }
   };
+
   useEffect(() => {
     fetchPlacement();
-  }, [])
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="container py-5 text-center">
+        <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} pauseOnHover draggable theme="light" />
+        <Spinner animation="border" variant="primary" /> {/* Displaying a spinner while data is being fetched */}
+        <p className="mt-3">Loading placement data...</p>
+      </div>
+    );
+  }
+
   return (
     <div className="container py-5">
-      <ToastContainer
-        position="top-right"
-        autoClose={3000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss={false}
-        draggable
-        pauseOnHover
-        theme="light"
-      />
-      <div className="row mb-4">
-        <div className="col-12 text-center">
-          <h1 className="display-5 fw-bold">Placement Opportunities</h1>
-          <p className="lead">Connecting our talented students with industry-leading companies</p>
-        </div>
-      </div>
+      <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} pauseOnHover draggable theme="light" />
 
-      {/* Hero section with top packages */}
-      <section className="mb-5">
+      <section aria-labelledby="placementOpportunitiesTitle" className="my-4">
+        <div className="row">
+          <div className="col-12 text-center">
+            <h1 id="placementOpportunitiesTitle" className="display-5 fw-bold">Placement Opportunities</h1>
+            <p className="lead">Connecting our talented students with industry-leading companies</p>
+          </div>
+        </div>
+      </section>
+
+      <section aria-labelledby="topPlacementPackagesTitle" className="mb-5">
         <div className="row mb-4">
           <div className="col">
-            <h2 className="border-bottom pb-2">Top Placement Packages</h2>
+            <h2 id="topPlacementPackagesTitle" className="border-bottom pb-2">Top Placement Packages</h2>
             <p className="text-muted">Our students have received exceptional offers from leading companies</p>
           </div>
         </div>
@@ -103,11 +105,10 @@ export const PlacementPage = () => {
         </div>
       </section>
 
-      {/* Hero section with top packages in this year */}
-      <section className="mb-5">
+      <section aria-labelledby="currentYearTopPackagesTitle" className="mb-5">
         <div className="row mb-4">
           <div className="col">
-            <h2 className="border-bottom pb-2">Current Year Top Placement Packages</h2>
+            <h2 id="currentYearTopPackagesTitle" className="border-bottom pb-2">Current Year Top Placement Packages</h2>
             <p className="text-muted">Our students have received exceptional offers from leading companies</p>
           </div>
         </div>
@@ -130,11 +131,10 @@ export const PlacementPage = () => {
         </div>
       </section>
 
-      {/* Recruiting companies grid */}
-      <section>
+      <section aria-labelledby="recruitingCompaniesTitle">
         <div className="row mb-4">
           <div className="col">
-            <h2 className="border-bottom pb-2">Recruiting Companies</h2>
+            <h2 id="recruitingCompaniesTitle" className="border-bottom pb-2">Recruiting Companies</h2>
             <p className="text-muted">These industry leaders regularly recruit from our college</p>
           </div>
         </div>
@@ -160,5 +160,5 @@ export const PlacementPage = () => {
         </div>
       </section>
     </div>
-  )
-}
+  );
+};

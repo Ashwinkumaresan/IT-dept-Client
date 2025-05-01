@@ -16,7 +16,7 @@ export const ForgotPasswordReset = () => {
   // Redirect if not verified
   useEffect(() => {
     if (!mail || !otp_re) {
-      navigate("/forgotpassword-email")
+      navigate("/student-login")
     }
   }, [mail, otp_re, navigate])
 
@@ -91,13 +91,13 @@ export const ForgotPasswordReset = () => {
       );
       //console.log("Server Response:", res.data);
   
-      // Clear session storage
-      sessionStorage.removeItem("resetEmail");
-      sessionStorage.removeItem("otpVerified");
-  
+      
       // Show success message and redirect
       alert("Password reset successful! You can now login with your new password.");
       navigate("/student-login");
+      // Clear session storage
+      sessionStorage.removeItem("resetEmail");
+      sessionStorage.removeItem("otpVerified");
   
     } catch (error) {
       console.error("Password reset error:", error);

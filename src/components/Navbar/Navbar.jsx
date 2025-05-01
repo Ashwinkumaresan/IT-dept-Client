@@ -83,7 +83,7 @@ const ModernNavbar = () => {
               <div className="container  border rounded ps-5 pb-5 pt-5">
                 <button className="X" onClick={() => setOpenPopup(false)}><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24"><path d="M6.4 19L5 17.6l5.6-5.6L5 6.4L6.4 5l5.6 5.6L17.6 5L19 6.4L13.4 12l5.6 5.6l-1.4 1.4l-5.6-5.6z" /></svg></button>
                 <div className="row border rounded">
-                  <div className="col-12 col-md-6 bg-primary text-white rounded p-5">
+                  <div className="col-12 col-md-6 bg-primary text-white rounded py-5">
                     <p className="m-0">Login</p>
                     <h1 className="mb-4">For Student</h1>
                     <Link to="/student-login">
@@ -93,7 +93,7 @@ const ModernNavbar = () => {
                       borderBottom: "1px solid white"
                     }}>Sign up</span></Link></p>
                   </div>
-                  <div className="col-12 col-md-6 bg-white text-dark p-5">
+                  <div className="col-12 col-md-6 bg-white text-dark py-5">
                     <p className="m-0">Login</p>
                     <h1 className="mb-4">For Staff's</h1>
                     <Link to="/staff-login">
@@ -122,7 +122,7 @@ const ModernNavbar = () => {
               }} />
               <div>
                 <span className="m-0 p-0 d-none d-md-block" style={{ fontSize: "8px" }}>Dr.Mahalingam College of Engineering and Technology</span>
-                <p className="m-0 p-0 fw-bold" style={{ fontSize: "15px" }}>Information Technology</p>
+                <p className="m-0 p-0 fw-bold fs-12">Information Technology</p>
               </div>
             </div>
           </Navbar.Brand>

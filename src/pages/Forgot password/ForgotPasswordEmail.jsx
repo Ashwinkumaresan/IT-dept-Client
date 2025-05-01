@@ -44,7 +44,7 @@ export const ForgotPasswordEmail = () => {
   
     } catch (error) {
       console.error("Forgot password error:", error);
-      setEmailError("Something went wrong. Please try again.");
+      setEmailError("Please check college mail is alredy registered");
     } finally {
       setIsLoading(false);
     }
@@ -81,7 +81,7 @@ export const ForgotPasswordEmail = () => {
                     onChange={(e) => setEmail(e.target.value)}
                     required
                   />
-                  {emailError && <div className="invalid-feedback">{emailError}</div>}
+                  {emailError && <div className="invalid-feedback fs-14">{emailError}</div>}
                 </div>
 
                 <div className="d-grid">
