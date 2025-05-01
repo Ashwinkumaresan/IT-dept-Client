@@ -39,6 +39,7 @@ import { ScrollToTop } from './components/Layout/ScrollToTop.jsx';
 import { RoadmapDomains } from './pages/Roadmap/RoadmapDomains.jsx';
 import { RoadmapDetail } from './pages/Roadmap/RoadmapDetail.jsx';
 import { AssociationGallery } from './pages/AssociationGallery.jsx';
+import { Facility } from './pages/Facility.jsx';
 
 function App() {
   
@@ -173,6 +174,7 @@ function App() {
           <Route path='/association-gallery' element={<AssociationGallery/>} />
           <Route path='/placement' element={[ <PlacementPage/>] } />
           <Route path='/gallery' element={[ <GalleryPage/>] } />
+          <Route path='/facilities' element={<Facility/>} />
           <Route path='/feed' element={[ <Feed/>]} />
           <Route path='/roadmap-domains' element={<RoadmapDomains/>} />
           <Route path='/roadmap/:domain' element={<WordPage/>} />

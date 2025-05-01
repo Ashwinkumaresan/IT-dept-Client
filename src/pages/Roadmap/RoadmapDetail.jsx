@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Container, Row, Col, Card, Form, Button, Accordion, Badge, ProgressBar } from "react-bootstrap";
+import { ToastContainer, toast } from 'react-toastify';
 import axios from "axios";
 
 export const RoadmapDetail = ({ domain }) => {
@@ -10,136 +11,188 @@ export const RoadmapDetail = ({ domain }) => {
   const [finalProjectLink, setFinalProjectLink] = useState("");
   const [showInput, setShowInput] = useState(false);
   const [domainData, setDomainData] = useState(null);
+  const [input, setInput] = useState(true);
 
   const token = localStorage.getItem("access_token");
   const headers = token ? { Authorization: `Bearer ${token}` } : {};
+
+  const notifyError = (obj) => {
+    toast.error(obj, {
+      position: "top-right",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: false,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+  };
+
+  const notifySuccess = (obj) => {
+    toast.success(obj, {
+      position: "top-right",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: false,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+  }
 
   useEffect(() => {
     if (localStorage.getItem("access_token"))
       setShowInput(true);
   }, []);
 
+  const fetchDomains = async () => {
+    try {
+      const response = await axios.get(
+        `https://test.mcetit.drmcetit.com/api/roadmap/detail/${domain}`,
+        { headers }
+      );
+      console.log("Fetched domainData:", response.data);
+
+      const data = response.data[domain];
+      setDomainData(data);
+
+      // Initialize subtopic links from API values
+      const initialSubLinks = {};
+      data.subtopics.forEach((sub) => {
+        initialSubLinks[sub.name] = sub.subProjcetLinks || "";
+      });
+      setSubtopicLinks(initialSubLinks);
+
+      // Initialize final project link
+      setFinalProjectLink(data.projectLink || "");
+    } catch (error) {
+      console.error("Error fetching data:", error.response?.data || error.message);
+    }
+  };
   useEffect(() => {
-    const fetchDomains = async () => {
-      try {
-        const response = await axios.get(
-          `https://test.mcetit.drmcetit.com/api/roadmap/detail/${domain}`,
-          { headers }
-        );
-        console.log("Fetched domainData:", response.data);
-
-        const data = response.data[domain];
-        setDomainData(data);
-
-        // Initialize subtopic links from API values
-        const initialSubLinks = {};
-        data.subtopics.forEach((sub) => {
-          initialSubLinks[sub.name] = sub.subProjcetLinks || "";
-        });
-        setSubtopicLinks(initialSubLinks);
-
-        // Initialize final project link
-        setFinalProjectLink(data.projectLink || "");
-      } catch (error) {
-        console.error("Error fetching data:", error.response?.data || error.message);
-      }
-    };
-
     fetchDomains();
   }, [domain]);
 
   async function fetchCSRFToken() {
     try {
-        const response = await fetch("https://test.mcetit.drmcetit.com/api/get-csrf-token/", {
-            credentials: "include",  // Ensure cookies are sent
-        });
-        const data = await response.json();
-        console.log("Fetched CSRF Token:", data.csrfToken);
-        return data.csrfToken;
+      const response = await fetch("https://test.mcetit.drmcetit.com/api/get-csrf-token/", {
+        credentials: "include",  // Ensure cookies are sent
+      });
+      const data = await response.json();
+      console.log("Fetched CSRF Token:", data.csrfToken);
+      return data.csrfToken;
     } catch (error) {
-        console.error("Failed to fetch CSRF token", error);
-        return null;
+      console.error("Failed to fetch CSRF token", error);
+      return null;
     }
-}
-
-const handleSubtopicLinkSubmit = async (subtopicName) => {
-  const csrfToken = await fetchCSRFToken();
-  console.log("CSRF Token:", csrfToken);
-
-  const link = subtopicLinks[subtopicName];
-  if (!localStorage.getItem("access_token")) {
-    alert("Login required");
-    navigate("/student-login");
-    return;
   }
 
-  const headers = {
-    "X-CSRFToken": csrfToken,
-    "Authorization": `Bearer ${localStorage.getItem("access_token")}`,
-    "Content-Type": "application/json",  // Ensure it's sending JSON data
-  };
+  const handleSubtopicLinkSubmit = async (subtopicName) => {
+    const csrfToken = await fetchCSRFToken();
+    console.log("CSRF Token:", csrfToken);
 
-  // Prepare the body data as JSON
-  const requestBody = {
-    domain: domain,           // Domain information
-    subtopicName: subtopicName,  // Subtopic name
-    link: link,               // Link to be submitted
-  };
-
-  console.log("Request Body:", requestBody);
-  console.log("Headers being sent:", headers);
-
-  try {
-    const response = await fetch("https://test.mcetit.drmcetit.com/api/roadmap/subtopic/form/", {
-      method: "POST",
-      headers: headers,
-      body: JSON.stringify(requestBody),  // Convert the body data to JSON string
-    });
-
-    const responseData = await response.json();
-
-    if (response.ok) {
-      console.log("Submit res:", responseData);
-      alert("Sent");
-    } else {
-      console.log("Error:", responseData);
-      alert("Failed to submit");
+    const link = subtopicLinks[subtopicName];
+    if (!localStorage.getItem("access_token")) {
+      navigate("/student-login");
+      return;
     }
 
-    console.log("Domain:", domain);
-    console.log("Subtopic:", subtopicName);
-    console.log("Link:", link);
+    const headers = {
+      "X-CSRFToken": csrfToken,
+      "Authorization": `Bearer ${localStorage.getItem("access_token")}`,
+      "Content-Type": "application/json",
+    };
 
-  } catch (error) {
-    console.error("Error submitting subtopic link:", error.message);
-  }
-};
- 
+    // Prepare the body data as JSON
+    const requestBody = {
+      domain: domain,
+      subtopicName: subtopicName,
+      link: link,
+    };
 
-  
+    console.log("Request Body:", requestBody);
+    console.log("Headers being sent:", headers);
+
+    try {
+      const response = await fetch("https://test.mcetit.drmcetit.com/api/roadmap/subtopic/form/", {
+        method: "POST",
+        headers: headers,
+        body: JSON.stringify(requestBody),
+      });
+
+      const responseData = await response.json();
+
+      if (response.ok) {
+        console.log("Submit res:", responseData);
+        //alert("Sent");
+        notifySuccess("Subitted");
+      } else {
+        console.log("Error:", responseData);
+        //alert("Failed to submit");
+        //alert(responseData[0])
+        notifyError(responseData[0]);
+
+      }
+
+      console.log("Domain:", domain);
+      console.log("Subtopic:", subtopicName);
+      console.log("Link:", link);
+
+    } catch (error) {
+      console.error("Error submitting subtopic link:", error.message);
+    }
+  };
 
   const handleFinalProjectSubmit = async () => {
+    const csrfToken = await fetchCSRFToken();
+    console.log("CSRF Token:", csrfToken);
+  
     if (!localStorage.getItem("access_token")) {
-      alert("Login required");
       navigate("/student-login");
+      return;
     }
+  
+    const headers = {
+      "X-CSRFToken": csrfToken,
+      "Authorization": `Bearer ${localStorage.getItem("access_token")}`,
+      "Content-Type": "application/json",
+    };
+  
+    const requestBody = {
+      domain: domain,
+      link: finalProjectLink,
+    };
+  
+    console.log("Request Body:", requestBody);
+    console.log("Headers being sent:", headers);
+  
     try {
-      await axios.post(
-        `https://test.mcetit.drmcetit.com/api/roadmap/project/form/`,
-        {
-          domain,
-          link: finalProjectLink,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("access_token")}`,
-          },
-        }
-      );
+      const response = await fetch("https://test.mcetit.drmcetit.com/api/roadmap/domain/form/", {
+        method: "POST",
+        headers: headers,
+        body: JSON.stringify(requestBody),
+      });
+  
+      const responseData = await response.json();
+  
+      if (response.ok) {
+        console.log("Project Submit res:", responseData);
+        notifySuccess("Final Project Submitted");
+      } else {
+        console.log("Error:", responseData);
+        notifyError(responseData[0]);
+      }
+  
+      console.log("Domain:", domain);
+      console.log("Project Link:", finalProjectLink);
+  
     } catch (error) {
-      console.error("Error submitting final project:", error.response?.data || error.message);
+      console.error("Error submitting final project:", error.message);
     }
   };
+  
 
   if (!domainData) {
     return <div>Loading...</div>;
@@ -163,17 +216,32 @@ const handleSubtopicLinkSubmit = async (subtopicName) => {
     });
   };
 
-  // Handle project selection
-  const handleProjectSelection = (project) => {
-    if (selectedProjects.includes(project)) {
-      setSelectedProjects(selectedProjects.filter((p) => p !== project));
-    } else {
-      setSelectedProjects([...selectedProjects, project]);
-    }
-  };
-
   return (
     <Container className="py-5">
+      <ToastContainer
+        position="top-right"
+        autoClose={2000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover={false}
+        theme="light"
+      />
+      <ToastContainer
+        position="top-right"
+        autoClose={2000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover={false}
+        theme="light"
+      />
       {/* Header Section */}
       <section className="text-center my-5">
         <h1 className="display-4 fw-bold mb-3">{title}</h1>
@@ -247,7 +315,7 @@ const handleSubtopicLinkSubmit = async (subtopicName) => {
                       )}
 
                       {/* GitHub submission for each subtopic */}
-                      <div className="border-top pt-4 mt-2">
+                      {input && <div className="border-top pt-4 mt-2">
                         <p className="text-muted mb-3">Submit your GitHub project link for this subtopic:</p>
                         <Row>
                           <Col md={9}>
@@ -256,6 +324,7 @@ const handleSubtopicLinkSubmit = async (subtopicName) => {
                               placeholder="GitHub project link"
                               value={subtopicLinks[subtopicName]}
                               onChange={(e) => handleSubtopicLinkChange(subtopicName, e.target.value)}
+                              required
                             />
                           </Col>
                           <Col md={3}>
@@ -268,7 +337,7 @@ const handleSubtopicLinkSubmit = async (subtopicName) => {
                             </Button>
                           </Col>
                         </Row>
-                      </div>
+                      </div>}
                     </Accordion.Body>
                   </Accordion.Item>
                 );

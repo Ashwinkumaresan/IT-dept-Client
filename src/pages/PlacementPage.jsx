@@ -58,7 +58,7 @@ export const PlacementPage = () => {
 
   if (loading) {
     return (
-      <div className="container py-5 text-center">
+      <div className="container mt-5 py-5 text-center">
         <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} pauseOnHover draggable theme="light" />
         <Spinner animation="border" variant="primary" /> {/* Displaying a spinner while data is being fetched */}
         <p className="mt-3">Loading placement data...</p>
@@ -74,12 +74,12 @@ export const PlacementPage = () => {
         <div className="row">
           <div className="col-12 text-center">
             <h1 id="placementOpportunitiesTitle" className="display-5 fw-bold">Placement Opportunities</h1>
-            <p className="lead">Connecting our talented students with industry-leading companies</p>
+            <p className="text-center fs-5" style={{ color: "#606060" }}>Connecting our talented students with industry-leading companies</p>
           </div>
         </div>
       </section>
 
-      <section aria-labelledby="topPlacementPackagesTitle" className="mb-5">
+      {/* <section aria-labelledby="topPlacementPackagesTitle" className="mb-5">
         <div className="row mb-4">
           <div className="col">
             <h2 id="topPlacementPackagesTitle" className="border-bottom pb-2">Top Placement Packages</h2>
@@ -129,10 +129,10 @@ export const PlacementPage = () => {
             </div>
           ))}
         </div>
-      </section>
+      </section> */}
 
       <section aria-labelledby="recruitingCompaniesTitle">
-        <div className="row mb-4">
+        <div className="row my-4">
           <div className="col">
             <h2 id="recruitingCompaniesTitle" className="border-bottom pb-2">Recruiting Companies</h2>
             <p className="text-muted">These industry leaders regularly recruit from our college</p>
@@ -142,7 +142,7 @@ export const PlacementPage = () => {
         <div className="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-4">
           {recruitingCompanies.map((company) => (
             <div key={company.id} className="col">
-              <div className="card h-100 border-0 shadow-sm hover-card">
+              <div className="card h-100 border-0 shadow-sm hover-card" style={{cursor:"pointer"}}>
                 <div className="d-flex justify-content-center align-items-center p-3" style={{ height: "150px" }}>
                   <img
                     src={company.logo || "/placeholder.svg"}

@@ -38,6 +38,22 @@ const HeroCarousel = () => {
       ctaText: "Explore Association",
       ctaLink: "/#/association",
     },
+    {
+      id: 5,
+      image: "pridewall_Hero.png",
+      title: "Pride Wall",
+      description: "The Pride Wall proudly showcases winning posters created by students, celebrating their creativity and achievements.",
+      ctaText: "Explore Pride Wall",
+      ctaLink: "/#/gallery",
+    },
+    {
+      id: 6,
+      image: "roadmap_Hero.png",
+      title: "Road Map",
+      description: "A Career Roadmap Wall displays clear paths and opportunities in various fields, helping students visualize where their career journey can lead.",
+      ctaText: "Explore Roadmap",
+      ctaLink: "/#/roadmap-domains",
+    },
   ]
 
   const [index, setIndex] = useState(0)

@@ -4,6 +4,34 @@ import { ToastContainer, toast } from 'react-toastify';
 
 
 export const About = () => {
+  const staffData = [
+    { sno: 1, name: "Dr.S.Ramakrishnan", qualification: "M.E., Ph.D.", designation: "Dean - Research & Innovation and Senior Professor" },
+    { sno: 2, name: "Dr.L.Meenachi", qualification: "M.E., Ph.D.", designation: "Associate Professor & HoD i/c" },
+    { sno: 3, name: "Dr.A.P.Janani", qualification: "MCA., M.E., Ph.D.", designation: "Associate Professor" },
+    { sno: 4, name: "Dr.S.Ponni @ Sathya", qualification: "M.E., Ph.D.", designation: "Associate Professor" },
+    { sno: 5, name: "Dr.J.Ramprasath", qualification: "M.E., Ph.D.", designation: "Associate Professor" },
+    { sno: 6, name: "Dr.A.G.Priya Varshini", qualification: "M.E., Ph.D.", designation: "Assistant Professor(SS)" },
+    { sno: 7, name: "Ms.D.Janani", qualification: "M.E.,", designation: "Assistant Professor(SS)" },
+    { sno: 8, name: "Ms.S.Soundariya", qualification: "M.E.,", designation: "Assistant Professor(SS)" },
+    { sno: 9, name: "Dr.J.Thimmia Raja", qualification: "M.Sc.,M.Tech.,Ph.D.", designation: "Assistant Professor(SS)" },
+    { sno: 10, name: "Ms.T.Sumathi", qualification: "M.Tech.", designation: "Assistant Professor(SS)" },
+    { sno: 11, name: "Mr.N.Praveen Sundra Kumar", qualification: "M.E.,", designation: "Assistant Professor(SS)" },
+    { sno: 12, name: "Dr.C.Jeevanantham", qualification: "M.E.,Ph.D.,", designation: "Assistant Professor(SS)" },
+    { sno: 13, name: "Mr.J.Dhanyeswaran", qualification: "M.Tech.", designation: "Assistant Professor(SS)" },
+    { sno: 14, name: "Mr.R.Prabhu", qualification: "M.E.,", designation: "Assistant Professor(SS)" },
+    { sno: 15, name: "Ms.G.Saranya", qualification: "M.E.,", designation: "Assistant Professor" },
+    { sno: 16, name: "Ms.K.Saranya", qualification: "M.E.,", designation: "Assistant Professor" },
+    { sno: 17, name: "Ms.P.Rajeswari", qualification: "M.E.,", designation: "Assistant Professor" },
+    { sno: 18, name: "Ms.K.S.Sudhishna", qualification: "M.E.,", designation: "Assistant Professor" },
+    { sno: 19, name: "Ms.P.Kalaivani", qualification: "M.E.,", designation: "Assistant Professor" },
+    { sno: 20, name: "Mr.R.Govindaraj", qualification: "M.E.,", designation: "Assistant Professor" },
+    { sno: 21, name: "Mr.M.Sivakumar", qualification: "M.E.,", designation: "Assistant Professor" },
+    { sno: 22, name: "Ms.G.Keerthika", qualification: "M.E.,", designation: "Assistant Professor" },
+    { sno: 23, name: "Ms.S.Selvanayaki", qualification: "M.E.,", designation: "Assistant Professor" },
+    { sno: 24, name: "Ms.S.Deepa", qualification: "M.E.,", designation: "Assistant Professor" },
+    { sno: 25, name: "Ms.P.Ponni", qualification: "M.E.", designation: "Assistant Professor" },
+  ];
+
   const [outcomes, setOutcomes] = useState({
     PEO: [],
     PO: [],
@@ -46,7 +74,7 @@ export const About = () => {
   }, []);
 
   return (
-    <Container style={{ marginTop: "15vh" }}>
+    <Container className='pt-5'>
       <ToastContainer
         position="top-right"
         autoClose={3000}
@@ -59,10 +87,10 @@ export const About = () => {
         pauseOnHover
         theme="light"
       />
-      <h1 className="text-center fw-bold">About Our Department</h1>
+      <h1 className="text-center fw-bold mt-5">About Our Department</h1>
       <p className="text-center fs-5" style={{ color: "#606060" }}>Pioneering excellence in IT education and research since 2000</p>
 
-      <div className='my-4 border rounded-1 shadow-sm p-3' style={{
+      {/* <div className='my-4 border rounded-1 shadow-sm p-3' style={{
         backgroundImage: `url("about_bg.png")`,
         backgroundSize: "cover",
         backgroundPosition: "center",
@@ -100,26 +128,72 @@ export const About = () => {
         <button className='btn btn-primary'>
           Learn more →
         </button>
-      </div>
+      </div> */}
 
       {/* <img src="About_IT.png" alt="About IT" className='img-thumbnail my-5 border rounded-1' /> */}
-      <div>
-        <h4>About Department</h4>
-        <p className='fs-6' style={{ textAlign: "justify" }} >The department of Information Technology was established in 1999. The department offers B.Tech. (IT) programme, which combines faculties with expertise in various fields and good laboratory facilities for imparting knowledge to the students. This enables students to face the challenging needs of the industries and research institutions. The department is affiliated to Anna University & B.Tech. Information Technology Programme is accredited by the National Board of Accreditation (NBA), AICTE, New Delhi.
+      <div className='my-4'>
+        {/* <h4>About Department</h4> */}
+        <p className='fs-14 justify'  >The department of Information Technology was established in 1999. The department offers B.Tech. (IT) programme, which combines faculties with expertise in various fields and good laboratory facilities for imparting knowledge to the students. This enables students to face the challenging needs of the industries and research institutions. The department is affiliated to Anna University & B.Tech. Information Technology Programme is accredited by the National Board of Accreditation (NBA), AICTE, New Delhi.
         </p>
-        <p className='fs-6' style={{ textAlign: "justify" }} >The department conducted several national level workshops, Seminars, FDP, SDP, Conferences, etc. Our Department faculty members have published their research work in Reputed national/international Journals namely IEEE Transaction on Image Processing, IEEE Communications, ACM, Springer, etc. Our faculty members are involved in various research works, such as in the fields of Signal Processing, Image Processing, Networking, Data Mining, Soft Computing, etc.,</p>
+        <p className='fs-14 justify'  >The department conducted several national level workshops, Seminars, FDP, SDP, Conferences, etc. Our Department faculty members have published their research work in Reputed national/international Journals namely IEEE Transaction on Image Processing, IEEE Communications, ACM, Springer, etc. Our faculty members are involved in various research works, such as in the fields of Signal Processing, Image Processing, Networking, Data Mining, Soft Computing, etc.,</p>
       </div>
 
+      <div className='my-4'>
+        <div>
+        <h2 className="display-6 fw-bold mb-3">Vission and Mission</h2>
+          <div className='peo my-4 border rounded-1 p-3'>
+            <h4 className="">Our Visson</h4>
+            <div className='my-2'>
+              <p className='m-0 fs-14' >To become a Centre of Excellence in education and research in the field of Information Technology, to meet global challenges in computing industries.</p>
+            </div>
+          </div>
+          <div className='peo my-4 border rounded-1 p-3'>
+            <h4 className="">Our Misson</h4>
+            <div className='my-2'>
+              <ul>
+                <li className='fs-14 justify'>To impart world-class knowledge in the field of Information Technology.</li>
+                <li className='fs-14 justify'>To promote industry-institute interactions to empower the faculty members and students.</li>
+                <li className='fs-14 justify'>To support and facilitate research and development activities.</li>
+                <li className='fs-14 justify'>To develop all round personality by inculcating the values and skills needed for students to upgrade themselves as IT professionals.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
 
+      <div className="table-responsive">
+      <h2 className="display-6 fw-bold mb-3">Faculties</h2>
+          <table className="table table-bordered table-striped text-center">
+            <thead>
+              <tr className="text-white" style={{ backgroundColor: "#0d6efd" }}>
+                <th className='fs-14'>S.No.</th>
+                <th className='fs-14'>Staff Name</th>
+                <th className='fs-14'>Qualification</th>
+                <th className='fs-14'>Designation</th>
+              </tr>
+            </thead>
+            <tbody>
+              {staffData.map((staff) => (
+                <tr key={staff.sno}>
+                  <td className='fs-14'>{staff.sno}</td>
+                  <td className='fs-14'>{staff.name}</td>
+                  <td className='fs-14'>{staff.qualification}</td>
+                  <td className='fs-14'>{staff.designation}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
 
-      <div className="border rounded-1 p-3">
+      <div className=" p-3 mt-4">
+      <h2 className="display-6 fw-bold mb-3">Program Objective</h2>
 
         {/* Program Educational Objectives (PEO's) */}
         <div className="peo">
           <h4>Program Educational Objectives (PEO's)</h4>
           {outcomes.PEO?.map((item, index) => (
             <div className="my-4" key={item.POId}>
-              <p className='fs-6 m-0 p-0' style={{ textAlign: "justify" }}>
+              <p className='fs-14 m-0 p-0 justify'>
                 <span className="fw-bold">{item.POId}: </span>
                 {item.title && <span className="fw-semibold">{item.title}: </span>}
                 {item.description}
@@ -133,7 +207,7 @@ export const About = () => {
           <h4>Program Outcomes</h4>
           {outcomes.PO?.map((item, index) => (
             <div className="my-4" key={item.POId}>
-              <p className='fs-6 m-0 p-0' style={{ textAlign: "justify" }}>
+              <p className='fs-14 m-0 p-0 justify'>
                 <span className="fw-bold">{item.POId}: </span>
                 {item.title && <span className="fw-semibold">{item.title}: </span>}
                 {item.description}
@@ -147,7 +221,7 @@ export const About = () => {
           <h4>Program Specific Outcomes (PSOs)</h4>
           {outcomes.PSO?.map((item, index) => (
             <div className="my-4" key={item.POId}>
-              <p className='fs-6 m-0 p-0' style={{ textAlign: "justify" }}>
+              <p className='fs-14 m-0 p-0 justify'>
                 <span className="fw-bold">{item.POId}: </span>
                 {item.title && <span className="fw-semibold">{item.title}: </span>}
                 {item.description}
@@ -158,124 +232,16 @@ export const About = () => {
 
       </div>
 
-
-
-
-      <div className='my-5'>
-        <div>
-          <h4 className="text-center">Vission and Mission</h4>
-          <div className='peo my-4 border rounded-1 p-3'>
-            <h4 className="">Our Visson</h4>
-            <div className='my-4'>
-              <p style={{ textAlign: "justify" }} className='m-0' >To be a globally recognized center of excellence in Information Technology education and research, producing innovative professionals who contribute significantly to technological advancement and societal development.</p>
-            </div>
-          </div>
-          <div className='peo my-4 border rounded-1 p-3'>
-            <h4 className="">Our Misson</h4>
-            <div className='my-4'>
-              <ul>
-                <li>Provide quality education with a focus on practical skills and theoretical knowledge</li>
-                <li>Foster a culture of innovation and research</li>
-                <li>Develop industry-ready professionals with strong ethical values</li>
-                <li>Establish strong collaborations with industry and academic institutions</li>
-                <li>Contribute to technological advancements through research and development</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-
       <div>
-        <h4 className="text-center">Faculty Notable Achievement</h4>
+      <h2 className="display-6 fw-bold mb-3">Faculty Notable Achievement</h2>
         <div className='my-4'>
           <div className='my-2'>
             <p className='fs-4 fw-bold'>Dr. S. Ramakrishnan</p>
             <ul>
-              <li>Associate Editor in IEEE Access.</li>
-              <li>Recognized as a Featured Reviwer for ACM Coumputing Reviews during MAy 2022.</li>
-              <li>Associate Editor in IEEE Access.</li>
-              <li>Recognized as a Featured Reviwer for ACM Coumputing Reviews during MAy 2022.</li>
-            </ul>
-          </div>
-          <div className='my-2'>
-            <p className='fs-4 fw-bold'>Dr. S. Ramakrishnan</p>
-            <ul>
-              <li>Associate Editor in IEEE Access.</li>
-              <li>Recognized as a Featured Reviwer for ACM Coumputing Reviews during MAy 2022.</li>
-              <li>Associate Editor in IEEE Access.</li>
-              <li>Recognized as a Featured Reviwer for ACM Coumputing Reviews during MAy 2022.</li>
-            </ul>
-          </div>
-          <div className='my-2'>
-            <p className='fs-4 fw-bold'>Dr. S. Ramakrishnan</p>
-            <ul>
-              <li>Associate Editor in IEEE Access.</li>
-              <li>Recognized as a Featured Reviwer for ACM Coumputing Reviews during MAy 2022.</li>
-              <li>Associate Editor in IEEE Access.</li>
-              <li>Recognized as a Featured Reviwer for ACM Coumputing Reviews during MAy 2022.</li>
-            </ul>
-          </div>
-          <div className='my-2'>
-            <p className='fs-4 fw-bold'>Dr. S. Ramakrishnan</p>
-            <ul>
-              <li>Associate Editor in IEEE Access.</li>
-              <li>Recognized as a Featured Reviwer for ACM Coumputing Reviews during MAy 2022.</li>
-              <li>Associate Editor in IEEE Access.</li>
-              <li>Recognized as a Featured Reviwer for ACM Coumputing Reviews during MAy 2022.</li>
-            </ul>
-          </div>
-          <div className='my-2'>
-            <p className='fs-4 fw-bold'>Dr. S. Ramakrishnan</p>
-            <ul>
-              <li>Associate Editor in IEEE Access.</li>
-              <li>Recognized as a Featured Reviwer for ACM Coumputing Reviews during MAy 2022.</li>
-              <li>Associate Editor in IEEE Access.</li>
-              <li>Recognized as a Featured Reviwer for ACM Coumputing Reviews during MAy 2022.</li>
-            </ul>
-          </div>
-          <div className='my-2'>
-            <p className='fs-4 fw-bold'>Dr. S. Ramakrishnan</p>
-            <ul>
-              <li>Associate Editor in IEEE Access.</li>
-              <li>Recognized as a Featured Reviwer for ACM Coumputing Reviews during MAy 2022.</li>
-              <li>Associate Editor in IEEE Access.</li>
-              <li>Recognized as a Featured Reviwer for ACM Coumputing Reviews during MAy 2022.</li>
-            </ul>
-          </div>
-          <div className='my-2'>
-            <p className='fs-4 fw-bold'>Dr. S. Ramakrishnan</p>
-            <ul>
-              <li>Associate Editor in IEEE Access.</li>
-              <li>Recognized as a Featured Reviwer for ACM Coumputing Reviews during MAy 2022.</li>
-              <li>Associate Editor in IEEE Access.</li>
-              <li>Recognized as a Featured Reviwer for ACM Coumputing Reviews during MAy 2022.</li>
-            </ul>
-          </div>
-          <div className='my-2'>
-            <p className='fs-4 fw-bold'>Dr. S. Ramakrishnan</p>
-            <ul>
-              <li>Associate Editor in IEEE Access.</li>
-              <li>Recognized as a Featured Reviwer for ACM Coumputing Reviews during MAy 2022.</li>
-              <li>Associate Editor in IEEE Access.</li>
-              <li>Recognized as a Featured Reviwer for ACM Coumputing Reviews during MAy 2022.</li>
-            </ul>
-          </div>
-          <div className='my-2'>
-            <p className='fs-4 fw-bold'>Dr. S. Ramakrishnan</p>
-            <ul>
-              <li>Associate Editor in IEEE Access.</li>
-              <li>Recognized as a Featured Reviwer for ACM Coumputing Reviews during MAy 2022.</li>
-              <li>Associate Editor in IEEE Access.</li>
-              <li>Recognized as a Featured Reviwer for ACM Coumputing Reviews during MAy 2022.</li>
-            </ul>
-          </div>
-          <div className='my-2'>
-            <p className='fs-4 fw-bold'>Dr. S. Ramakrishnan</p>
-            <ul>
-              <li>Associate Editor in IEEE Access.</li>
-              <li>Recognized as a Featured Reviwer for ACM Coumputing Reviews during MAy 2022.</li>
-              <li>Associate Editor in IEEE Access.</li>
-              <li>Recognized as a Featured Reviwer for ACM Coumputing Reviews during MAy 2022.</li>
+              <li className='fs-14 justify'>Associate Editor in IEEE Access.</li>
+              <li className='fs-14 justify'>Recognized as a Featured Reviwer for ACM Coumputing Reviews during MAy 2022.</li>
+              <li className='fs-14 justify'>Associate Editor in IEEE Access.</li>
+              <li className='fs-14 justify'>Recognized as a Featured Reviwer for ACM Coumputing Reviews during MAy 2022.</li>
             </ul>
           </div>
         </div>

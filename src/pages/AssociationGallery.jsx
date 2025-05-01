@@ -5,30 +5,30 @@ export const AssociationGallery = () => {
   const [fetchGallery, setFetchGallery] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedImage, setSelectedImage] = useState('');
-  const [loading, setLoading] = useState(true);  // State for loading indicator
+  const [loading, setLoading] = useState(true);
 
-  // Function to open the modal with the selected image
-  const handleImageClick = (imageSrc) => {
-    setSelectedImage(imageSrc);
+  const baseURL = "http://test.mcetit.drmcetit.com";
+
+  // Open modal with full image URL
+  const handleImageClick = (imagePath) => {
+    setSelectedImage(`${baseURL}${imagePath}`);
     setIsModalOpen(true);
   };
 
-  // Function to close the modal
   const closeModal = () => {
     setIsModalOpen(false);
   };
 
-  // Fetch gallery images
   useEffect(() => {
     const fetchAssociationGallery = async () => {
       try {
-        const response = await axios.get("http://test.mcetit.drmcetit.com/api/association/gallery/");
+        const response = await axios.get(`${baseURL}/api/association/gallery/`);
         console.log(response.data);
         setFetchGallery(response.data);
-        setLoading(false);  // Set loading to false once data is fetched
       } catch (error) {
         console.error("Error fetching data:", error.response?.data || error.message);
-        setLoading(false);  // Ensure loading is set to false even in case of error
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -42,7 +42,6 @@ export const AssociationGallery = () => {
         Explore the vibrant moments of InfoBee, capturing the essence of our events, competitions, and creative collaborations!
       </p>
 
-      {/* Loading Indicator */}
       {loading ? (
         <div className="text-center py-5">
           <div className="spinner-border" role="status">
@@ -50,22 +49,23 @@ export const AssociationGallery = () => {
           </div>
         </div>
       ) : (
-        // Card containing the images fetched from the API
         <div className="row py-5">
           {fetchGallery.map((item, index) => (
             <div className="col-12 col-md-3" key={index}>
               <div
                 className="card m-2 border rounded p-2"
                 style={{ cursor: 'pointer' }}
-                onClick={() => handleImageClick(item.image)} // Clicking the image sets the selected image
+                onClick={() => handleImageClick(item.image)}
               >
                 <img
-                  src={item.image}
+                  src={`${baseURL}${item.image}`}
                   alt={`Gallery Image ${index + 1}`}
                   className="img-fluid img-scale"
                   style={{
-                    objectFit: 'fit',
-                    transition: 'transform 0.3s ease', // Adding transition for smooth scale
+                    objectFit: 'fill',
+                    width: '100%',
+                    height: '150px',
+                    transition: 'transform 0.3s ease',
                   }}
                 />
               </div>
@@ -74,12 +74,10 @@ export const AssociationGallery = () => {
         </div>
       )}
 
-      {/* Modal to display the full image */}
       {isModalOpen && (
         <div
           className="modal"
           style={{
-            display: 'block',
             position: 'fixed',
             top: 0,
             left: 0,
@@ -87,7 +85,6 @@ export const AssociationGallery = () => {
             height: '100%',
             backgroundColor: 'rgba(0,0,0,0.7)',
             zIndex: 1000,
-            overflow: 'auto',
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
@@ -123,7 +120,7 @@ export const AssociationGallery = () => {
               style={{
                 width: '100%',
                 height: 'auto',
-                maxHeight: '80vh', // Ensure the image doesn't overflow vertically
+                maxHeight: '80vh',
                 objectFit: 'contain',
               }}
             />

@@ -62,7 +62,7 @@ export const RoadmapDomains = () => {
     <Container className="py-5">
       <section className="text-center my-5">
         <h1 className="display-4 fw-bold mb-3">Learning Roadmaps</h1>
-        <p className="lead text-muted mx-auto" style={{ maxWidth: "700px" }}>
+        <p className="text-center fs-5" style={{ color: "#606060" }}>
           Choose a domain to start your learning journey. Each roadmap provides a structured path to mastery.
         </p>
       </section>
