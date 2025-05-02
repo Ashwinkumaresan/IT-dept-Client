@@ -10,7 +10,7 @@ export const About = () => {
     { sno: 1, name: "Dr.S.Ramakrishnan", qualification: "M.E., Ph.D.", designation: "Dean - Research & Innovation and Senior Professor" },
     { sno: 2, name: "Dr.L.Meenachi", qualification: "M.E., Ph.D.", designation: "Associate Professor & HoD i/c" },
     { sno: 3, name: "Dr.A.P.Janani", qualification: "MCA., M.E., Ph.D.", designation: "Associate Professor" },
-    { sno: 4, name: "Dr.S.Ponni Sathya", qualification: "M.E., Ph.D.", designation: "Associate Professor" },
+    { sno: 4, name: "Dr.S.Ponni @ Sathya", qualification: "M.E., Ph.D.", designation: "Associate Professor" },
     { sno: 5, name: "Dr.J.Ramprasath", qualification: "M.E., Ph.D.", designation: "Associate Professor" },
     { sno: 6, name: "Dr.A.G.Priya Varshini", qualification: "M.E., Ph.D.", designation: "Assistant Professor(SS)" },
     { sno: 7, name: "Ms.D.Janani", qualification: "M.E.,", designation: "Assistant Professor(SS)" },

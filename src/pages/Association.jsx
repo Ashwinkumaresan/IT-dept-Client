@@ -502,20 +502,21 @@ export const Association = () => {
             <div className="mt-4">
               <h5 className="fw-bold mb-3">Follow Us</h5>
               <div className="d-flex gap-3">
-                <a
-                  href="#"
+                <Link
+                  to="https://www.instagram.com/infobee_it?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
                   className="btn btn-outline-primary rounded-circle"
+                  target="_blank"
                   style={{ width: "40px", height: "40px" }}
                 >
                   <i className="bi bi-instagram"></i>
-                </a>
-                <a
+                </Link>
+                {/* <a
                   href="#"
                   className="btn btn-outline-primary rounded-circle"
                   style={{ width: "40px", height: "40px" }}
                 >
                   <i className="bi bi-linkedin"></i>
-                </a>
+                </a> */}
               </div>
             </div>
           </div>

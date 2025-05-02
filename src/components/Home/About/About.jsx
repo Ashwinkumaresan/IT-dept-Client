@@ -1,15 +1,12 @@
-import { Container, Row, Col, Card, Button } from "react-bootstrap";
+import { Container, Row, Col, Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import CountUp from 'react-countup';
-import ScrollTrigger from 'react-scroll-trigger';
 import { useInView } from "react-intersection-observer"; 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGraduationCap,faShapes } from '@fortawesome/free-solid-svg-icons';
-import { useState } from "react";
 // import { FaInfoCircle, FaGraduationCap, FaUniversity, FaUsers } from "react-icons/fa";
 
 export const About = () => {
-    const [counterState, setCounterState] = useState(false);
     const { ref, inView } = useInView();
 
   return (
@@ -93,7 +90,7 @@ export const About = () => {
         <Container>
         <h2 className="text-center mb-4">Department Highlights</h2>
             <Row ref={ref}>
-                <Col xs={6} sm={6} md={3} lg={3} xl={3} className="text-center my-3">
+                <Col xs={12} sm={12} md={3} lg={3} xl={3} className="text-center my-2">
                     <h2 className="display-6 fw-bold">
                         { inView  && <CountUp
                         start={0}
@@ -103,7 +100,7 @@ export const About = () => {
                         </h2>
                     <p>Years of Excellence</p>
                 </Col>
-                <Col xs={6} sm={6} md={3} lg={3} xl={3} className="text-center my-3">
+                <Col xs={12} sm={12} md={3} lg={3} xl={3} className="text-center my-2">
                     <h2 className="display-6 fw-bold">
                     { inView  && <CountUp
                         start={0}
@@ -112,7 +109,7 @@ export const About = () => {
                         </CountUp>}%</h2>
                     <p>Placement Rate</p>
                 </Col>
-                <Col xs={6} sm={6} md={3} lg={3} xl={3} className="text-center my-3">
+                <Col xs={12} sm={12} md={3} lg={3} xl={3} className="text-center my-2">
                     <h2 className="display-6 fw-bold">
                     { inView  && <CountUp
                         start={0}
@@ -121,7 +118,7 @@ export const About = () => {
                         </CountUp>}+</h2>
                     <p>Faculty Member</p>
                 </Col>
-                <Col xs={6} sm={6} md={3} lg={3} xl={3} className="text-center my-3">
+                <Col xs={12} sm={12} md={2} lg={2} xl={2} className="text-center my-2">
                     <h2 className="display-6 fw-bold">
                     { inView  && <CountUp
                         start={0}

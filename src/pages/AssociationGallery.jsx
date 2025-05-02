@@ -7,7 +7,7 @@ export const AssociationGallery = () => {
   const [selectedImage, setSelectedImage] = useState('');
   const [loading, setLoading] = useState(true);
 
-  const baseURL = "http://test.mcetit.drmcetit.com";
+  const baseURL = "https://test.mcetit.drmcetit.com";
 
   // Open modal with full image URL
   const handleImageClick = (imagePath) => {
