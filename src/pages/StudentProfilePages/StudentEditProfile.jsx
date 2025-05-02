@@ -55,6 +55,7 @@ export const StudentEditProfile = ({profileSubmit}) => {
     Leetcode: "",
     HackerRank: "",
     Linkedin: "",
+    cgpa: "",
     profilePic: "", // Stores the existing image URL
   });
 
@@ -298,7 +299,7 @@ export const StudentEditProfile = ({profileSubmit}) => {
                   <p className="text-muted small">
                     Click on the camera icon to upload a new profile picture.
                   </p>
-                  <button className="btn btn-danger" onClick={deleteProfile}>Delete Profile</button>
+                  {/* <button className="btn btn-danger" onClick={deleteProfile}>Delete Profile</button> */}
                 </Card.Body>
               </Card>
 
@@ -317,6 +318,7 @@ export const StudentEditProfile = ({profileSubmit}) => {
                       value={formData.Github}
                       onChange={handleChange}
                       placeholder="github.com/username"
+                      required
                     />
                     <Form.Text className="text-muted">Enter your GitHub username or profile URL</Form.Text>
                   </Form.Group>
@@ -331,6 +333,7 @@ export const StudentEditProfile = ({profileSubmit}) => {
                       value={formData.Linkedin}
                       onChange={handleChange}
                       placeholder="linkedin.com/in/username"
+                      required
                     />
                     <Form.Text className="text-muted">Enter your LinkedIn username or profile URL</Form.Text>
                   </Form.Group>
@@ -345,6 +348,7 @@ export const StudentEditProfile = ({profileSubmit}) => {
                       value={formData.Leetcode}
                       onChange={handleChange}
                       placeholder="leetcode.com/username"
+                      required
                     />
                     <Form.Text className="text-muted">Enter your LeetCode username or profile URL</Form.Text>
                   </Form.Group>
@@ -359,6 +363,7 @@ export const StudentEditProfile = ({profileSubmit}) => {
                       value={formData.HackerRank}
                       onChange={handleChange}
                       placeholder="hackerrank.com/username"
+                      required
                     />
                     <Form.Text className="text-muted">Enter your HackerRank username or profile URL</Form.Text>
                   </Form.Group>
@@ -504,6 +509,17 @@ export const StudentEditProfile = ({profileSubmit}) => {
                             </option>
                           ))}
                         </Form.Select>
+                      </Form.Group>
+                    </Col>
+                  </Row>
+
+                  <Row>
+                    <Col md={6}>
+                    <Form.Group className="mb-3">
+                        <Form.Label className="d-flex align-items-center">
+                          <FaUser className="me-2" /> CGPA
+                        </Form.Label>
+                        <Form.Control type="text" name="cgpa" value={formData.cgpa} onChange={handleChange} required />
                       </Form.Group>
                     </Col>
                   </Row>

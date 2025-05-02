@@ -25,12 +25,12 @@ export const About = () => {
                 <i class="bi bi-info-circle"></i>
                   About
                 </Card.Title>
-                <Card.Text className="text-muted">
+                <Card.Text className="text-muted fs-14">
                   Learn about our history, vision, mission, and faculty members.
                 </Card.Text>
-                <a href="/#/about" className="text-primary" style={{textDecoration:"none"}}>
+                <Link to="/about" className="text-primary" style={{textDecoration:"none"}}>
                   Learn more →
-                </a>
+                </Link>
               </Card.Body>
             </Card>
           </Col>
@@ -42,10 +42,10 @@ export const About = () => {
                 <FontAwesomeIcon icon={faGraduationCap} />
                   Placement
                 </Card.Title>
-                <Card.Text className="text-muted">
+                <Card.Text className="text-muted fs-14">
                   Discover our placement records, top recruiters, and success stories.
                 </Card.Text>
-                <Link to="/#/placement" className="text-primary" style={{textDecoration:"none"}}>
+                <Link to="/placement" className="text-primary" style={{textDecoration:"none"}}>
                   Learn more →
                 </Link>
               </Card.Body>
@@ -59,10 +59,10 @@ export const About = () => {
                 <FontAwesomeIcon icon={faShapes} />
                   Facilities
                 </Card.Title>
-                <Card.Text className="text-muted">
+                <Card.Text className="text-muted fs-14">
                   Explore our state-of-the-art labs, library, and research facilities.
                 </Card.Text>
-                <Link to="/#/facilities" className="text-primary" style={{textDecoration:"none"}}>
+                <Link to="/facilities" className="text-primary" style={{textDecoration:"none"}}>
                   Learn more →
                 </Link>
               </Card.Body>
@@ -76,12 +76,12 @@ export const About = () => {
                 <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24"><path fill="#000" d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5s-3 1.34-3 3s1.34 3 3 3m-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5S5 6.34 5 8s1.34 3 3 3m0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5m8 0c-.29 0-.62.02-.97.05c1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5"/></svg>
                   Association
                 </Card.Title>
-                <Card.Text className="text-muted">
+                <Card.Text className="text-muted fs-14">
                   Join our student clubs, events, and professional associations.
                 </Card.Text>
-                <a href="/#/association" className="text-primary" style={{textDecoration:"none"}}>
+                <Link to="/association" className="text-primary" style={{textDecoration:"none"}}>
                   Learn more →
-                </a>
+                </Link>
               </Card.Body>
             </Card>
           </Col>
@@ -107,7 +107,7 @@ export const About = () => {
                     <h2 className="display-6 fw-bold">
                     { inView  && <CountUp
                         start={0}
-                        end={98}
+                        end={90}
                         duration={2.75} >
                         </CountUp>}%</h2>
                     <p>Placement Rate</p>
@@ -116,7 +116,7 @@ export const About = () => {
                     <h2 className="display-6 fw-bold">
                     { inView  && <CountUp
                         start={0}
-                        end={50}
+                        end={25}
                         duration={2.75} >
                         </CountUp>}+</h2>
                     <p>Faculty Member</p>
@@ -125,7 +125,7 @@ export const About = () => {
                     <h2 className="display-6 fw-bold">
                     { inView  && <CountUp
                         start={0}
-                        end={20}
+                        end={50}
                         duration={2.75} >
                         </CountUp>}+</h2>
                     <p>Research Publications</p>

@@ -1,14 +1,16 @@
+import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { Container } from "react-bootstrap";
 import { ToastContainer, toast } from 'react-toastify';
 
 
 export const About = () => {
+  const [fna, setFNA] = useState([]);
   const staffData = [
     { sno: 1, name: "Dr.S.Ramakrishnan", qualification: "M.E., Ph.D.", designation: "Dean - Research & Innovation and Senior Professor" },
     { sno: 2, name: "Dr.L.Meenachi", qualification: "M.E., Ph.D.", designation: "Associate Professor & HoD i/c" },
     { sno: 3, name: "Dr.A.P.Janani", qualification: "MCA., M.E., Ph.D.", designation: "Associate Professor" },
-    { sno: 4, name: "Dr.S.Ponni @ Sathya", qualification: "M.E., Ph.D.", designation: "Associate Professor" },
+    { sno: 4, name: "Dr.S.Ponni Sathya", qualification: "M.E., Ph.D.", designation: "Associate Professor" },
     { sno: 5, name: "Dr.J.Ramprasath", qualification: "M.E., Ph.D.", designation: "Associate Professor" },
     { sno: 6, name: "Dr.A.G.Priya Varshini", qualification: "M.E., Ph.D.", designation: "Assistant Professor(SS)" },
     { sno: 7, name: "Ms.D.Janani", qualification: "M.E.,", designation: "Assistant Professor(SS)" },
@@ -59,7 +61,7 @@ export const About = () => {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log("API Response:", data);
+        //console.log("API Response:", data);
         const safeData = {
           PEO: Array.isArray(data?.PEO) ? data.PEO : [],
           PO: Array.isArray(data?.PO) ? data.PO : [],
@@ -71,6 +73,22 @@ export const About = () => {
         console.error("Error fetching data:", error);
         notify(error.response?.data.detail);
       });
+  }, []);
+
+  useEffect(() => {
+    const fetchFNA = async () => {
+      try {
+        const response = await axios.get("https://test.mcetit.drmcetit.com/api/facultyNotableAchievements/");
+        console.log(response.data);
+        setFNA(response.data);
+
+        setAssociationData(response.data);
+      } catch (error) {
+        //console.error("Error fetching data:", error.response?.data || error.message);
+      }
+    };
+
+    fetchFNA();
   }, []);
 
   return (
@@ -140,7 +158,7 @@ export const About = () => {
 
       <div className='my-4'>
         <div>
-        <h2 className="display-6 fw-bold mb-3">Vission and Mission</h2>
+          <h2 className="display-6 fw-bold mb-3">Vission and Mission</h2>
           <div className='peo my-4 border rounded-1 p-3'>
             <h4 className="">Our Visson</h4>
             <div className='my-2'>
@@ -162,31 +180,31 @@ export const About = () => {
       </div>
 
       <div className="table-responsive">
-      <h2 className="display-6 fw-bold mb-3">Faculties</h2>
-          <table className="table table-bordered table-striped text-center">
-            <thead>
-              <tr className="text-white" style={{ backgroundColor: "#0d6efd" }}>
-                <th className='fs-14'>S.No.</th>
-                <th className='fs-14'>Staff Name</th>
-                <th className='fs-14'>Qualification</th>
-                <th className='fs-14'>Designation</th>
+        <h2 className="display-6 fw-bold mb-3">Faculties</h2>
+        <table className="table table-bordered table-striped text-center">
+          <thead>
+            <tr className="text-white" style={{ backgroundColor: "#0d6efd" }}>
+              <th className='fs-14'>S.No.</th>
+              <th className='fs-14'>Staff Name</th>
+              <th className='fs-14'>Qualification</th>
+              <th className='fs-14'>Designation</th>
+            </tr>
+          </thead>
+          <tbody>
+            {staffData.map((staff) => (
+              <tr key={staff.sno}>
+                <td className='fs-14'>{staff.sno}</td>
+                <td className='fs-14'>{staff.name}</td>
+                <td className='fs-14'>{staff.qualification}</td>
+                <td className='fs-14'>{staff.designation}</td>
               </tr>
-            </thead>
-            <tbody>
-              {staffData.map((staff) => (
-                <tr key={staff.sno}>
-                  <td className='fs-14'>{staff.sno}</td>
-                  <td className='fs-14'>{staff.name}</td>
-                  <td className='fs-14'>{staff.qualification}</td>
-                  <td className='fs-14'>{staff.designation}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+            ))}
+          </tbody>
+        </table>
+      </div>
 
       <div className=" p-3 mt-4">
-      <h2 className="display-6 fw-bold mb-3">Program Objective</h2>
+        <h2 className="display-6 fw-bold mb-3">Program Objective</h2>
 
         {/* Program Educational Objectives (PEO's) */}
         <div className="peo">
@@ -233,16 +251,19 @@ export const About = () => {
       </div>
 
       <div>
-      <h2 className="display-6 fw-bold mb-3">Faculty Notable Achievement</h2>
+        <h2 className="display-6 fw-bold mb-3">Faculty Notable Achievement</h2>
         <div className='my-4'>
-          <div className='my-2'>
-            <p className='fs-4 fw-bold'>Dr. S. Ramakrishnan</p>
-            <ul>
-              <li className='fs-14 justify'>Associate Editor in IEEE Access.</li>
-              <li className='fs-14 justify'>Recognized as a Featured Reviwer for ACM Coumputing Reviews during MAy 2022.</li>
-              <li className='fs-14 justify'>Associate Editor in IEEE Access.</li>
-              <li className='fs-14 justify'>Recognized as a Featured Reviwer for ACM Coumputing Reviews during MAy 2022.</li>
-            </ul>
+          <div className="my-2">
+            {fna.map((faculty, index) => (
+              <div key={index} className="my-2">
+                <p className="fs-4 fw-bold">{faculty.name}</p>
+                <ul>
+                  {faculty.achievements.map((achievement, aIndex) => (
+                    <li key={aIndex} className="fs-14 justify">{achievement}</li>
+                  ))}
+                </ul>
+              </div>
+            ))}
           </div>
         </div>
       </div>

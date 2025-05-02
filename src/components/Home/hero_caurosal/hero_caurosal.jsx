@@ -41,7 +41,7 @@ const HeroCarousel = () => {
     {
       id: 5,
       image: "pridewall_Hero.png",
-      title: "Pride Wall",
+      title: "Pride Wall - Where achievements speak louder than words",
       description: "The Pride Wall proudly showcases winning posters created by students, celebrating their creativity and achievements.",
       ctaText: "Explore Pride Wall",
       ctaLink: "/#/gallery",
@@ -49,7 +49,7 @@ const HeroCarousel = () => {
     {
       id: 6,
       image: "roadmap_Hero.png",
-      title: "Road Map",
+      title: "Road Map - Your journey to success starts with a clear path",
       description: "A Career Roadmap Wall displays clear paths and opportunities in various fields, helping students visualize where their career journey can lead.",
       ctaText: "Explore Roadmap",
       ctaLink: "/#/roadmap-domains",
@@ -122,9 +122,9 @@ const HeroCarousel = () => {
                     <h1 className="display-5 fw-bold m-0 p-0 mb-2">{slide.title}</h1>
                     <p className="fs-2 h2 mb-1 p-0 m-0 mb-1">{slide.dept}</p>
                     <p className="fs-6 fw-light p-0 m-0 mb-1">{slide.description}</p>
-                    <a href={slide.ctaLink} className="btn btn-primary px-5 py-1 mt-1 m-0 fs-6">
+                    {/* <a href={slide.ctaLink} className="btn btn-primary px-5 py-1 mt-1 m-0 fs-6">
                         {slide.ctaText}
-                    </a>
+                    </a> */}
                     </div>
                 </div>
                 </div>

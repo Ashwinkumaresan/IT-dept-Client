@@ -80,7 +80,7 @@ const ModernNavbar = () => {
         <div className="popup_login" style={{ zIndex: "999999999999" }}>
           <div>
             <div>
-              <div className="container  border rounded ps-5 pb-5 pt-5">
+              <div className="border rounded ps-5 pb-5 pt-5">
                 <button className="X" onClick={() => setOpenPopup(false)}><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24"><path d="M6.4 19L5 17.6l5.6-5.6L5 6.4L6.4 5l5.6 5.6L17.6 5L19 6.4L13.4 12l5.6 5.6l-1.4 1.4l-5.6-5.6z" /></svg></button>
                 <div className="row border rounded">
                   <div className="col-12 col-md-6 bg-primary text-white rounded py-5">

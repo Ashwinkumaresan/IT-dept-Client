@@ -204,6 +204,12 @@ theme="light"
                 </Form>
               </div>
             </div>
+            {/* Back to Home */}
+            <div className="text-center m1-4">
+              <Link to="/" className="text-muted">
+                <i className="fa fa-arrow-left me-1"></i> Back to Home
+              </Link>
+            </div>
           </Col>
         </Row>
       </Container>

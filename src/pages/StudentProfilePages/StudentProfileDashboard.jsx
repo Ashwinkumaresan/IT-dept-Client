@@ -46,6 +46,9 @@ export const StudentProfileDashboard = () => {
 
     } catch (error) {
       console.error("Error fetching activities:", error.response?.data);
+      console.log(error.response?.data.code)
+      if(error.response?.data.code == "token_not_valid")
+        localStorage.clear();
       setActivities([]);
     }
   };

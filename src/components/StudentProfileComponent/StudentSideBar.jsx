@@ -2,6 +2,7 @@ import './StudentSideBar.css'
 import { useState } from "react"
 import { Link, useLocation } from "react-router-dom"
 import { FaHome, FaUser, FaAward, FaCog, FaFileAlt, FaList, FaBars, FaChevronDown, FaChevronUp } from "react-icons/fa"
+import { IoMdLogOut } from "react-icons/io";
 import { IoIosArrowBack } from "react-icons/io";
 
 export const StudentSideBar = () => {
@@ -85,9 +86,10 @@ export const StudentSideBar = () => {
       </div>
 
       <div className="mt-auto border-top">
-        <Link to="/student-profile/setting" className="sidebar-link" onClick={toggleSidebar}>
-          <FaCog className="sidebar-icon" />
-          <span className="sidebar-text">Settings</span>
+
+        <Link to="/" className="sidebar-link" onClick={toggleSidebar}>
+      <IoMdLogOut className="sidebar-icon" onClick={() => localStorage.clear()} />
+          <span className="sidebar-text">Logout</span>
         </Link>
       </div>
       </div>

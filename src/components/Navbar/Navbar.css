@@ -132,17 +132,18 @@ to {
     backdrop-filter: blur(9px);
     z-index: 20;
     display: flex;
+    padding-left: 10vw;
+    padding-right: 10vw;
     justify-content: center;
-    align-items: center;
     flex-direction: column;
   }
   .X{
-    fill: blue;
+    fill: white;
     float: right;
     background: transparent;
     outline: none;
     border: none;
   }
 .X:hover{
-    fill: rgb(58, 58, 248);
+    fill: blue;
 }
