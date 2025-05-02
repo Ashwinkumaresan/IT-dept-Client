@@ -1,6 +1,6 @@
 import React from "react";
 import {Link} from "react-router-dom";
-import { Envelope, Telephone, GeoAlt, Github, Linkedin, Twitter } from "react-bootstrap-icons";
+import { Envelope, Telephone, GeoAlt, Github, Linkedin, Twitter, Instagram } from "react-bootstrap-icons";
 
 export const Footer = () => {
   return (
@@ -61,11 +61,11 @@ export const Footer = () => {
               <div className="mt-3">
                 <h4 className="fw-medium">Team Members:</h4>
                 <ul className="list-unstyled small">
-                  <li className="mb-1">Akash K - Backend Administrator</li>
-                  <li className="mb-1">Ashwin K - Frontend Designing & Developing</li>
-                  <li className="mb-1">Pranesh S - Frontend Developing</li>
-                  <li className="mb-1">Ravi visvesh S - Cloud Maintanence</li>
-                  <li className="mb-1">Karthick M - Tester</li>
+                  <li className="mb-1">Akash K - Backend Developer (2nd year IT-A)</li>
+                  <li className="mb-1">Ashwin K - Frontend Designer & Developer (2nd year IT-A)</li>
+                  <li className="mb-1">Pranesh S - Frontend Developer (2nd year IT-B)</li>
+                  <li className="mb-1">Ravi visvesh S - Cloud Maintanence (2nd year IT-B)</li>
+                  <li className="mb-1">Karthick M - Tester (2nd year IT-A)</li>
                 </ul>
               </div>
             </div>
@@ -88,22 +88,14 @@ export const Footer = () => {
                 <span className="small">hod_it@drmcet.ac.in</span>
               </div>
 
-              {/* <div className="mt-3">
+              <div className="mt-3">
                 <div className="d-flex gap-3 mt-2">
-                  <Link href="#" className="text-white hover-opacity">
-                    <Github size={20} />
-                    <span className="visually-hidden">GitHub</span>
-                  </Link>
-                  <Link href="#" className="text-white hover-opacity">
-                    <Linkedin size={20} />
-                    <span className="visually-hidden">LinkedIn</span>
-                  </Link>
-                  <Link href="#" className="text-white hover-opacity">
-                    <Twitter size={20} />
-                    <span className="visually-hidden">Twitter</span>
+                  <Link to="https://www.instagram.com/mcet_it_department?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" className="text-white hover-opacity">
+                    <Instagram size={20}/>
+                    <span className="ms-2">Instagram</span>
                   </Link>
                 </div>
-              </div> */}
+              </div>
             </div>
           </div>
         </div>
