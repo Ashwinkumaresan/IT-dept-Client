@@ -163,6 +163,7 @@ export const StudentEditProfile = ({profileSubmit}) => {
       formDataToSend.append("Github", formData.Github);
       formDataToSend.append("Linkedin", formData.Linkedin);
       formDataToSend.append("Leetcode", formData.Leetcode);
+      formDataToSend.append("cgpa", formData.cgpa);
       formDataToSend.append("HackerRank", formData.HackerRank);
   
     // If a new profile picture is selected, append it

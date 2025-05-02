@@ -330,7 +330,7 @@ export const RoadmapDetail = ({ domain }) => {
                           <Col md={3}>
                             <Button
                               variant={isCompleted ? "success" : "outline-primary"}
-                              className="w-100"
+                              className="w-100 my-3"
                               onClick={() => handleSubtopicLinkSubmit(subtopicName)}
                             >
                               {isCompleted ? "Update" : "Submit"}

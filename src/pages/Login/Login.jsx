@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Container, Row, Col, Form, Button, InputGroup } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import { FaEnvelope, FaLock, FaEye, FaEyeSlash } from "react-icons/fa";
+import { ToastContainer, toast } from 'react-toastify';
 import axios from "axios";
 
 export const Login = ({ notify }) => {
@@ -11,6 +12,19 @@ export const Login = ({ notify }) => {
   const [error, setError] = useState(false);
   const [sendNotify, setSendNotify] = useState(false)
   const navigate = useNavigate();
+
+  const notifyError = (obj) => {
+    toast.error(obj, {
+      position: "top-right",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: false,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+  };
 
 
   const handleChange = (e) => {
@@ -36,23 +50,28 @@ export const Login = ({ notify }) => {
           withCredentials: true,
         }
       );
-      console.log("Server Response:", loginResponse.data);
+      //console.log("Server Response:", loginResponse.data);
 
       localStorage.setItem("access_token", loginResponse.data.access_token);
       localStorage.setItem("refresh_token", loginResponse.data.refresh_token);
       localStorage.setItem("CollegeMail", formData.collegeMail);
       localStorage.setItem("timestamp", new Date().getTime());
 
-      console.log(loginResponse.data.access);
-      console.log(loginResponse.data);
-
+      //console.log(loginResponse.data.access);
+      //console.log(loginResponse.data);
       navigate("/");
       setSendNotify(notify)
     } catch (error) {
-      setError(true);
-      console.error("Error response:", error.loginResponse?.data || error.loginResponse.data);
-      console.error("Error sending data:", error.loginResponse?.data);
-      console.log("Server loginResponse:", loginResponse.data);
+      //setError(true);
+      if (error.response) {
+        notifyError(error.response.data[0]);
+        console.error("Error status:", error.response.status);
+        console.error("Error message:", error.response.data);
+      } else if (error.request) {
+        console.error("No response received:", error.request);
+      } else {
+        console.error("Error setting up request:", error.message);
+      }
     } finally {
       setIsSubmitting(false);
     }
@@ -60,6 +79,18 @@ export const Login = ({ notify }) => {
 
   return (
     <div className="auth-page">
+      <ToastContainer
+        position="top-right"
+        autoClose={2000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover={false}
+        theme="light"
+      />
       <Container>
         <Row className="justify-content-center min-vh-100 align-items-center">
           <Col md={8} lg={6} xl={5}>

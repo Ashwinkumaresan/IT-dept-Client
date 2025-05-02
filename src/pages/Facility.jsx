@@ -218,7 +218,6 @@ export const Facility = () => {
 
             {/* Projector */}
             <h4 className="mt-5">Projector</h4>
-            <h4 className="mt-5">Projector</h4>
             <div className="table-responsive">
                 <table className="table table-bordered table-striped">
                     <thead className="table-dark">

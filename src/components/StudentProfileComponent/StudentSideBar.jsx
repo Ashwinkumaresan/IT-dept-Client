@@ -25,73 +25,74 @@ export const StudentSideBar = () => {
   return (
     <div className={`sidebar ${!collapsed ? "collapsed" : ""}`}>
       <div style={{
-        position:"sticky",
-        top:"0px",
+        position: "sticky",
+        top: "0px",
       }}>
 
-      <div className="d-flex align-items-center justify-content-between p-3 border-bottom">
-        <div  className={`mb-0 ${!collapsed ? "d-none" : ""} d-flex`}>
+        <div className="d-flex align-items-center justify-content-between p-3 border-bottom">
+          <div className={`mb-0 ${!collapsed ? "d-none" : ""} d-flex`}>
 
-        <a href="/" style={{textDecoration:"none", color:"black"}}>
-          <IoIosArrowBack  style={{cursor:"pointer", fontSize:"20px"}}/>
-        </a>
-        <h5>Profile Dashboard</h5>
-        </div>
-        <button className="btn btn-sm btn-light" onClick={toggleSidebar}>
-          <FaBars />
-        </button>
-      </div>
-
-      <div className="py-2">
-        <Link to="/student-profile" className={`sidebar-link ${isActive("/student-profile") ? "active" : ""}`} >
-          <FaHome className="sidebar-icon" />
-          <span className="sidebar-text">Dashboard</span>
-        </Link>
-
-        <Link to="/student-profile/info" className={`sidebar-link ${isActive("/student-profile/info") ? "active" : ""}`} >
-          <FaUser className="sidebar-icon" />
-          <span className="sidebar-text">Personal Info</span>
-        </Link>
-
-        <div>
-          <div className="sidebar-link" onClick={toggleSidebar} style={{ cursor: "pointer" }}>
-            <FaAward className="sidebar-icon" />
-            <span className="sidebar-text">Submissions</span>
-            {!collapsed &&
-              (coCurricularOpen ? <FaChevronUp className="ms-auto" /> : <FaChevronDown className="ms-auto" />)}
+            <a href="/" style={{ textDecoration: "none", color: "black" }}>
+              <IoIosArrowBack style={{ cursor: "pointer", fontSize: "20px" }} />
+            </a>
+            <h5>Profile Dashboard</h5>
           </div>
-
-          {coCurricularOpen && collapsed && (
-            <div className="ps-4">
-              <Link
-                to="/student-profile/activity/form"
-                className={`sidebar-link ${isActive("/student-profile/activity/form") ? "active" : ""}`}
-                onClick={toggleSidebar}
-              >
-                <FaFileAlt className="sidebar-icon" />
-                <span className="sidebar-text">Submit Activity</span>
-              </Link>
-
-              <Link
-                to="/student-profile/view/participated"
-                className={`sidebar-link ${isActive("/student-profile/view/participated") ? "active" : ""}`}
-                onClick={toggleSidebar}
-              >
-                <FaList className="sidebar-icon" />
-                <span className="sidebar-text">View Activity</span>
-              </Link>
-            </div>
-          )}
+          <button className="btn btn-sm btn-light" onClick={toggleSidebar}>
+            <FaBars />
+          </button>
         </div>
-      </div>
 
-      <div className="mt-auto border-top">
+        <div className="py-2">
+          <Link to="/student-profile" className={`sidebar-link ${isActive("/student-profile") ? "active" : ""}`} >
+            <FaHome className="sidebar-icon" />
+            <span className="sidebar-text">Dashboard</span>
+          </Link>
 
-        <Link to="/" className="sidebar-link" onClick={toggleSidebar}>
-      <IoMdLogOut className="sidebar-icon" onClick={() => localStorage.clear()} />
-          <span className="sidebar-text">Logout</span>
-        </Link>
-      </div>
+          <Link to="/student-profile/info" className={`sidebar-link ${isActive("/student-profile/info") ? "active" : ""}`} >
+            <FaUser className="sidebar-icon" />
+            <span className="sidebar-text">Personal Info</span>
+          </Link>
+
+          <div>
+            <div className="sidebar-link" onClick={toggleSidebar} style={{ cursor: "pointer" }}>
+              <FaAward className="sidebar-icon" />
+              <span className="sidebar-text">Submissions</span>
+              {!collapsed &&
+                (coCurricularOpen ? <FaChevronUp className="ms-auto" /> : <FaChevronDown className="ms-auto" />)}
+            </div>
+
+            {coCurricularOpen && collapsed && (
+              <div className="ps-4">
+                <Link
+                  to="/student-profile/activity/form"
+                  className={`sidebar-link ${isActive("/student-profile/activity/form") ? "active" : ""}`}
+                  onClick={toggleSidebar}
+                >
+                  <FaFileAlt className="sidebar-icon" />
+                  <span className="sidebar-text">Submit Activity</span>
+                </Link>
+
+                <Link
+                  to="/student-profile/view/participated"
+                  className={`sidebar-link ${isActive("/student-profile/view/participated") ? "active" : ""}`}
+                  onClick={toggleSidebar}
+                >
+                  <FaList className="sidebar-icon" />
+                  <span className="sidebar-text">View Activity</span>
+                </Link>
+              </div>
+            )}
+          </div>
+        </div>
+
+        <div className="mt-auto border-top">
+
+          <Link to="/" className="sidebar-link" onClick={() => { toggleSidebar(); localStorage.clear(); }}>
+            <IoMdLogOut className="sidebar-icon" />
+            <span className="sidebar-text">Logout</span>
+          </Link>
+
+        </div>
       </div>
     </div>
   )

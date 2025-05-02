@@ -65,7 +65,7 @@ export const Footer = () => {
                   <li className="mb-1">Ashwin K - Frontend Designing & Developing</li>
                   <li className="mb-1">Pranesh S - Frontend Developing</li>
                   <li className="mb-1">Ravi visvesh S - Cloud Maintanence</li>
-                  <li className="mb-1">Karthi M - Tester</li>
+                  <li className="mb-1">Karthick M - Tester</li>
                 </ul>
               </div>
             </div>
