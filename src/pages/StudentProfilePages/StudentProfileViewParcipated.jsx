@@ -141,7 +141,7 @@ export const StudentProfileViewParcipated = () => {
           </Link>
         </div>
 
-        <Card style={{width:"80vw"}}>
+        <Card style={{width:"75vw"}}>
           <Card.Header className="bg-white">
             <Card.Title className="h5 mb-0">Activity Submissions</Card.Title>
             <Card.Subtitle className="text-muted small mt-1">

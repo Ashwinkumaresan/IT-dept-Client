@@ -2,10 +2,11 @@ import { Row, Col, Card, Spinner } from "react-bootstrap"
 import { FaAward, FaBook } from "react-icons/fa"
 import { StudentSideBar } from "../../components/StudentProfileComponent/StudentSideBar"
 import { useEffect, useState } from "react"
+import { useNavigate } from "react-router-dom"
 import axios from "axios"
 
 export const StudentProfileDashboard = () => {
-
+  const navigate = useNavigate();
   const [activities, setActivities] = useState([]);
   const [totalActivities, setTotalActivities] = useState("0");
   const [cgpa, setCGPA] = useState("0");
@@ -42,8 +43,10 @@ export const StudentProfileDashboard = () => {
 
     } catch (error) {
       console.error("Error fetching activities:", error.response?.data);
-      if (error.response?.data.code === "token_not_valid")
+      if (error.response?.data.code === "token_not_valid"){
         localStorage.clear();
+        navigate("/")
+      }
       setActivities([]);
     } finally {
       setLoading(false); // 👈 Stop loading in both success & error cases

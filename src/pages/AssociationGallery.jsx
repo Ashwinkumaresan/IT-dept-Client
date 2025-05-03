@@ -64,7 +64,7 @@ export const AssociationGallery = () => {
                   style={{
                     objectFit: 'fill',
                     width: '100%',
-                    height: '150px',
+                    height: '30vh',
                     transition: 'transform 0.3s ease',
                   }}
                 />

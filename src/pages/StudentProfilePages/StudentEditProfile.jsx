@@ -321,7 +321,7 @@ export const StudentEditProfile = ({profileSubmit}) => {
                       placeholder="github.com/username"
                       required
                     />
-                    <Form.Text className="text-muted">Enter your GitHub username or profile URL</Form.Text>
+                    <Form.Text className="text-muted">Enter your GitHub URL</Form.Text>
                   </Form.Group>
 
                   <Form.Group className="mb-3">
@@ -336,7 +336,7 @@ export const StudentEditProfile = ({profileSubmit}) => {
                       placeholder="linkedin.com/in/username"
                       required
                     />
-                    <Form.Text className="text-muted">Enter your LinkedIn username or profile URL</Form.Text>
+                    <Form.Text className="text-muted">Enter your LinkedIn URL</Form.Text>
                   </Form.Group>
 
                   <Form.Group className="mb-3">
@@ -351,7 +351,7 @@ export const StudentEditProfile = ({profileSubmit}) => {
                       placeholder="leetcode.com/username"
                       required
                     />
-                    <Form.Text className="text-muted">Enter your LeetCode username or profile URL</Form.Text>
+                    <Form.Text className="text-muted">Enter your LeetCode URL</Form.Text>
                   </Form.Group>
 
                   <Form.Group className="mb-3">
@@ -366,7 +366,7 @@ export const StudentEditProfile = ({profileSubmit}) => {
                       placeholder="hackerrank.com/username"
                       required
                     />
-                    <Form.Text className="text-muted">Enter your HackerRank username or profile URL</Form.Text>
+                    <Form.Text className="text-muted">Enter your HackerRank URL</Form.Text>
                   </Form.Group>
                 </Card.Body>
               </Card>

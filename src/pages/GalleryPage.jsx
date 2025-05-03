@@ -61,7 +61,7 @@ export const GalleryPage = () => {
               Where student stories of success are forever framed.
             </p>
           </div>
-          <div className="col-12 col-lg-6">
+          <div className="col-12 col-lg-6 d-none d-lg-block">
             <img
               src="/75a785f2-b901-48cc-8af5-afccdd1098de-converted.png"
               alt="Pride Wall"
@@ -82,11 +82,11 @@ export const GalleryPage = () => {
           {Array.isArray(galleryEvents) &&
             galleryEvents.map((gallery) => (
               <div key={gallery._id} className="col-12 col-md-6 col-lg-4 mb-4">
-                <div className="card h-100 shadow-sm border-0 rounded-4">
+                <div className="card h-100 shadow border-0 rounded-4">
                   <img
                     src={`https://test.mcetit.drmcetit.com${gallery.img}`}
                     alt="event"
-                    className="card-img-top rounded-top-4"
+                    className="card-img-top rounded-top-4 my-3"
                     style={{
                       objectFit: 'contain',
                       height: '200px',

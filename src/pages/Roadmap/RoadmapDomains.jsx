@@ -1,4 +1,4 @@
-import { Container, Row, Col } from "react-bootstrap"
+import { Container, Row, Col, Spinner } from "react-bootstrap"
 import { DomainCard } from "./DomainCard"
 import axios from "axios";
 import { useEffect, useState } from "react";
@@ -6,58 +6,24 @@ import { useEffect, useState } from "react";
 
 export const RoadmapDomains = () => {
   const [domains, setDomains] = useState([]);
-  const [domainData, setDomainData] = useState([]);
-  // Mock data for domains directly in the RoadmapDomains component
-  // const domains = [
-  //   {
-  //     id: "frontend",
-  //     title: "Frontend Development",
-  //   },
-  //   {
-  //     id: "backend",
-  //     title: "Backend Development",
-  //   },
-  //   {
-  //     id: "uiux",
-  //     title: "UI/UX Design",
-  //   },
-  //   {
-  //     id: "cybersecurity",
-  //     title: "Cybersecurity",    },
-  //   {
-  //     id: "mobile",
-  //     title: "Mobile Development",
-  //   },
-  //   {
-  //     id: "datascience",
-  //     title: "Data Science",
-  //   },
-  //   {
-  //     id: "devops",
-  //     title: "DevOps",
-  //   },
-  //   {
-  //     id: "blockchain",
-  //     title: "Blockchain Development",
-  //   },
-  // ]
+  const [loading, setLoading] = useState(true);
 
-  
   useEffect(() => {
     const fetchDomains = async () => {
-        try {
-            const response = await axios.get("https://test.mcetit.drmcetit.com/api/roadmap/topics/");
-            console.log(response.data);
-
-            setDomains(response.data);
-        } catch (error) {
-            console.error("Error fetching data:", error.response?.data || error.message);
-
-        }
+      try {
+        const response = await axios.get("https://test.mcetit.drmcetit.com/api/roadmap/topics/");
+        console.log(response.data);
+        setDomains(response.data);
+      } catch (error) {
+        console.error("Error fetching data:", error.response?.data || error.message);
+      } finally {
+        setLoading(false);
+      }
     };
 
     fetchDomains();
-}, []);
+  }, []);
+
   return (
     <Container className="py-5">
       <section className="text-center my-5">
@@ -67,15 +33,22 @@ export const RoadmapDomains = () => {
         </p>
       </section>
 
-      <section>
-        <Row xs={1} sm={2} lg={3} className="g-4">
-          {domains.map((domain) => (
-            <Col key={domain.id}>
-              <DomainCard domain={domain} />
-            </Col>
-          ))}
-        </Row>
-      </section>
+      {loading ? (
+        <div className="text-center my-5">
+          <Spinner animation="border" variant="dark" />
+          <p className="mt-3 fs-5">Loading roadmaps...</p>
+        </div>
+      ) : (
+        <section>
+          <Row xs={1} sm={2} lg={3} className="g-4">
+            {domains.map((domain) => (
+              <Col key={domain.id}>
+                <DomainCard domain={domain} />
+              </Col>
+            ))}
+          </Row>
+        </section>
+      )}
     </Container>
   )
 }

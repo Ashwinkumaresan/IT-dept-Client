@@ -92,7 +92,7 @@ export const About = () => {
   }, []);
 
   return (
-    <Container className='pt-5'>
+    <div className='pt-5'>
       <ToastContainer
         position="top-right"
         autoClose={3000}
@@ -149,15 +149,15 @@ export const About = () => {
       </div> */}
 
       {/* <img src="About_IT.png" alt="About IT" className='img-thumbnail my-5 border rounded-1' /> */}
-      <div className='my-4'>
+      <div className='container my-4'>
         {/* <h4>About Department</h4> */}
         <p className='fs-14 justify'  >The department of Information Technology was established in 1999. The department offers B.Tech. (IT) programme, which combines faculties with expertise in various fields and good laboratory facilities for imparting knowledge to the students. This enables students to face the challenging needs of the industries and research institutions. The department is affiliated to Anna University & B.Tech. Information Technology Programme is accredited by the National Board of Accreditation (NBA), AICTE, New Delhi.
         </p>
         <p className='fs-14 justify'  >The department conducted several national level workshops, Seminars, FDP, SDP, Conferences, etc. Our Department faculty members have published their research work in Reputed national/international Journals namely IEEE Transaction on Image Processing, IEEE Communications, ACM, Springer, etc. Our faculty members are involved in various research works, such as in the fields of Signal Processing, Image Processing, Networking, Data Mining, Soft Computing, etc.,</p>
       </div>
 
-      <div className='my-4'>
-        <div>
+      <div className='my-4 bg-light'>
+        <div className='container py-5'>
           <h2 className="display-6 fw-bold mb-3">Vission and Mission</h2>
           <div className='peo my-4 border rounded-1 p-3'>
             <h4 className="">Our Visson</h4>
@@ -179,7 +179,7 @@ export const About = () => {
         </div>
       </div>
 
-      <div className="table-responsive">
+      <div className="table-responsive container">
         <h2 className="display-6 fw-bold mb-3">Faculties</h2>
         <table className="table table-bordered table-striped text-center">
           <thead>
@@ -203,9 +203,9 @@ export const About = () => {
         </table>
       </div>
 
-      <div className=" p-3 mt-4">
+      <div className=" p-3 mt-4 bg-light">
+            <div className='container py-5'>
         <h2 className="display-6 fw-bold mb-3">Program Objective</h2>
-
         {/* Program Educational Objectives (PEO's) */}
         <div className="peo">
           <h4>Program Educational Objectives (PEO's)</h4>
@@ -247,10 +247,11 @@ export const About = () => {
             </div>
           ))}
         </div>
+            </div>
 
       </div>
 
-      <div>
+      <div className='container my-5'>
         <h2 className="display-6 fw-bold mb-3">Faculty Notable Achievement</h2>
         <div className='my-4'>
           <div className="my-2">
@@ -267,6 +268,6 @@ export const About = () => {
           </div>
         </div>
       </div>
-    </Container >
+    </div >
   )
 }

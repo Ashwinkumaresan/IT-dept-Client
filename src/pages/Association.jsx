@@ -92,7 +92,7 @@ export const Association = () => {
 
 
   return (
-    <div className="container py-5">
+    <div className=" py-5">
 
       <ToastContainer
         position="top-right"
