@@ -2,13 +2,10 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import './App.css'
-
-import { HashRouter, BrowserRouter,useParams, Routes, Route } from 'react-router-dom';
+import { HashRouter,useParams, Routes, Route } from 'react-router-dom';
 import {Helmet} from "react-helmet";
 import { useEffect } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
-
-import Navbar from './components/Navbar/Navbar';
 import Home from "./pages/Home";
 import Signup from './pages/Signup/Signup';
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -109,7 +106,7 @@ function App() {
     <>
     <ToastContainer
         position="top-right"
-        autoClose={5000}
+        autoClose={3000}
         hideProgressBar={false}
         newestOnTop={false}
         closeOnClick={false}
@@ -121,7 +118,7 @@ function App() {
       />
       <ToastContainer
         position="top-right"
-        autoClose={5000}
+        autoClose={3000}
         hideProgressBar={false}
         newestOnTop={false}
         closeOnClick={false}
@@ -133,7 +130,7 @@ function App() {
       />
       <ToastContainer
         position="top-right"
-        autoClose={5000}
+        autoClose={3000}
         hideProgressBar={false}
         newestOnTop={false}
         closeOnClick={false}
@@ -146,7 +143,7 @@ function App() {
       {/* Log out */}
       <ToastContainer
         position="top-right"
-        autoClose={5000}
+        autoClose={3000}
         hideProgressBar={false}
         newestOnTop={false}
         closeOnClick
@@ -178,7 +175,6 @@ function App() {
           <Route path='/feed' element={[ <Feed/>]} />
           <Route path='/roadmap-domains' element={<RoadmapDomains/>} />
           <Route path='/roadmap/:domain' element={<WordPage/>} />
-          
           </Route>
           
 
@@ -189,16 +185,18 @@ function App() {
           <Route path='/forgot-password/otp' element={<ForgotPasswordOTP/>} />
           <Route path='/forgot-password/reset' element={<ForgotPasswordReset/>} />
 
+          <Route path='/student-profile/activity/form' element={<StudentProfileSubmitActivity/>}/>
+
           <Route path="/student-profile" element={
             <ProtectedRoute tokenKey="access_token">
               <StudentProfileDashboard />
             </ProtectedRoute>
           } />
-          <Route path="/student-profile/activity/form" element={
+          {/* <Route path="/student-profile/activity/form" element={
             <ProtectedRoute tokenKey="access_token">
               <StudentProfileSubmitActivity activitySubmit={activitySubmit} />
             </ProtectedRoute>
-          } />
+          } /> */}
           <Route path="/student-profile/setting" element={
             <ProtectedRoute tokenKey="access_token">
               <StudentProfileSetting logoutButton={logoutButton} />

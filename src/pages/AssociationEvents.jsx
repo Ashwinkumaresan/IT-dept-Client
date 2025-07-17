@@ -9,11 +9,11 @@ export const AssociationEvents = () => {
     const fetchAssociationEvents = async () => {
       try {
         const response = await axios.get("https://test.mcetit.drmcetit.com/api/association/event/");
-        console.log(response.data);
+        //console.log(response.data);
         setFetchAssociationEvents(response.data);
         setLoading(false);  // Set loading to false once data is fetched
       } catch (error) {
-        console.error("Error fetching data:", error.response?.data || error.message);
+        //console.error("Error fetching data:", error.response?.data || error.message);
         setLoading(false);  // Ensure loading is set to false even in case of error
       }
     };

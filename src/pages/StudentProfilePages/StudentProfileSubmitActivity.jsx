@@ -24,6 +24,12 @@ export const StudentProfileSubmitActivity = ({ activitySubmit }) => {
   const [emptyDes, setEmptyDes] = useState(false)
   const [activityToast, setActivityToast] = useState(null);
 
+  useEffect(()=>{
+    const token = localStorage.getItem("access_token")
+    if(!token)
+      navigate("/student-login")
+  })
+
 
   const [formData, setFormData] = useState({
     department: 'IT',
@@ -82,7 +88,7 @@ export const StudentProfileSubmitActivity = ({ activitySubmit }) => {
 
   //   // Simulate API call
   //   setTimeout(() => {
-  //     console.log(formData);
+  //     //console.log(formData);
   //     setIsSubmitting(false);
   //     alert('Activity submitted successfully!');
   //     navigate('/profile/co-curricular/view');
@@ -100,8 +106,8 @@ export const StudentProfileSubmitActivity = ({ activitySubmit }) => {
         }
       );
 
-      console.log(responseGet.data);
-      console.log(responseGet.data.student)
+      //console.log(responseGet.data);
+      //console.log(responseGet.data.student)
       setFormData((prevData) => ({
         ...prevData,
         student: responseGet.data.student, // Replace with actual data
@@ -112,8 +118,8 @@ export const StudentProfileSubmitActivity = ({ activitySubmit }) => {
       }));
 
     } catch (error) {
-      console.log("Error");
-      console.error("Error fetching data:", error.response?.data);
+      //console.log("Error");
+      //console.error("Error fetching data:", error.response?.data);
     }
   };
   useEffect(() => {
@@ -125,10 +131,10 @@ export const StudentProfileSubmitActivity = ({ activitySubmit }) => {
         credentials: "include",  // Ensure cookies are sent
       }); 
       const data = await response.json();
-      console.log("Fetched CSRF Token:", data.csrfToken);
+      //console.log("Fetched CSRF Token:", data.csrfToken);
       return data.csrfToken;
     } catch (error) {
-      console.error("Failed to fetch CSRF token", error);
+      //console.error("Failed to fetch CSRF token", error);
       return null;
     }
   }
@@ -183,8 +189,8 @@ export const StudentProfileSubmitActivity = ({ activitySubmit }) => {
           // alert(`Please fill in all required fields: ${missingFields.join(", ")}`);
           // alert(`Please fill in all required fields: ${missingFields.date}`);
           setEmpty(true);
-          console.error("Validation errors:", errorData);
-          console.error("Validation errors:", errorData.type);
+          //console.error("Validation errors:", errorData);
+          //console.error("Validation errors:", errorData.type);
 
           if (errorData.year[0])
             setEmptyYear(true);
@@ -248,19 +254,16 @@ export const StudentProfileSubmitActivity = ({ activitySubmit }) => {
       }
 
       const result = await response.json();
-      console.log("Form submission successful:", result);
+      //console.log("Form submission successful:", result);
       setActivityToast(activitySubmit);
       navigate("/student-profile/view/participated");
 
     } catch (error) {
-      console.error("Error submitting form:", error);
+      //console.error("Error submitting form:", error);
       //alert("Error submitting form. Please try again.");
     }
 
   };
-
-
-
 
   return (
     <div className="d-flex">
@@ -308,11 +311,11 @@ export const StudentProfileSubmitActivity = ({ activitySubmit }) => {
                     required
                   >
                     <option value="">Select Year</option>
+                    <option value="2025-2026">2025-2026</option>
+                    <option value="2024-2025">2024-2025</option>
                     <option value="2023-2024">2023-2024</option>
                     <option value="2022-2023">2022-2023</option>
                     <option value="2021-2022">2021-2022</option>
-                    <option value="2020-2021">2020-2021</option>
-                    <option value="2019-2020">2019-2020</option>
                   </Form.Select>
                   {
                     emptyYear &&

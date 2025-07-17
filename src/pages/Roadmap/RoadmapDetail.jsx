@@ -53,7 +53,7 @@ export const RoadmapDetail = ({ domain }) => {
         `https://test.mcetit.drmcetit.com/api/roadmap/detail/${domain}`,
         { headers }
       );
-      console.log("Fetched domainData:", response.data);
+      //console.log("Fetched domainData:", response.data);
 
       const data = response.data[domain];
       setDomainData(data);
@@ -68,7 +68,7 @@ export const RoadmapDetail = ({ domain }) => {
       // Initialize final project link
       setFinalProjectLink(data.projectLink || "");
     } catch (error) {
-      console.error("Error fetching data:", error.response?.data || error.message);
+      //console.error("Error fetching data:", error.response?.data || error.message);
     }
   };
   useEffect(() => {
@@ -81,17 +81,17 @@ export const RoadmapDetail = ({ domain }) => {
         credentials: "include",  // Ensure cookies are sent
       });
       const data = await response.json();
-      console.log("Fetched CSRF Token:", data.csrfToken);
+      //console.log("Fetched CSRF Token:", data.csrfToken);
       return data.csrfToken;
     } catch (error) {
-      console.error("Failed to fetch CSRF token", error);
+      //console.error("Failed to fetch CSRF token", error);
       return null;
     }
   }
 
   const handleSubtopicLinkSubmit = async (subtopicName) => {
     const csrfToken = await fetchCSRFToken();
-    console.log("CSRF Token:", csrfToken);
+    //console.log("CSRF Token:", csrfToken);
 
     const link = subtopicLinks[subtopicName];
     if (!localStorage.getItem("access_token")) {
@@ -112,8 +112,8 @@ export const RoadmapDetail = ({ domain }) => {
       link: link,
     };
 
-    console.log("Request Body:", requestBody);
-    console.log("Headers being sent:", headers);
+    //console.log("Request Body:", requestBody);
+    //console.log("Headers being sent:", headers);
 
     try {
       const response = await fetch("https://test.mcetit.drmcetit.com/api/roadmap/subtopic/form/", {
@@ -125,29 +125,29 @@ export const RoadmapDetail = ({ domain }) => {
       const responseData = await response.json();
 
       if (response.ok) {
-        console.log("Submit res:", responseData);
+        //console.log("Submit res:", responseData);
         //alert("Sent");
         notifySuccess("Subitted");
       } else {
-        console.log("Error:", responseData);
+        //console.log("Error:", responseData);
         //alert("Failed to submit");
         //alert(responseData[0])
         notifyError(responseData[0]);
 
       }
 
-      console.log("Domain:", domain);
-      console.log("Subtopic:", subtopicName);
-      console.log("Link:", link);
+      //console.log("Domain:", domain);
+      //console.log("Subtopic:", subtopicName);
+      //console.log("Link:", link);
 
     } catch (error) {
-      console.error("Error submitting subtopic link:", error.message);
+      //console.error("Error submitting subtopic link:", error.message);
     }
   };
 
   const handleFinalProjectSubmit = async () => {
     const csrfToken = await fetchCSRFToken();
-    console.log("CSRF Token:", csrfToken);
+    //console.log("CSRF Token:", csrfToken);
   
     if (!localStorage.getItem("access_token")) {
       navigate("/student-login");
@@ -165,8 +165,8 @@ export const RoadmapDetail = ({ domain }) => {
       link: finalProjectLink,
     };
   
-    console.log("Request Body:", requestBody);
-    console.log("Headers being sent:", headers);
+    //console.log("Request Body:", requestBody);
+    //console.log("Headers being sent:", headers);
   
     try {
       const response = await fetch("https://test.mcetit.drmcetit.com/api/roadmap/domain/form/", {
@@ -178,18 +178,18 @@ export const RoadmapDetail = ({ domain }) => {
       const responseData = await response.json();
   
       if (response.ok) {
-        console.log("Project Submit res:", responseData);
+        //console.log("Project Submit res:", responseData);
         notifySuccess("Final Project Submitted");
       } else {
-        console.log("Error:", responseData);
+        //console.log("Error:", responseData);
         notifyError(responseData[0]);
       }
   
-      console.log("Domain:", domain);
-      console.log("Project Link:", finalProjectLink);
+      //console.log("Domain:", domain);
+      //console.log("Project Link:", finalProjectLink);
   
     } catch (error) {
-      console.error("Error submitting final project:", error.message);
+      //console.error("Error submitting final project:", error.message);
     }
   };
   

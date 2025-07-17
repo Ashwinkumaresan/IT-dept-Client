@@ -12,10 +12,10 @@ export const RoadmapDomains = () => {
     const fetchDomains = async () => {
       try {
         const response = await axios.get("https://test.mcetit.drmcetit.com/api/roadmap/topics/");
-        console.log(response.data);
+        //console.log(response.data);
         setDomains(response.data);
       } catch (error) {
-        console.error("Error fetching data:", error.response?.data || error.message);
+        //console.error("Error fetching data:", error.response?.data || error.message);
       } finally {
         setLoading(false);
       }

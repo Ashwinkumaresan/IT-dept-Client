@@ -30,7 +30,7 @@ export const Login = ({ notify }) => {
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-  //console.log(formData)
+  ////console.log(formData)
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -50,27 +50,27 @@ export const Login = ({ notify }) => {
           withCredentials: true,
         }
       );
-      //console.log("Server Response:", loginResponse.data);
+      ////console.log("Server Response:", loginResponse.data);
 
       localStorage.setItem("access_token", loginResponse.data.access_token);
       localStorage.setItem("refresh_token", loginResponse.data.refresh_token);
       localStorage.setItem("CollegeMail", formData.collegeMail);
       localStorage.setItem("timestamp", new Date().getTime());
 
-      //console.log(loginResponse.data.access);
-      //console.log(loginResponse.data);
-      navigate("/");
+      ////console.log(loginResponse.data.access);
+      ////console.log(loginResponse.data);
       setSendNotify(notify)
+      navigate("/");
     } catch (error) {
       //setError(true);
       if (error.response) {
         notifyError(error.response.data[0]);
-        console.error("Error status:", error.response.status);
-        console.error("Error message:", error.response.data);
+        //console.error("Error status:", error.response.status);
+        //console.error("Error message:", error.response.data);
       } else if (error.request) {
-        console.error("No response received:", error.request);
+        //console.error("No response received:", error.request);
       } else {
-        console.error("Error setting up request:", error.message);
+        //console.error("Error setting up request:", error.message);
       }
     } finally {
       setIsSubmitting(false);

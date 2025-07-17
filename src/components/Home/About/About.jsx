@@ -37,12 +37,12 @@ export const About = () => {
               <Card.Body>
                 <Card.Title className="d-flex align-items-center gap-2">
                 <FontAwesomeIcon icon={faGraduationCap} />
-                  Placement
+                  Cocuricular
                 </Card.Title>
                 <Card.Text className="text-muted fs-14">
                   Discover our placement records, top recruiters, and success stories.
                 </Card.Text>
-                <Link to="/placement" className="text-primary" style={{textDecoration:"none"}}>
+                <Link to="/student-profile/activity/form" className="text-primary" style={{textDecoration:"none"}}>
                   Learn more →
                 </Link>
               </Card.Body>

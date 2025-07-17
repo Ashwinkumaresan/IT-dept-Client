@@ -50,7 +50,7 @@ export const StudentProfileViewParcipated = () => {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log("API Response:", data);
+        //console.log("API Response:", data);
         const safeData = Array.isArray(data)
           ? data
           : data.activities && Array.isArray(data.activities)
@@ -59,7 +59,7 @@ export const StudentProfileViewParcipated = () => {
         setActivities(safeData);
       })
       .catch((error) => {
-        console.error("Error fetching data:", error);
+        //console.error("Error fetching data:", error);
         setActivities([]); // Prevent crash if fetch fails
       });
   }, []);

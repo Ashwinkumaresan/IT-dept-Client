@@ -23,10 +23,10 @@ export const AssociationGallery = () => {
     const fetchAssociationGallery = async () => {
       try {
         const response = await axios.get(`${baseURL}/api/association/gallery/`);
-        console.log(response.data);
+        //console.log(response.data);
         setFetchGallery(response.data);
       } catch (error) {
-        console.error("Error fetching data:", error.response?.data || error.message);
+        //console.error("Error fetching data:", error.response?.data || error.message);
       } finally {
         setLoading(false);
       }

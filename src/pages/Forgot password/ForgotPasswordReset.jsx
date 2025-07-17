@@ -89,7 +89,7 @@ export const ForgotPasswordReset = () => {
           headers: { "Content-Type": "application/json" },
         }
       );
-      //console.log("Server Response:", res.data);
+      ////console.log("Server Response:", res.data);
   
       
       // Show success message and redirect
@@ -100,11 +100,11 @@ export const ForgotPasswordReset = () => {
       sessionStorage.removeItem("otpVerified");
   
     } catch (error) {
-      console.error("Password reset error:", error);
-      console.error("Password reset error:", otp);
-      // console.error("Error response:", error.res?.data || error.res.data);
-      // console.error("Error sending data:", error.res?.data);
-      // console.log("Server res:", res.data);
+      //console.error("Password reset error:", error);
+      //console.error("Password reset error:", otp);
+      // //console.error("Error response:", error.res?.data || error.res.data);
+      // //console.error("Error sending data:", error.res?.data);
+      // //console.log("Server res:", res.data);
       setPasswordError("Something went wrong. Please try again.");
     } finally {
       setIsLoading(false);

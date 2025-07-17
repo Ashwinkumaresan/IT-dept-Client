@@ -72,7 +72,7 @@ export const StudentProfileInfo = () => {
       const profilePicture = `https://test.mcetit.drmcetit.com/${data.profilePic}`
       setProfilePic(data.profilePic ? profilePicture : "/Profile_dup.png")
     } catch (error) {
-      console.error("Error fetching student data:", error)
+      //console.error("Error fetching student data:", error)
     } finally {
       setLoading(false)
     }
@@ -103,7 +103,7 @@ export const StudentProfileInfo = () => {
           </div>
           <Link to="/student-profile/info/edit">
             <Button variant="primary">
-              <FaEdit className="me-1" /> Edit Profile
+              <FaEdit />
             </Button>
           </Link>
         </div>

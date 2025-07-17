@@ -61,7 +61,7 @@ export const About = () => {
     })
       .then((response) => response.json())
       .then((data) => {
-        //console.log("API Response:", data);
+        ////console.log("API Response:", data);
         const safeData = {
           PEO: Array.isArray(data?.PEO) ? data.PEO : [],
           PO: Array.isArray(data?.PO) ? data.PO : [],
@@ -70,7 +70,7 @@ export const About = () => {
         setOutcomes(safeData);
       })
       .catch((error) => {
-        console.error("Error fetching data:", error);
+        //console.error("Error fetching data:", error);
         notify(error.response?.data.detail);
       });
   }, []);
@@ -79,12 +79,12 @@ export const About = () => {
     const fetchFNA = async () => {
       try {
         const response = await axios.get("https://test.mcetit.drmcetit.com/api/facultyNotableAchievements/");
-        console.log(response.data);
+        //console.log(response.data);
         setFNA(response.data);
 
         setAssociationData(response.data);
       } catch (error) {
-        //console.error("Error fetching data:", error.response?.data || error.message);
+        ////console.error("Error fetching data:", error.response?.data || error.message);
       }
     };
 

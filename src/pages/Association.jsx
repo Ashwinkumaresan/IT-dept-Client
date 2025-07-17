@@ -67,7 +67,7 @@ export const Association = () => {
     }).then((res) => res.json());
 
     if (res.success) {
-      console.log("Success", res);
+      //console.log("Success", res);
       //alert("Form submitted");
       setSendNotify(notify);
     }
@@ -77,11 +77,11 @@ export const Association = () => {
     const fetchAssociation = async () => {
       try {
         const response = await axios.get("https://test.mcetit.drmcetit.com/api/association/");
-        //console.log(response.data);
+        ////console.log(response.data);
 
         setAssociationData(response.data);
       } catch (error) {
-        //console.error("Error fetching data:", error.response?.data || error.message);
+        ////console.error("Error fetching data:", error.response?.data || error.message);
         notifyT(error.response?.data.detail);
       }
     };

@@ -87,7 +87,7 @@ export const StudentSideBar = () => {
 
         <div className="mt-auto border-top">
 
-          <Link to="/" className="sidebar-link" onClick={() => { toggleSidebar(); localStorage.clear(); }}>
+          <Link to="/student-profile/setting" className="sidebar-link" onClick={() => { toggleSidebar() }}>
             <IoMdLogOut className="sidebar-icon" />
             <span className="sidebar-text">Logout</span>
           </Link>

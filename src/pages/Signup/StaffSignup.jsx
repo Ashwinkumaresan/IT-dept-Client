@@ -63,7 +63,7 @@ export const StaffSignup = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Submitting data:", formData); // Debugging line
+    //console.log("Submitting data:", formData); // Debugging line
 
     if (validateForm()) {
         try {
@@ -72,11 +72,11 @@ export const StaffSignup = () => {
                     "Content-Type": "application/json",
                 }
             });
-            console.log("Server Response:", response.data);
+            //console.log("Server Response:", response.data);
             alert("Data sent successfully!");
             navigate("/");
         } catch (error) {
-            console.error("Error sending data:", error.response?.data);
+            //console.error("Error sending data:", error.response?.data);
             alert("Error: " + (error.response?.data?.error || error.response?.data.register));
 
             if(error.response?.data.register)

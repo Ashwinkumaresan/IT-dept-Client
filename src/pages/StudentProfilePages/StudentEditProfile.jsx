@@ -56,7 +56,7 @@ export const StudentEditProfile = ({profileSubmit}) => {
     HackerRank: "",
     Linkedin: "",
     cgpa: "",
-    profilePic: "", // Stores the existing image URL
+    profilePic: "",
   });
 
   const [mentor1, setMentor1] = useState("")
@@ -69,7 +69,7 @@ export const StudentEditProfile = ({profileSubmit}) => {
     { id: 3, name: mentor3 },
   ]
   
-  const [profilePic, setProfilePic] = useState(null); // Stores the new image file
+  const [profilePic, setProfilePic] = useState(null); 
   
   // Fetch existing profile data
   useEffect(() => {
@@ -81,7 +81,7 @@ export const StudentEditProfile = ({profileSubmit}) => {
           },
         });
   
-        console.log("hi",response.data);
+        //console.log("hi",response.data);
         setFormData({
           ...response.data,
           profilePic: response.data.profilePic
@@ -92,7 +92,7 @@ export const StudentEditProfile = ({profileSubmit}) => {
         setMentor2(response.data.mentor2)
         setMentor3(response.data.mentor3)
       } catch (error) {
-        console.error("Error fetching profile data:", error.response?.data || error);
+        //console.error("Error fetching profile data:", error.response?.data || error);
       }
     };
   
@@ -138,10 +138,10 @@ export const StudentEditProfile = ({profileSubmit}) => {
             credentials: "include",  // Ensure cookies are sent
         });
         const data = await response.json();
-        console.log("Fetched CSRF Token:", data.csrfToken);
+        //console.log("Fetched CSRF Token:", data.csrfToken);
         return data.csrfToken;
     } catch (error) {
-        console.error("Failed to fetch CSRF token", error);
+        //console.error("Failed to fetch CSRF token", error);
         return null;
     }
 }
@@ -193,7 +193,7 @@ export const StudentEditProfile = ({profileSubmit}) => {
       setProfileSubmitted(profileSubmit);
       navigate("/student-profile/info/");
     } catch (error) {
-      console.error("Error submitting form:", error);
+      //console.error("Error submitting form:", error);
       alert("Failed to update profile.");
     }
   };
@@ -226,7 +226,7 @@ export const StudentEditProfile = ({profileSubmit}) => {
     //             setProfileSubmitted(profileSubmit);
     //             navigate("/student-profile/info/");
     //             } catch (error) {
-    //               console.error("Error deleting profile:", error);
+    //               //console.error("Error deleting profile:", error);
     //               alert("Failed to delete profile.");
     //               }
     //               }

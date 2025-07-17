@@ -125,7 +125,7 @@ const handleKeyDown = (index, e) => {
           headers: { "Content-Type": "application/json" },
         }
       );
-      //console.log("Server Response:", res.data);
+      ////console.log("Server Response:", res.data);
 
       // Store OTP verification status
       sessionStorage.setItem("otpVerified", otp);
@@ -134,8 +134,8 @@ const handleKeyDown = (index, e) => {
       navigate("/forgot-password/reset");
 
     } catch (error) {
-      console.error("OTP verification error:", error);
-      console.log(otp)
+      //console.error("OTP verification error:", error);
+      //console.log(otp)
       setOtpError("Invalid OTP or verification failed. Please try again.");
     } finally {
       setIsLoading(false);
@@ -168,7 +168,7 @@ const handleKeyDown = (index, e) => {
           }
         );
 
-        console.log("Server Response:", res.data);
+        //console.log("Server Response:", res.data);
 
         // Alert user
         alert(`A new OTP has been sent to ${email}`);
@@ -177,7 +177,7 @@ const handleKeyDown = (index, e) => {
         handleVerifyOtp();
 
       } catch (error) {
-        console.error("Forgot password error:", error);
+        //console.error("Forgot password error:", error);
       }
     }
   };

@@ -24,7 +24,7 @@ export const StudentProfileDashboard = () => {
         },
       });
 
-      console.log("Server Response:", response.data);
+      //console.log("Server Response:", response.data);
 
       if (response.data && Array.isArray(response.data.recentActivities)) {
         setActivities(response.data.recentActivities);
@@ -42,7 +42,7 @@ export const StudentProfileDashboard = () => {
       setparticpataionBadgeImg(pImg);
 
     } catch (error) {
-      console.error("Error fetching activities:", error.response?.data);
+      //console.error("Error fetching activities:", error.response?.data);
       if (error.response?.data.code === "token_not_valid"){
         localStorage.clear();
         navigate("/")

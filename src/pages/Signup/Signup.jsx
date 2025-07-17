@@ -74,7 +74,7 @@ const Signup = () => {
                 }
             });
             console.log("Server Response:", response.data);
-            alert("Data sent successfully!");
+            alert("Account Created");
             navigate("/");
         } catch (error) {
             console.error("Error sending data:", error.response?.data);

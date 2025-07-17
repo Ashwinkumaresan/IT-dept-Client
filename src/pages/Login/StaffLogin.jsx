@@ -14,7 +14,7 @@ export const StaffLogin = () => {
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-  //console.log(formData)
+  ////console.log(formData)
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -34,20 +34,20 @@ export const StaffLogin = () => {
           withCredentials: true,
         }
       );
-      console.log("Server Response:", loginResponse.data);
+      //console.log("Server Response:", loginResponse.data);
 
       localStorage.setItem("access_token_staff", loginResponse.data.access_token_staff);
         localStorage.setItem("refresh_token_staff", loginResponse.data.refresh_token_staff);
 
-        console.log(loginResponse.data.access);
-        console.log(loginResponse.data);
+        //console.log(loginResponse.data.access);
+        //console.log(loginResponse.data);
 
         navigate("/");
     } catch (error) {
       setError(true);
-      console.error("Error response:", error.loginResponse?.data || error.loginResponse.data);
-      console.error("Error sending data:", error.loginResponse?.data);
-      console.log("Server loginResponse:", loginResponse.data);
+      //console.error("Error response:", error.loginResponse?.data || error.loginResponse.data);
+      //console.error("Error sending data:", error.loginResponse?.data);
+      //console.log("Server loginResponse:", loginResponse.data);
     } finally {
       setIsSubmitting(false);
     }

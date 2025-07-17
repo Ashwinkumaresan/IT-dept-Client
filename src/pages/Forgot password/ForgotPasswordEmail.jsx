@@ -43,7 +43,7 @@ export const ForgotPasswordEmail = () => {
       navigate("/forgot-password/otp");
   
     } catch (error) {
-      console.error("Forgot password error:", error);
+      //console.error("Forgot password error:", error);
       setEmailError("Please check college mail is alredy registered");
     } finally {
       setIsLoading(false);
